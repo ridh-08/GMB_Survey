@@ -1,0 +1,748 @@
+EMPLOYER SURVEY
+Section A: Firm Profile 
+A1. What is the primary sector of your firm?
+●	Chemicals & Petrochemicals
+●	Pharmaceuticals & Bulk Drugs
+●	Electronics & Semiconductors
+●	Electrical Equipment
+●	Automobiles & EVs
+●	Engineering Goods & Machinery
+●	Textiles & Apparel
+●	Food Processing & Agro
+●	Defence & Aerospace
+●	Construction Materials
+●	Metals & Metal Products
+●	Other (specify): _______
+A2. How many employees does your firm currently have (including contractual)?
+●	<50
+●	50-200
+●	201-500
+●	501-2,000
+●	More than 2,000
+A3. How long has this plant/unit been operational?
+●	<3 years
+●	3-10 years
+●	11-25 years
+●	>25 years
+A4. What is the ownership type of this firm?
+●	Indian private (family-owned)
+●	Indian private (professionally managed, non-family)
+●	Limited liability partnership
+●	Listed Indian company
+●	Foreign MNC subsidiary
+●	Joint venture (Indian + foreign)
+●	Public sector / government-owned
+●	Other: ___
+A5. Is this plant located within a designated industrial estate, SEZ, or cluster?
+●	Yes, in a government-designated industrial estate/GIDC
+●	Yes, in an SEZ
+●	Yes, in a private industrial park
+●	No, standalone location
+A6. What is the primary market orientation of this plant's output?
+●	Predominantly domestic (>75% domestic)
+●	Mixed (25-75% export)
+●	Predominantly export (>75% export)
+A7. Where does your product lie on the product technology frontier?
+●	Best class in the world
+●	Best class in India
+●	Best class in state
+●	Similar to other competitors in the region
+●	Lower than other competitors
+A8.  Where does your process technology (on the shop floor) lie on the process technology frontier?
+●	Best class in the world
+●	Best class in India
+●	Best class in state
+●	Similar to other competitors in the region
+●	Lower than other competitors
+A9. Do you think manufacturing is as or more difficult than any service business?
+●	Yes
+●	No
+A10. What is your assessment of  ease of doing manufacturing?
+Likert: 1 (Extremely difficult) — 2 — 3 — 4 — 5 (Extremely easy)
+
+A11. Rank the following on the basis of how important or critical this issue is for the smooth operation of your manufacturing business. In rare cases, you may give more than one indicator the same rank.
+
+Sr. No.	Issue	Rank
+1	Work Force Availability	
+2	Work Force Retention	
+3	Work Force Training	
+4	Work Force Development (Future Opportunities)	
+5	Managerial Practices	
+6	Performance Measurement and Tracking	
+7	Quality Management	
+8	Worker Safety	
+9	Process Innovation	
+10	Cluster embeddedness	
+11	Physical automation	
+12	Digitalisation (Software-driven)	
+13	Value Extraction from Technology	
+14	Barriers to Adoption (Technology)	
+
+
+ Section B: People
+B1. Workforce Availability
+B1.1 (Foundational — Barometer) Overall, how easy is it for your firm to find workers with the skills it needs?
+Likert: 1 (Extremely difficult) — 2 — 3 — 4 — 5 (Extremely easy)
+B1.2 How difficult is it to find workers in each of the following categories? [Please tick mark]
+Role type	Extremely difficult	Difficult	Neutral	Easy	Extremely easy	N/A
+Unskilled / general labour						
+Semi-skilled (machine operators, technicians)						
+Skilled trades (electricians, welders, fitters)						
+Supervisory / junior management						
+Engineering / technical graduates						
+Managerial Talent						
+B1.3 Where do you typically source workers from? (Select all that apply)
+●	Local district / nearby villages
+●	Other districts within Gujarat
+●	Other states (migrant labour)
+●	ITIs / polytechnics
+●	Engineering colleges
+●	Placement agencies
+●	Walk-ins / word of mouth
+●	Other: ___
+B1.4 Approximately what share of your current workforce comes from outside Gujarat?
+●	Less than 10%
+●	10-30%
+●	31-60%
+●	More than 60%
+B1.5 How has workforce availability changed over the past 3 years?
+●	Significantly easier
+●	Somewhat easier
+●	No change
+●	Somewhat harder
+●	Significantly harder
+________________________________________
+B2. Retention
+B2.1 (Foundational — Barometer) How significant a problem is worker attrition for your firm's operations?
+Likert: 1 (Not a problem at all) — 2 — 3 — 4 — 5 (Severe, ongoing problem)
+B2.2 What is the approximate annual attrition rate at your plant?
+●	Below 10%
+●	10-20%
+●	21-35%
+●	Above 35%
+●	Don't track this
+B2.3 Which worker categories experience the highest attrition? (Select up to 2)
+●	Unskilled / general labour
+●	Semi-skilled operators
+●	Skilled trades
+●	Supervisory staff
+●	Engineers / technical graduates
+B2.4 What are the primary reasons workers leave? (Select top 3)
+●	Higher wages elsewhere
+●	Better growth prospects elsewhere
+●	Seasonal / agricultural pull (return to home state/village)
+●	Dissatisfaction with working conditions
+●	Housing or commute difficulties
+●	Work perceived as unattractive or low-status
+●	Poached by competitor firms
+●	Other: ___
+B2.5 How significant is competition from other states or sectors in pulling workers away?
+Likert: 1 (Not a problem) — 2 — 3 — 4 — 5 (Major ongoing problem)
+________________________________________
+B3. Training
+B3.1 (Foundational — Barometer) How would you rate the adequacy of your firm's current investment in workforce training?
+Likert: 1 (Very inadequate) — 2 — 3 — 4 — 5 (Very adequate)
+B3.2 Does your firm have a structured training programme for new joiners?
+●	Yes, formal structured programme with defined curriculum
+●	Yes, informal on-the-job training only
+●	No structured training; workers learn as they go
+B3.3 How much does your firm invest in training per employee per year (approximate)?
+●	Nothing / negligible
+●	Below ₹5,000
+●	₹5,000-₹20,000
+●	Above ₹20,000
+B3.4 Which training providers does your firm use? (Select all that apply)
+●	In-house trainers
+●	ITI / polytechnic partnerships
+●	Equipment / machinery vendors
+●	Industry association programmes (CII, FICCI, etc.)
+●	Private training institutes
+●	Online platforms
+●	We do not use external providers
+B3.5 On average, how long does it take a new hire to become independently productive on your line, by educational background?
+New hire type	Less than 1 week	1-4 weeks	1-3 months	3-6 months	More than 6 months	We don't hire this type
+ITI / polytechnic graduate						
+Engineering graduate (B.E./B.Tech)						
+Non-technical graduate						
+No formal qualification						
+B3.6 How satisfied are you with the job-readiness of candidates from the following sources?
+Source	Very Dissatisfied	Dissatisfied	Neutral	Satisfied	Very Satisfied	Don't Use
+Local ITIs / polytechnics						
+Engineering colleges						
+Private training institutes						
+Placement agencies						
+B3.7 What is the single biggest gap between what educational institutions produce and what your firm needs? (Open-ended, 2-3 lines)
+________________________________________
+B4. Workforce Development
+B4.1 (Foundational — Barometer) How well does your firm provide workers with opportunities to grow and advance their careers?
+Likert: 1 (No real opportunities exist) — 2 — 3 — 4 — 5 (Strong, well-defined pathways)
+B4.2 Does your firm have defined career progression pathways for shopfloor workers?
+●	Yes, formal ladders with defined criteria for promotion
+●	Informal — progression happens but is not formally structured
+●	No — roles are largely fixed
+B4.3 What share of your supervisory/managerial roles are filled by internal promotion from the shopfloor?
+●	Less than 10%
+●	10-30%
+●	31-60%
+●	More than 60%
+B4.4 How would you characterise the perception of manufacturing jobs among workers and their families in your experience?
+Likert: 1 (Very negative — seen as low-status, last resort) — 2 — 3 — 4 — 5 (Very positive — seen as stable, desirable career)
+B4.5 Has your firm taken any deliberate steps to make manufacturing roles more attractive? (Select all that apply)
+●	Revised job titles / role framing
+●	Improved physical working environment
+●	Added welfare benefits (transport, canteen, housing)
+●	Introduced performance-linked pay
+●	Created visible career pathways
+●	None of the above
+●	Other: ___
+ Section C: Processes
+C1. Managerial Practices
+C1.1 (Foundational — Barometer) How embedded are structured operational management programmes in your plants (e.g., Lean, TPM, Six Sigma, JIT) in your firm's day-to-day shopfloor operations?
+Likert: 1 (Not adopted at all) — 2 — 3 — 4 — 5 (Deeply embedded in how we work)
+C1.2 Does your firm have a structured continuous improvement programme?
+C1.3 Which of the following operational approaches, systems, or tools does your organization use as part of its continuous improvement efforts? (Select all that apply.)
+●	Lean Manufacturing
+●	Total Productive Maintenance (TPM)
+●	Just-in-Time (JIT)
+●	Six Sigma / DMAIC
+●	Kaizen
+●	ISO 9001 or equivalent quality management system
+●	None of the above
+●	Other: ___
+C1.4 For programmes your firm has adopted, how would you describe the level of actual implementation?
+●	Adopted on paper / certification only; limited shopfloor change
+●	Partially implemented; some teams follow it, others don't
+●	Broadly implemented; most shopfloor operations reflect it
+●	Deeply embedded; the framework genuinely shapes how decisions are made daily
+C1.5 Who primarily drives operational improvement initiatives at your firm?
+●	Senior management / owner
+●	Dedicated quality / operations team
+●	External consultant
+●	Shopfloor supervisors
+●	Workers themselves (bottom-up)
+●	No one actively drives improvement initiatives
+C1.6 When did you start the implementation of these programmes?
+●	<5 Years
+●	5-10 Years
+●	10-20 Years
+●	>20 Years
+________________________________________
+C2. Performance Measurement
+C2.1 (Foundational — Barometer) How systematically does your firm track and act on shopfloor performance data?
+Likert: 1 (No formal tracking) — 2 — 3 — 4 — 5 (Rigorous tracking with regular review and action)
+C2.2 Which of the following metrics does your firm actively track? (Select all that apply)
+●	Output / production volumes
+●	Machine downtime / OEE (Overall Equipment Effectiveness)
+●	Defect / rejection rates
+●	On-time delivery performance
+●	Labour productivity
+●	Energy consumption
+●	Inventory turnover
+●	Cost per unit produced
+●	None of the above
+C2.3 How frequently are performance metrics reviewed with relevant teams?
+●	Daily
+●	Weekly
+●	Monthly
+●	Quarterly or less
+●	Metrics are collected but not regularly reviewed
+C2.4 When performance falls below target, what typically happens?
+●	Formal root cause analysis and corrective action plan
+●	Informal discussion with relevant supervisor
+●	Issue noted but rarely acted upon systematically
+●	No formal process exists
+
+________________________________________
+C3. Quality
+C3.1 (Foundational — Barometer) How would you rate your firm's overall quality management maturity?
+Likert: 1 (No formal quality system) — 2 — 3 — 4 — 5 (Excellent — quality is embedded at every stage of production)
+C3.2 What is your firm's approximate defect / rejection rate in current production?
+●	Less than 1%
+●	1-3%
+●	4-7%
+●	Above 7%
+●	Don't track this
+C3.3 Which quality assurance practices does your firm use? (Select all that apply)
+●	Incoming material inspection
+●	In-process quality checks
+●	Final product inspection
+●	Statistical Process Control (SPC)
+●	Customer complaint tracking and feedback loops
+●	Third-party quality audits
+●	None formally
+C3.4 Has your firm lost or risked losing a customer or contract due to quality failures in the past 3 years?
+●	Yes, lost a significant customer / contract
+●	Yes, received serious complaints but retained the customer
+●	Minor complaints only
+●	No quality-related customer issues
+C3.5 How significant are quality compliance requirements from export markets or large domestic buyers in shaping your quality practices?
+Likert: 1 (Not relevant to us) — 2 — 3 — 4 — 5 (Major driver of how we manage quality)
+________________________________________
+C4. Safety
+C4.1 (Foundational — Barometer) How would you rate the overall safety culture at your plant?
+Likert: 1 (Safety is an afterthought / reactive) — 2 — 3 — 4 — 5 (Safety is proactive and deeply embedded)
+C4.2 How many lost-time injuries (LTIs) did your plant record in the past 12 months?
+●	Zero
+●	1-2
+●	3-5
+●	More than 5
+●	Don't formally track this
+C4.3 How frequently does your firm conduct formal safety audits or inspections?
+●	Monthly or more frequently
+●	Quarterly
+●	Annually
+●	Only when required by regulation or after an incident
+●	Never
+C4.4 Which safety practices are formally in place at your plant? (Select all that apply)
+●	Written safety policy communicated to all workers
+●	Regular safety training for all staff
+●	Designated safety officer / committee
+●	Near-miss reporting system
+●	Personal protective equipment (PPE) provision and monitoring
+●	Emergency response drills
+●	None formally
+C4.5 How would you characterise worker participation in safety at your plant?
+●	Workers actively report hazards and near-misses
+●	Workers follow safety rules when supervised
+●	Safety compliance is inconsistent
+●	Workers generally resist safety protocols
+________________________________________
+C5. Process Innovation
+C5.1 (Foundational — Barometer) How actively does your firm pursue improvements to its production processes (beyond routine maintenance)?
+Likert: 1 (No active process improvement activity) — 2 — 3 — 4 — 5 (Continuous, structured improvement programme)
+C5.2 In the past 3 years, has your firm made any significant changes to its production processes? (Select all that apply)
+●	Introduced a new or significantly improved production method
+●	Reduced material waste or energy consumption through process change
+●	Shortened production cycle time
+●	Improved yield or output quality through process redesign
+●	Introduced a new product requiring new process capabilities
+●	No significant process changes in this period
+C5.3 Where do ideas for process improvement typically come from at your firm? (Select top 3)
+●	Internal R&D or engineering team
+●	Shopfloor workers and supervisors
+●	Equipment / machinery suppliers
+●	Customer requirements or complaints
+●	Industry association or cluster networks
+●	Benchmarking against competitors
+●	External consultants
+●	Academic or research institutions
+●	Other: ___
+C5.4 Does your firm have any formal R&D activity — even if small-scale?
+●	Yes, dedicated R&D team or function
+●	Yes, informal R&D by engineers alongside production work
+●	No formal R&D, but we adopt innovations developed elsewhere
+●	No R&D activity at all
+C5.4.1 If you invest in R&D, what fraction of your revenue goes into it?
+●	<1%
+●	1-5%
+●	5-10%
+●	>12%
+C5.5 Have you filed any patents?
+●	Yes
+●	No
+	C5.5.1 If yes, how many patents have you filed in the last 5 years? ______
+C5.6 What is the highest degree of the person who leads R&D in your firm? ________
+C5.7 What is the single biggest barrier to process innovation at your firm?
+●	Cost of experimentation and downtime during trials
+●	Lack of internal technical capability
+●	Short-term production pressure leaves no time for improvement
+●	Insufficient demand signal from customers to justify change
+●	Regulatory or compliance constraints
+●	Skilled manpower
+●	Other: ___
+________________________________________
+C6. Cluster Embeddedness
+C6.1 (Foundational — Barometer) How much does your firm's location within its current industrial area or cluster actively benefit its operations?
+Likert: 1 (No tangible benefit from location) — 2 — 3 — 4 — 5 (Location is a significant operational advantage)
+C6.2 Which of the following benefits, if any, does your firm derive from being located in its current industrial area? (Select all that apply)
+●	Proximity to key customers
+●	Proximity to raw material suppliers
+●	Access to shared infrastructure (testing, logistics, utilities)
+●	Availability of specialised local labour
+●	Knowledge sharing with nearby firms
+●	Easier access to subcontractors or ancillary units
+●	None — location is incidental to our operations
+C6.3 How would you rate the quality of shared infrastructure in your industrial area?
+Infrastructure type	Very Poor	Poor	Adequate	Good	Excellent	Not Applicable
+Road connectivity						
+Power supply reliability						
+Water and waste management						
+Logistics and warehousing						
+Common testing / certification facilities						
+C6.4 Does your firm actively collaborate with other firms in the same industrial area?
+●	Yes, formal collaboration (joint procurement, shared services, industry body participation)
+●	Yes, informal collaboration (knowledge exchange, referrals)
+●	Minimal — we are aware of neighbours but don't collaborate
+●	No collaboration
+C6.5 What one improvement to your industrial area's infrastructure or ecosystem would most benefit your firm? (Open-ended, 2-3 lines)
+ Section D: Technology
+D1A. Automation (Physical)
+D1A.1 (Foundational — Barometer) How would you rate the level of physical automation at your plant (sensors, IoT, robotics, mechanised material handling)?
+Likert: 1 (Entirely manual operations) — 2 — 3 — 4 — 5 (Highly automated across most production stages)
+D1A.2 Which of the following physical automation technologies does your firm currently use? (Select all that apply)
+●	Sensors for process monitoring (temperature, pressure, flow)
+●	IoT-connected machinery / equipment
+●	Programmable Logic Controllers (PLCs)
+●	Robotic arms or automated assembly
+●	Automated material handling (conveyors, AGVs)
+●	Machine vision / optical inspection systems
+●	CNC machines
+●	None of the above
+D1A.3 What share of your production process is automated?
+●	Less than 10% (largely manual)
+●	10-30%
+●	31-60%
+●	More than 60%
+D1A.4 What primarily drove your firm's investments in physical automation? (Select top 2)
+●	Labour cost reduction
+●	Labour availability constraints
+●	Quality consistency requirements
+●	Customer or buyer mandate
+●	Competitive pressure from peers
+●	Government incentive or subsidy
+●	Productivity improvement target
+●	We have not invested in automation
+D1A.5 What is the biggest barrier to greater physical automation at your firm?
+●	High upfront capital cost
+●	Uncertain return on investment
+●	Lack of technical expertise to operate and maintain
+●	Production volumes too low to justify automation
+●	Workforce resistance
+●	Our process is not amenable to automation
+●	Other: ___
+________________________________________
+D1B. Digitalisation (Software-Driven)
+D1B.1 (Foundational — Barometer) How would you rate the level of digitalisation in your firm's operations (ERP, MES, digital records, data-driven decision making)?
+Likert: 1 (Paper-based / no digital systems) — 2 — 3 — 4 — 5 (Fully integrated digital operations)
+D1B.2 Which of the following digital systems does your firm currently use? (Select all that apply)
+●	Enterprise Resource Planning (ERP — e.g., SAP, Tally, Zoho)
+●	Manufacturing Execution System (MES)
+●	Inventory / warehouse management software
+●	Digital production scheduling tools
+●	Quality management software
+●	HR and payroll software
+●	Customer relationship management (CRM)
+●	Cloud-based data storage or analytics
+●	None — operations are primarily paper-based
+D1B.3 How integrated are your digital systems with each other?
+●	Fully integrated — data flows automatically across systems
+●	Partially integrated — some systems connected, manual handoffs elsewhere
+●	Siloed — each system operates independently
+●	No digital systems in use
+D1B.4 Who manages your firm's digital systems?
+●	Dedicated in-house IT team
+●	One or two individuals responsible alongside other duties
+●	Managed entirely by external vendor / service provider
+●	No one formally responsible
+D1B.5 What primarily drove your firm's investments in digitalisation? (Select top 2)
+●	Regulatory / compliance requirement
+●	Customer or buyer mandate
+●	Desire to improve internal visibility and control
+●	Competitive pressure from peers
+●	Government incentive or scheme
+●	Founder / management decision
+●	We have not invested significantly in digitalisation
+D1B.6 What is the biggest barrier to greater digitalisation at your firm?
+●	Cost of software and implementation
+●	Lack of internal capability to use systems effectively
+●	Data quality and discipline problems (garbage in, garbage out)
+●	Resistance from management or staff
+●	Uncertainty about which systems are right for our scale
+●	Our operations are simple enough not to need it
+●	Other: ___
+________________________________________
+D2. Value Extraction
+D2.1 (Foundational — Barometer) To what extent is your firm actually extracting measurable value from the technology it has deployed?
+Likert: 1 (Technology deployed but little measurable benefit) — 2 — 3 — 4 — 5 (Clear, measurable returns from technology investment)
+D2.2 For the technologies your firm has deployed, what benefits have you observed? (Select all that apply)
+●	Reduced defect or rejection rates
+●	Improved production output / throughput
+●	Reduced energy or material costs
+●	Faster response to production problems
+●	Better inventory management
+●	Improved delivery reliability
+●	Reduced dependence on skilled labour
+●	No measurable benefits observed yet
+D2.3 How long did it take before your most significant technology investment started delivering visible returns?
+●	Less than 6 months
+●	6-12 months
+●	1-2 years
+●	More than 2 years
+●	Still waiting for returns
+●	Not applicable
+D2.4 Does your firm collect data from its machines or production systems?
+●	Yes, data is collected and regularly analysed to make decisions
+●	Yes, data is collected but rarely analysed systematically
+●	Some data is collected informally but not structured
+●	No data collection from machines or production systems
+D2.5 How would you characterise the gap between your firm's expectations from technology and actual outcomes?
+Likert: 1 (Far exceeded expectations) — 2 — 3 — 4 — 5 (Far below expectations)
+________________________________________
+D3. Barriers to Adoption
+D3.1 (Foundational — Barometer) Overall, how significant are the barriers your firm faces to adopting more advanced technology?
+Likert: 1 (No significant barriers) — 2 — 3 — 4 — 5 (Severe barriers preventing meaningful adoption)
+D3.2 How significant is each of the following as a barrier to technology adoption at your firm?
+Barrier	Not a barrier	Minor	Moderate	Significant	Severe
+High upfront capital cost					
+Difficulty accessing financing for technology					
+Availability of sources of funds					
+Lack of skilled staff to operate new technology					
+Lack of vendors / service providers locally					
+Uncertainty about ROI					
+Production disruption during implementation					
+Regulatory or compliance uncertainty					
+Technology changes too fast to commit					
+Senior management not convinced of need					
+D3.3 Has your firm received any government support for technology adoption?
+●	Yes, financial subsidy or grant (specify scheme if possible: ___)
+●	Yes, non-financial support (training, consultancy, facilitation)
+●	Applied but not received
+●	Not aware of available schemes
+●	No, and we did not seek any
+D3.4 If financing were easier to access, how likely would your firm be to invest more in technology in the next 2 years?
+Likert: 1 (Very unlikely — other constraints dominate) — 2 — 3 — 4 — 5 (Very likely — finance is the main constraint)
+________________________________________
+D4. Outlook
+D4.1 (Foundational — Barometer) How strategically important does your firm consider technology adoption to its competitiveness over the next 5 years?
+Likert: 1 (Not important — our competitive advantage lies elsewhere) — 2 — 3 — 4 — 5 (Critical — we cannot remain competitive without it)
+D4.2 Does your firm have a concrete plan to invest in new technology in the next 2 years?
+●	Yes, specific investments identified and budgeted
+●	Yes, intention exists but no concrete plan yet
+●	Under consideration but no decision made
+●	No plans for technology investment
+D4.3 Which technologies is your firm most likely to invest in over the next 2-3 years? (Select all that apply)
+●	Industrial IoT / connected sensors
+●	Robotics or automated assembly
+●	AI-based quality inspection or process optimisation
+●	ERP or MES upgrade / implementation
+●	Cloud-based data systems
+●	Renewable energy / energy management systems
+●	3D printing / additive manufacturing
+●	Digital twin or simulation tools
+●	None planned
+●	Other: ___
+D4.4 What would most accelerate your firm's technology adoption? (Open-ended, 2-3 lines)
+________________________________________
+Section E: Open-Ended
+E1. What is the single biggest constraint on your firm's manufacturing performance today that has not been captured in this survey? (Open-ended)
+E2. What one change — to policy, infrastructure, institutions, or the business environment — would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended) WORKER SURVEY
+Section A: Worker Profile 
+A1. What is your role at this company?
+●	General / unskilled worker
+●	Machine operator
+●	Skilled trade (electrician, welder, fitter, etc.)
+●	Supervisor / line lead
+●	Other: ___
+A2. How long have you worked at this company?
+●	Less than 6 months
+●	6 months – 2 years
+●	2–5 years
+●	More than 5 years
+A3. What is your highest level of education?
+●	No formal schooling
+●	Up to 10th standard
+●	12th standard
+●	ITI / polytechnic diploma
+●	Graduate or above
+A4. Where are you originally from?
+●	This district
+●	Elsewhere in Gujarat
+●	Another state (specify): ___
+A5. Where do you currently live while working here?
+●	With family, own/rented home nearby
+●	Company-provided housing
+●	Rented room/shared housing (not company-provided)
+●	Other: ___
+A6. What is your age group?
+●	Below 25
+●	25–35
+●	36–45
+●	Above 45
+A7. Gender
+●	Male
+●	Female
+●	Other / prefer not to say
+A8. Is working in the manufacturing plant your main source of income?
+●	Yes
+●	No
+
+Section B: People
+________________________________________
+B1. Pay and Basic Conditions
+B1.1 (Foundational) Overall, how fair do you feel your pay is for the work you do?
+1 (Very unfair) — 2 — 3 — 4 — 5 (Very fair)
+B1.2 Is your salary/wage paid on time?
+●	Always on time
+●	Usually on time, occasional delay
+●	Often delayed
+●	Frequently delayed
+B1.3 Do you feel your pay is enough to cover your household needs?
+●	Yes, comfortably
+●	Yes, just about
+●	No, it is difficult
+●	No, it is very difficult
+B1.4 Besides salary, which of these do you receive from your company? (Select all that apply)
+●	Provident Fund / ESI
+●	Bonus
+●	Overtime pay
+●	Transport allowance or facility
+●	Food / canteen facility
+●	Medical benefits
+●	None of these
+________________________________________
+B2. Housing, Commute, and Welfare
+B2.1 (Foundational) How much of a difficulty are housing and commute (getting to and from work) for you?
+1 (No difficulty at all) — 2 — 3 — 4 — 5 (Major difficulty)
+B2.2 How do you usually travel to work?
+●	Walk
+●	Own two-wheeler / vehicle
+●	Company transport
+●	Public transport / shared auto
+●	Other: ___
+B2.3 How long does it usually take you to reach work, one way?
+●	Less than 30 minutes
+●	30 minutes – 1 hour
+●	1–2 hours
+●	More than 2 hours
+B2.4 If you live away from your family for this job, how difficult is that for you?
+1 (Not difficult) — 2 — 3 — 4 — 5 (Very difficult) — Not applicable, I live with family
+________________________________________
+B3. Career and Growth
+B3.1 (Foundational) Do you see a good future for yourself at this company?
+1 (No future here) — 2 — 3 — 4 — 5 (Strong future here)
+B3.2 Has your role or responsibility improved since you joined this company?
+●	Yes, I have been promoted or given more responsibility
+●	Yes, somewhat, but no formal promotion
+●	No change
+●	Not sure
+B3.3 Do you know what you would need to do to get promoted or earn more at this company?
+●	Yes, it is clear to me
+●	Somewhat clear
+●	Not clear at all
+B3.4 If you could choose, would you want to continue working in a factory/manufacturing job long-term?
+●	Yes, definitely
+●	Yes, but only at a better company
+●	Not sure
+●	No, I would prefer something else
+________________________________________
+B4. Dignity and Perception of Work
+B4.1 (Foundational) How do you feel your work is viewed/respected by your family and community?
+1 (Looked down upon) — 2 — 3 — 4 — 5 (Respected and valued)
+B4.2 How do you personally feel about the work you do?
+●	Proud of my work
+●	It's just a job, nothing special
+●	I feel some embarrassment about this work
+●	Not sure / mixed feelings
+B4.3 Would you encourage a younger family member to take a similar manufacturing job?
+●	Yes, definitely
+●	Yes, but only in a better company/role
+●	Not sure
+●	No
+
+ Section C: Processes
+
+C1. Safety
+C1.1 (Foundational) How safe do you feel while working at this company?
+1 (Very unsafe) — 2 — 3 — 4 — 5 (Very safe)
+C1.2 Have you received safety training for your role?
+●	Yes, thorough training
+●	Yes, basic training only
+●	No training given
+C1.3 If you report a safety concern, what usually happens?
+●	It is taken seriously and acted on
+●	It is noted but nothing changes
+●	I don't feel comfortable reporting concerns
+●	I have never had to report one
+C1.4 Have you been injured or seen a co-worker injured at this workplace in the past year?
+●	No
+●	Yes, minor injury
+●	Yes, serious injury
+________________________________________
+C2. Work Organisation
+C2.1 (Foundational) How clear are you about what is expected of you in your daily work?
+1 (Very unclear) — 2 — 3 — 4 — 5 (Very clear)
+C2.2 Do you have the tools, materials, and equipment you need to do your job properly?
+●	Always
+●	Usually
+●	Sometimes
+●	Rarely
+C2.3 When something goes wrong on the line (machine breakdown, material shortage, etc.), what usually happens?
+●	It gets fixed quickly
+●	It takes a while but gets resolved
+●	It often causes long delays
+●	Not sure / depends
+________________________________________
+C3. Management Quality
+C3.1 (Foundational) How would you rate your supervisor's treatment of workers?
+1 (Very poor — disrespectful or unfair) — 2 — 3 — 4 — 5 (Excellent — respectful and fair)
+C3.2 Does your supervisor listen when you raise a problem or suggestion?
+●	Yes, always
+●	Sometimes
+●	Rarely
+●	Never
+C3.3 Do you feel comfortable raising concerns or disagreements with your supervisor?
+●	Yes, completely comfortable
+●	Somewhat comfortable
+●	Not very comfortable
+●	Not at all comfortable
+________________________________________
+C4. Process Awareness
+C4.1 (Foundational) How informed do you feel about changes or improvements happening on your shopfloor?
+1 (Not informed at all) — 2 — 3 — 4 — 5 (Well informed and involved)
+C4.2 Has your input ever been asked for or used to improve how work is done?
+●	Yes, regularly
+●	Yes, occasionally
+●	No, never
+C4.3 Are you told why changes are made when something changes in your work process?
+●	Always explained
+●	Sometimes explained
+●	Rarely or never explained
+Section D: Technology
+D1. Exposure and Training
+D1.1 (Foundational) How well-trained do you feel on the machines/tools/systems you are expected to use?
+1 (Not trained at all) — 2 — 3 — 4 — 5 (Very well trained)
+D1.2 Do you use any of the following in your daily work? (Select all that apply)
+●	Computer / tablet / digital device
+●	Automated machinery (sensors, robotic equipment)
+●	Manual machines / tools only
+●	None of the above
+D1.3 When new equipment or systems are introduced, do you receive training before using them?
+●	Always trained beforehand
+●	Sometimes trained beforehand
+●	Usually expected to learn on my own
+●	Not applicable, nothing new introduced
+________________________________________
+D2. Impact on Work Experience
+D2.1 (Foundational) Overall, has new technology/automation made your work easier or harder?
+1 (Much harder) — 2 — 3 — 4 — 5 (Much easier)
+D2.2 Are you worried that automation or new technology could replace your job in the future?
+●	Very worried
+●	Somewhat worried
+●	Not very worried
+●	Not worried at all
+D2.3 Has new technology changed the nature of your work in the past 2 years?
+●	Yes, significantly
+●	Yes, somewhat
+●	No change
+●	Not sure
+________________________________________
+D3. Aspiration
+D3.1 (Foundational) How interested are you in learning new technical or digital skills?
+1 (Not interested at all) — 2 — 3 — 4 — 5 (Very interested)
+D3.2 If your company offered free training to learn new machines or digital tools, would you take it?
+●	Yes, definitely
+●	Yes, if it doesn't affect my pay/hours
+●	Not sure
+●	No
+D3.3 Do you think learning new technical skills would help you earn more or get a better job?
+●	Yes, definitely
+●	Maybe
+●	No
+________________________________________
+Section E: Open-Ended
+E1. What is the biggest difficulty you face as a worker at this company? (Open-ended)
+E2. If you could change one thing about your job or workplace, what would it be? (Open-ended)
+
+
+
+

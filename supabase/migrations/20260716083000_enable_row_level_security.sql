@@ -1,0 +1,10 @@
+alter table if exists public.surveys enable row level security;
+alter table if exists public.sections enable row level security;
+alter table if exists public.questions enable row level security;
+alter table if exists public.options enable row level security;
+alter table if exists public.matrix_rows enable row level security;
+alter table if exists public.matrix_columns enable row level security;
+alter table if exists public.branch_rules enable row level security;
+alter table if exists public.respondents enable row level security;
+alter table if exists public.response_answers enable row level security;
+alter table if exists public.admin_users enable row level security;
