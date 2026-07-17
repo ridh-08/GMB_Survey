@@ -1,0 +1,1485 @@
+{
+  "survey": {
+    "key": "worker",
+    "code": "gmb-worker-2026",
+    "title": "Gujarat Manufacturing Barometer - Worker Survey",
+    "description": "Survey for manufacturing workers in Gujarat",
+    "type": "worker"
+  },
+  "sections": [
+    {
+      "code": "A",
+      "title": "Worker Profile",
+      "description": "",
+      "display_order": 1,
+      "questions": [
+        {
+          "code": "A1",
+          "text": "What is your role at this company?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [
+            {
+              "label": "General / unskilled worker",
+              "value": "general-unskilled-worker",
+              "code": "general-unskilled-worker"
+            },
+            {
+              "label": "Machine operator",
+              "value": "machine-operator",
+              "code": "machine-operator"
+            },
+            {
+              "label": "Skilled trade (electrician, welder, fitter, etc.)",
+              "value": "skilled-trade-electrician-welder-fitter-etc",
+              "code": "skilled-trade-electrician-welder-fitter-etc"
+            },
+            {
+              "label": "Supervisor / line lead",
+              "value": "supervisor-line-lead",
+              "code": "supervisor-line-lead"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "What is your role at this company?",
+          "type": "radio"
+        },
+        {
+          "code": "A2",
+          "text": "How long have you worked at this company?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Less than 6 months",
+              "value": "less-than-6-months",
+              "code": "less-than-6-months"
+            },
+            {
+              "label": "6 months – 2 years",
+              "value": "6-months-2-years",
+              "code": "6-months-2-years"
+            },
+            {
+              "label": "2–5 years",
+              "value": "2-5-years",
+              "code": "2-5-years"
+            },
+            {
+              "label": "More than 5 years",
+              "value": "more-than-5-years",
+              "code": "more-than-5-years"
+            }
+          ],
+          "trailingText": "How long have you worked at this company?",
+          "type": "radio"
+        },
+        {
+          "code": "A3",
+          "text": "What is your highest level of education?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "No formal schooling",
+              "value": "no-formal-schooling",
+              "code": "no-formal-schooling"
+            },
+            {
+              "label": "Up to 10th standard",
+              "value": "up-to-10th-standard",
+              "code": "up-to-10th-standard"
+            },
+            {
+              "label": "12th standard",
+              "value": "12th-standard",
+              "code": "12th-standard"
+            },
+            {
+              "label": "ITI / polytechnic diploma",
+              "value": "iti-polytechnic-diploma",
+              "code": "iti-polytechnic-diploma"
+            },
+            {
+              "label": "Graduate or above",
+              "value": "graduate-or-above",
+              "code": "graduate-or-above"
+            }
+          ],
+          "trailingText": "What is your highest level of education?",
+          "type": "radio"
+        },
+        {
+          "code": "A4",
+          "text": "Where are you originally from?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "This district",
+              "value": "this-district",
+              "code": "this-district"
+            },
+            {
+              "label": "Elsewhere in Gujarat",
+              "value": "elsewhere-in-gujarat",
+              "code": "elsewhere-in-gujarat"
+            },
+            {
+              "label": "Another state (specify): ___",
+              "value": "another-state-specify",
+              "code": "another-state-specify"
+            }
+          ],
+          "trailingText": "Where are you originally from?",
+          "type": "radio"
+        },
+        {
+          "code": "A5",
+          "text": "Where do you currently live while working here?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "With family, own/rented home nearby",
+              "value": "with-family-own-rented-home-nearby",
+              "code": "with-family-own-rented-home-nearby"
+            },
+            {
+              "label": "Company-provided housing",
+              "value": "company-provided-housing",
+              "code": "company-provided-housing"
+            },
+            {
+              "label": "Rented room/shared housing (not company-provided)",
+              "value": "rented-room-shared-housing-not-company-provided",
+              "code": "rented-room-shared-housing-not-company-provided"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "Where do you currently live while working here?",
+          "type": "radio"
+        },
+        {
+          "code": "A6",
+          "text": "What is your age group?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 6,
+          "options": [
+            {
+              "label": "Below 25",
+              "value": "below-25",
+              "code": "below-25"
+            },
+            {
+              "label": "25–35",
+              "value": "25-35",
+              "code": "25-35"
+            },
+            {
+              "label": "36–45",
+              "value": "36-45",
+              "code": "36-45"
+            },
+            {
+              "label": "Above 45",
+              "value": "above-45",
+              "code": "above-45"
+            }
+          ],
+          "trailingText": "What is your age group?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "A7",
+      "title": "Gender",
+      "description": "",
+      "display_order": 2,
+      "questions": [
+        {
+          "code": "A8",
+          "text": "Is working in the manufacturing plant your main source of income?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [
+            {
+              "label": "Yes",
+              "value": "yes",
+              "code": "yes"
+            },
+            {
+              "label": "No",
+              "value": "no",
+              "code": "no"
+            }
+          ],
+          "trailingText": "Is working in the manufacturing plant your main source of income?",
+          "type": "yes_no"
+        }
+      ]
+    },
+    {
+      "code": "B1",
+      "title": "Pay and Basic Conditions",
+      "description": "",
+      "display_order": 3,
+      "questions": [
+        {
+          "code": "B1.1",
+          "text": "Overall, how fair do you feel your pay is for the work you do?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Very unfair) — 2 — 3 — 4 — 5 (Very fair)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Very unfair",
+            "rightLabel": "Very fair"
+          }
+        },
+        {
+          "code": "B1.2",
+          "text": "Is your salary/wage paid on time?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Always on time",
+              "value": "always-on-time",
+              "code": "always-on-time"
+            },
+            {
+              "label": "Usually on time, occasional delay",
+              "value": "usually-on-time-occasional-delay",
+              "code": "usually-on-time-occasional-delay"
+            },
+            {
+              "label": "Often delayed",
+              "value": "often-delayed",
+              "code": "often-delayed"
+            },
+            {
+              "label": "Frequently delayed",
+              "value": "frequently-delayed",
+              "code": "frequently-delayed"
+            }
+          ],
+          "trailingText": "Is your salary/wage paid on time?",
+          "type": "matrix",
+          "selectionMode": "single",
+          "matrix_rows": [
+            {
+              "label": "Unskilled / general labour",
+              "display_order": 1
+            },
+            {
+              "label": "Semi-skilled (machine operators, technicians)",
+              "display_order": 2
+            },
+            {
+              "label": "Skilled trades (electricians, welders, fitters)",
+              "display_order": 3
+            },
+            {
+              "label": "Supervisory / junior management",
+              "display_order": 4
+            },
+            {
+              "label": "Engineering / technical graduates",
+              "display_order": 5
+            },
+            {
+              "label": "Managerial Talent",
+              "display_order": 6
+            }
+          ],
+          "matrix_columns": [
+            {
+              "label": "Extremely difficult",
+              "value": "extremely-difficult",
+              "display_order": 1
+            },
+            {
+              "label": "Difficult",
+              "value": "difficult",
+              "display_order": 2
+            },
+            {
+              "label": "Neutral",
+              "value": "neutral",
+              "display_order": 3
+            },
+            {
+              "label": "Easy",
+              "value": "easy",
+              "display_order": 4
+            },
+            {
+              "label": "Extremely easy",
+              "value": "extremely-easy",
+              "display_order": 5
+            },
+            {
+              "label": "N/A",
+              "value": "n-a",
+              "display_order": 6
+            }
+          ]
+        },
+        {
+          "code": "B1.3",
+          "text": "Do you feel your pay is enough to cover your household needs?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Yes, comfortably",
+              "value": "yes-comfortably",
+              "code": "yes-comfortably"
+            },
+            {
+              "label": "Yes, just about",
+              "value": "yes-just-about",
+              "code": "yes-just-about"
+            },
+            {
+              "label": "No, it is difficult",
+              "value": "no-it-is-difficult",
+              "code": "no-it-is-difficult"
+            },
+            {
+              "label": "No, it is very difficult",
+              "value": "no-it-is-very-difficult",
+              "code": "no-it-is-very-difficult"
+            }
+          ],
+          "trailingText": "Do you feel your pay is enough to cover your household needs?",
+          "type": "radio"
+        },
+        {
+          "code": "B1.4",
+          "text": "Besides salary, which of these do you receive from your company? (Select all that apply)",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Provident Fund / ESI",
+              "value": "provident-fund-esi",
+              "code": "provident-fund-esi"
+            },
+            {
+              "label": "Bonus",
+              "value": "bonus",
+              "code": "bonus"
+            },
+            {
+              "label": "Overtime pay",
+              "value": "overtime-pay",
+              "code": "overtime-pay"
+            },
+            {
+              "label": "Transport allowance or facility",
+              "value": "transport-allowance-or-facility",
+              "code": "transport-allowance-or-facility"
+            },
+            {
+              "label": "Food / canteen facility",
+              "value": "food-canteen-facility",
+              "code": "food-canteen-facility"
+            },
+            {
+              "label": "Medical benefits",
+              "value": "medical-benefits",
+              "code": "medical-benefits"
+            },
+            {
+              "label": "None of these",
+              "value": "none-of-these",
+              "code": "none-of-these"
+            }
+          ],
+          "trailingText": "Besides salary, which of these do you receive from your company? (Select all that apply)",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "code": "B2",
+      "title": "Housing, Commute, and Welfare",
+      "description": "",
+      "display_order": 4,
+      "questions": [
+        {
+          "code": "B2.1",
+          "text": "How much of a difficulty are housing and commute (getting to and from work) for you?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (No difficulty at all) — 2 — 3 — 4 — 5 (Major difficulty)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No difficulty at all",
+            "rightLabel": "Major difficulty"
+          }
+        },
+        {
+          "code": "B2.2",
+          "text": "How do you usually travel to work?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Walk",
+              "value": "walk",
+              "code": "walk"
+            },
+            {
+              "label": "Own two-wheeler / vehicle",
+              "value": "own-two-wheeler-vehicle",
+              "code": "own-two-wheeler-vehicle"
+            },
+            {
+              "label": "Company transport",
+              "value": "company-transport",
+              "code": "company-transport"
+            },
+            {
+              "label": "Public transport / shared auto",
+              "value": "public-transport-shared-auto",
+              "code": "public-transport-shared-auto"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "How do you usually travel to work?",
+          "type": "radio"
+        },
+        {
+          "code": "B2.3",
+          "text": "How long does it usually take you to reach work, one way?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Less than 30 minutes",
+              "value": "less-than-30-minutes",
+              "code": "less-than-30-minutes"
+            },
+            {
+              "label": "30 minutes – 1 hour",
+              "value": "30-minutes-1-hour",
+              "code": "30-minutes-1-hour"
+            },
+            {
+              "label": "1–2 hours",
+              "value": "1-2-hours",
+              "code": "1-2-hours"
+            },
+            {
+              "label": "More than 2 hours",
+              "value": "more-than-2-hours",
+              "code": "more-than-2-hours"
+            }
+          ],
+          "trailingText": "How long does it usually take you to reach work, one way?",
+          "type": "radio"
+        },
+        {
+          "code": "B2.4",
+          "text": "If you live away from your family for this job, how difficult is that for you?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [],
+          "trailingText": "1 (Not difficult) — 2 — 3 — 4 — 5 (Very difficult) — Not applicable, I live with family",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not difficult",
+            "rightLabel": "Very difficult"
+          }
+        }
+      ]
+    },
+    {
+      "code": "B3",
+      "title": "Career and Growth",
+      "description": "",
+      "display_order": 5,
+      "questions": [
+        {
+          "code": "B3.1",
+          "text": "Do you see a good future for yourself at this company?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (No future here) — 2 — 3 — 4 — 5 (Strong future here)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No future here",
+            "rightLabel": "Strong future here"
+          }
+        },
+        {
+          "code": "B3.2",
+          "text": "Has your role or responsibility improved since you joined this company?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, I have been promoted or given more responsibility",
+              "value": "yes-i-have-been-promoted-or-given-more-responsibility",
+              "code": "yes-i-have-been-promoted-or-given-more-responsibility"
+            },
+            {
+              "label": "Yes, somewhat, but no formal promotion",
+              "value": "yes-somewhat-but-no-formal-promotion",
+              "code": "yes-somewhat-but-no-formal-promotion"
+            },
+            {
+              "label": "No change",
+              "value": "no-change",
+              "code": "no-change"
+            },
+            {
+              "label": "Not sure",
+              "value": "not-sure",
+              "code": "not-sure"
+            }
+          ],
+          "trailingText": "Has your role or responsibility improved since you joined this company?",
+          "type": "radio"
+        },
+        {
+          "code": "B3.3",
+          "text": "Do you know what you would need to do to get promoted or earn more at this company?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Yes, it is clear to me",
+              "value": "yes-it-is-clear-to-me",
+              "code": "yes-it-is-clear-to-me"
+            },
+            {
+              "label": "Somewhat clear",
+              "value": "somewhat-clear",
+              "code": "somewhat-clear"
+            },
+            {
+              "label": "Not clear at all",
+              "value": "not-clear-at-all",
+              "code": "not-clear-at-all"
+            }
+          ],
+          "trailingText": "Do you know what you would need to do to get promoted or earn more at this company?",
+          "type": "radio"
+        },
+        {
+          "code": "B3.4",
+          "text": "If you could choose, would you want to continue working in a factory/manufacturing job long-term?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Yes, definitely",
+              "value": "yes-definitely",
+              "code": "yes-definitely"
+            },
+            {
+              "label": "Yes, but only at a better company",
+              "value": "yes-but-only-at-a-better-company",
+              "code": "yes-but-only-at-a-better-company"
+            },
+            {
+              "label": "Not sure",
+              "value": "not-sure",
+              "code": "not-sure"
+            },
+            {
+              "label": "No, I would prefer something else",
+              "value": "no-i-would-prefer-something-else",
+              "code": "no-i-would-prefer-something-else"
+            }
+          ],
+          "trailingText": "If you could choose, would you want to continue working in a factory/manufacturing job long-term?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "B4",
+      "title": "Dignity and Perception of Work",
+      "description": "",
+      "display_order": 6,
+      "questions": [
+        {
+          "code": "B4.1",
+          "text": "How do you feel your work is viewed/respected by your family and community?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Looked down upon) — 2 — 3 — 4 — 5 (Respected and valued)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Looked down upon",
+            "rightLabel": "Respected and valued"
+          }
+        },
+        {
+          "code": "B4.2",
+          "text": "How do you personally feel about the work you do?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Proud of my work",
+              "value": "proud-of-my-work",
+              "code": "proud-of-my-work"
+            },
+            {
+              "label": "It's just a job, nothing special",
+              "value": "it-s-just-a-job-nothing-special",
+              "code": "it-s-just-a-job-nothing-special"
+            },
+            {
+              "label": "I feel some embarrassment about this work",
+              "value": "i-feel-some-embarrassment-about-this-work",
+              "code": "i-feel-some-embarrassment-about-this-work"
+            },
+            {
+              "label": "Not sure / mixed feelings",
+              "value": "not-sure-mixed-feelings",
+              "code": "not-sure-mixed-feelings"
+            }
+          ],
+          "trailingText": "How do you personally feel about the work you do?",
+          "type": "radio"
+        },
+        {
+          "code": "B4.3",
+          "text": "Would you encourage a younger family member to take a similar manufacturing job?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Yes, definitely",
+              "value": "yes-definitely",
+              "code": "yes-definitely"
+            },
+            {
+              "label": "Yes, but only in a better company/role",
+              "value": "yes-but-only-in-a-better-company-role",
+              "code": "yes-but-only-in-a-better-company-role"
+            },
+            {
+              "label": "Not sure",
+              "value": "not-sure",
+              "code": "not-sure"
+            },
+            {
+              "label": "No",
+              "value": "no",
+              "code": "no"
+            }
+          ],
+          "trailingText": "Would you encourage a younger family member to take a similar manufacturing job?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C1",
+      "title": "Safety",
+      "description": "",
+      "display_order": 7,
+      "questions": [
+        {
+          "code": "C1.1",
+          "text": "How safe do you feel while working at this company?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Very unsafe) — 2 — 3 — 4 — 5 (Very safe)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Very unsafe",
+            "rightLabel": "Very safe"
+          }
+        },
+        {
+          "code": "C1.2",
+          "text": "Have you received safety training for your role?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, thorough training",
+              "value": "yes-thorough-training",
+              "code": "yes-thorough-training"
+            },
+            {
+              "label": "Yes, basic training only",
+              "value": "yes-basic-training-only",
+              "code": "yes-basic-training-only"
+            },
+            {
+              "label": "No training given",
+              "value": "no-training-given",
+              "code": "no-training-given"
+            }
+          ],
+          "trailingText": "Have you received safety training for your role?",
+          "type": "radio"
+        },
+        {
+          "code": "C1.3",
+          "text": "If you report a safety concern, what usually happens?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "It is taken seriously and acted on",
+              "value": "it-is-taken-seriously-and-acted-on",
+              "code": "it-is-taken-seriously-and-acted-on"
+            },
+            {
+              "label": "It is noted but nothing changes",
+              "value": "it-is-noted-but-nothing-changes",
+              "code": "it-is-noted-but-nothing-changes"
+            },
+            {
+              "label": "I don't feel comfortable reporting concerns",
+              "value": "i-don-t-feel-comfortable-reporting-concerns",
+              "code": "i-don-t-feel-comfortable-reporting-concerns"
+            },
+            {
+              "label": "I have never had to report one",
+              "value": "i-have-never-had-to-report-one",
+              "code": "i-have-never-had-to-report-one"
+            }
+          ],
+          "trailingText": "If you report a safety concern, what usually happens?",
+          "type": "radio"
+        },
+        {
+          "code": "C1.4",
+          "text": "Have you been injured or seen a co-worker injured at this workplace in the past year?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "No",
+              "value": "no",
+              "code": "no"
+            },
+            {
+              "label": "Yes, minor injury",
+              "value": "yes-minor-injury",
+              "code": "yes-minor-injury"
+            },
+            {
+              "label": "Yes, serious injury",
+              "value": "yes-serious-injury",
+              "code": "yes-serious-injury"
+            }
+          ],
+          "trailingText": "Have you been injured or seen a co-worker injured at this workplace in the past year?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C2",
+      "title": "Work Organisation",
+      "description": "",
+      "display_order": 8,
+      "questions": [
+        {
+          "code": "C2.1",
+          "text": "How clear are you about what is expected of you in your daily work?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Very unclear) — 2 — 3 — 4 — 5 (Very clear)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Very unclear",
+            "rightLabel": "Very clear"
+          }
+        },
+        {
+          "code": "C2.2",
+          "text": "Do you have the tools, materials, and equipment you need to do your job properly?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Always",
+              "value": "always",
+              "code": "always"
+            },
+            {
+              "label": "Usually",
+              "value": "usually",
+              "code": "usually"
+            },
+            {
+              "label": "Sometimes",
+              "value": "sometimes",
+              "code": "sometimes"
+            },
+            {
+              "label": "Rarely",
+              "value": "rarely",
+              "code": "rarely"
+            }
+          ],
+          "trailingText": "Do you have the tools, materials, and equipment you need to do your job properly?",
+          "type": "radio"
+        },
+        {
+          "code": "C2.3",
+          "text": "When something goes wrong on the line (machine breakdown, material shortage, etc.), what usually happens?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "It gets fixed quickly",
+              "value": "it-gets-fixed-quickly",
+              "code": "it-gets-fixed-quickly"
+            },
+            {
+              "label": "It takes a while but gets resolved",
+              "value": "it-takes-a-while-but-gets-resolved",
+              "code": "it-takes-a-while-but-gets-resolved"
+            },
+            {
+              "label": "It often causes long delays",
+              "value": "it-often-causes-long-delays",
+              "code": "it-often-causes-long-delays"
+            },
+            {
+              "label": "Not sure / depends",
+              "value": "not-sure-depends",
+              "code": "not-sure-depends"
+            }
+          ],
+          "trailingText": "When something goes wrong on the line (machine breakdown, material shortage, etc.), what usually happens?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C3",
+      "title": "Management Quality",
+      "description": "",
+      "display_order": 9,
+      "questions": [
+        {
+          "code": "C3.1",
+          "text": "How would you rate your supervisor's treatment of workers?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Very poor — disrespectful or unfair) — 2 — 3 — 4 — 5 (Excellent — respectful and fair)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5
+          }
+        },
+        {
+          "code": "C3.2",
+          "text": "Does your supervisor listen when you raise a problem or suggestion?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, always",
+              "value": "yes-always",
+              "code": "yes-always"
+            },
+            {
+              "label": "Sometimes",
+              "value": "sometimes",
+              "code": "sometimes"
+            },
+            {
+              "label": "Rarely",
+              "value": "rarely",
+              "code": "rarely"
+            },
+            {
+              "label": "Never",
+              "value": "never",
+              "code": "never"
+            }
+          ],
+          "trailingText": "Does your supervisor listen when you raise a problem or suggestion?",
+          "type": "radio"
+        },
+        {
+          "code": "C3.3",
+          "text": "Do you feel comfortable raising concerns or disagreements with your supervisor?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Yes, completely comfortable",
+              "value": "yes-completely-comfortable",
+              "code": "yes-completely-comfortable"
+            },
+            {
+              "label": "Somewhat comfortable",
+              "value": "somewhat-comfortable",
+              "code": "somewhat-comfortable"
+            },
+            {
+              "label": "Not very comfortable",
+              "value": "not-very-comfortable",
+              "code": "not-very-comfortable"
+            },
+            {
+              "label": "Not at all comfortable",
+              "value": "not-at-all-comfortable",
+              "code": "not-at-all-comfortable"
+            }
+          ],
+          "trailingText": "Do you feel comfortable raising concerns or disagreements with your supervisor?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C4",
+      "title": "Process Awareness",
+      "description": "",
+      "display_order": 10,
+      "questions": [
+        {
+          "code": "C4.1",
+          "text": "How informed do you feel about changes or improvements happening on your shopfloor?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Not informed at all) — 2 — 3 — 4 — 5 (Well informed and involved)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not informed at all",
+            "rightLabel": "Well informed and involved"
+          }
+        },
+        {
+          "code": "C4.2",
+          "text": "Has your input ever been asked for or used to improve how work is done?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, regularly",
+              "value": "yes-regularly",
+              "code": "yes-regularly"
+            },
+            {
+              "label": "Yes, occasionally",
+              "value": "yes-occasionally",
+              "code": "yes-occasionally"
+            },
+            {
+              "label": "No, never",
+              "value": "no-never",
+              "code": "no-never"
+            }
+          ],
+          "trailingText": "Has your input ever been asked for or used to improve how work is done?",
+          "type": "radio"
+        },
+        {
+          "code": "C4.3",
+          "text": "Are you told why changes are made when something changes in your work process?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Always explained",
+              "value": "always-explained",
+              "code": "always-explained"
+            },
+            {
+              "label": "Sometimes explained",
+              "value": "sometimes-explained",
+              "code": "sometimes-explained"
+            },
+            {
+              "label": "Rarely or never explained",
+              "value": "rarely-or-never-explained",
+              "code": "rarely-or-never-explained"
+            }
+          ],
+          "trailingText": "Are you told why changes are made when something changes in your work process?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "D1",
+      "title": "Exposure and Training",
+      "description": "",
+      "display_order": 11,
+      "questions": [
+        {
+          "code": "D1.1",
+          "text": "How well-trained do you feel on the machines/tools/systems you are expected to use?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Not trained at all) — 2 — 3 — 4 — 5 (Very well trained)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not trained at all",
+            "rightLabel": "Very well trained"
+          }
+        },
+        {
+          "code": "D1.2",
+          "text": "Do you use any of the following in your daily work? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Computer / tablet / digital device",
+              "value": "computer-tablet-digital-device",
+              "code": "computer-tablet-digital-device"
+            },
+            {
+              "label": "Automated machinery (sensors, robotic equipment)",
+              "value": "automated-machinery-sensors-robotic-equipment",
+              "code": "automated-machinery-sensors-robotic-equipment"
+            },
+            {
+              "label": "Manual machines / tools only",
+              "value": "manual-machines-tools-only",
+              "code": "manual-machines-tools-only"
+            },
+            {
+              "label": "None of the above",
+              "value": "none-of-the-above",
+              "code": "none-of-the-above"
+            }
+          ],
+          "trailingText": "Do you use any of the following in your daily work? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "D1.3",
+          "text": "When new equipment or systems are introduced, do you receive training before using them?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Always trained beforehand",
+              "value": "always-trained-beforehand",
+              "code": "always-trained-beforehand"
+            },
+            {
+              "label": "Sometimes trained beforehand",
+              "value": "sometimes-trained-beforehand",
+              "code": "sometimes-trained-beforehand"
+            },
+            {
+              "label": "Usually expected to learn on my own",
+              "value": "usually-expected-to-learn-on-my-own",
+              "code": "usually-expected-to-learn-on-my-own"
+            },
+            {
+              "label": "Not applicable, nothing new introduced",
+              "value": "not-applicable-nothing-new-introduced",
+              "code": "not-applicable-nothing-new-introduced"
+            }
+          ],
+          "trailingText": "When new equipment or systems are introduced, do you receive training before using them?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "D2",
+      "title": "Impact on Work Experience",
+      "description": "",
+      "display_order": 12,
+      "questions": [
+        {
+          "code": "D2.1",
+          "text": "Overall, has new technology/automation made your work easier or harder?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Much harder) — 2 — 3 — 4 — 5 (Much easier)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Much harder",
+            "rightLabel": "Much easier"
+          }
+        },
+        {
+          "code": "D2.2",
+          "text": "Are you worried that automation or new technology could replace your job in the future?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Very worried",
+              "value": "very-worried",
+              "code": "very-worried"
+            },
+            {
+              "label": "Somewhat worried",
+              "value": "somewhat-worried",
+              "code": "somewhat-worried"
+            },
+            {
+              "label": "Not very worried",
+              "value": "not-very-worried",
+              "code": "not-very-worried"
+            },
+            {
+              "label": "Not worried at all",
+              "value": "not-worried-at-all",
+              "code": "not-worried-at-all"
+            }
+          ],
+          "trailingText": "Are you worried that automation or new technology could replace your job in the future?",
+          "type": "radio"
+        },
+        {
+          "code": "D2.3",
+          "text": "Has new technology changed the nature of your work in the past 2 years?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Yes, significantly",
+              "value": "yes-significantly",
+              "code": "yes-significantly"
+            },
+            {
+              "label": "Yes, somewhat",
+              "value": "yes-somewhat",
+              "code": "yes-somewhat"
+            },
+            {
+              "label": "No change",
+              "value": "no-change",
+              "code": "no-change"
+            },
+            {
+              "label": "Not sure",
+              "value": "not-sure",
+              "code": "not-sure"
+            }
+          ],
+          "trailingText": "Has new technology changed the nature of your work in the past 2 years?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "D3",
+      "title": "Aspiration",
+      "description": "",
+      "display_order": 13,
+      "questions": [
+        {
+          "code": "D3.1",
+          "text": "How interested are you in learning new technical or digital skills?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "1 (Not interested at all) — 2 — 3 — 4 — 5 (Very interested)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not interested at all",
+            "rightLabel": "Very interested"
+          }
+        },
+        {
+          "code": "D3.2",
+          "text": "If your company offered free training to learn new machines or digital tools, would you take it?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, definitely",
+              "value": "yes-definitely",
+              "code": "yes-definitely"
+            },
+            {
+              "label": "Yes, if it doesn't affect my pay/hours",
+              "value": "yes-if-it-doesn-t-affect-my-pay-hours",
+              "code": "yes-if-it-doesn-t-affect-my-pay-hours"
+            },
+            {
+              "label": "Not sure",
+              "value": "not-sure",
+              "code": "not-sure"
+            },
+            {
+              "label": "No",
+              "value": "no",
+              "code": "no"
+            }
+          ],
+          "trailingText": "If your company offered free training to learn new machines or digital tools, would you take it?",
+          "type": "matrix",
+          "selectionMode": "single",
+          "matrix_rows": [
+            {
+              "label": "High upfront capital cost",
+              "display_order": 1
+            },
+            {
+              "label": "Difficulty accessing financing for technology",
+              "display_order": 2
+            },
+            {
+              "label": "Availability of sources of funds",
+              "display_order": 3
+            },
+            {
+              "label": "Lack of skilled staff to operate new technology",
+              "display_order": 4
+            },
+            {
+              "label": "Lack of vendors / service providers locally",
+              "display_order": 5
+            },
+            {
+              "label": "Uncertainty about ROI",
+              "display_order": 6
+            },
+            {
+              "label": "Production disruption during implementation",
+              "display_order": 7
+            },
+            {
+              "label": "Regulatory or compliance uncertainty",
+              "display_order": 8
+            },
+            {
+              "label": "Technology changes too fast to commit",
+              "display_order": 9
+            },
+            {
+              "label": "Senior management not convinced of need",
+              "display_order": 10
+            }
+          ],
+          "matrix_columns": [
+            {
+              "label": "Not a barrier",
+              "value": "not-a-barrier",
+              "display_order": 1
+            },
+            {
+              "label": "Minor",
+              "value": "minor",
+              "display_order": 2
+            },
+            {
+              "label": "Moderate",
+              "value": "moderate",
+              "display_order": 3
+            },
+            {
+              "label": "Significant",
+              "value": "significant",
+              "display_order": 4
+            },
+            {
+              "label": "Severe",
+              "value": "severe",
+              "display_order": 5
+            }
+          ]
+        },
+        {
+          "code": "D3.3",
+          "text": "Do you think learning new technical skills would help you earn more or get a better job?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Yes, definitely",
+              "value": "yes-definitely",
+              "code": "yes-definitely"
+            },
+            {
+              "label": "Maybe",
+              "value": "maybe",
+              "code": "maybe"
+            },
+            {
+              "label": "No",
+              "value": "no",
+              "code": "no"
+            }
+          ],
+          "trailingText": "Do you think learning new technical skills would help you earn more or get a better job?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "E",
+      "title": "Open-Ended",
+      "description": "",
+      "display_order": 14,
+      "questions": [
+        {
+          "code": "E1",
+          "text": "What is the biggest difficulty you face as a worker at this company? (Open-ended)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "What is the biggest difficulty you face as a worker at this company? (Open-ended)",
+          "type": "paragraph"
+        },
+        {
+          "code": "E2",
+          "text": "If you could change one thing about your job or workplace, what would it be? (Open-ended)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [],
+          "trailingText": "If you could change one thing about your job or workplace, what would it be? (Open-ended)",
+          "type": "paragraph"
+        }
+      ]
+    }
+  ]
+}

@@ -8,6 +8,35 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Lock, ArrowLeft, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import Image from "next/image";
+import CIILogo from "@/components/images/CII_Logo.png";
+import IMELogo from "@/components/images/IME_Logo.webp";
+
+// Logo slots – swap these with real <Image /> imports when the assets are ready.
+function LogoLeft() {
+  return (
+    <div className="h-10 w-24 flex items-center justify-center">
+      <Image
+        src={CIILogo}
+        alt="CII Logo"
+        className="object-contain"
+      />
+    </div>
+  );
+}
+
+function LogoRight() {
+  return (
+    <div className="h-10 w-24 flex items-center justify-center">
+      <Image
+        src={IMELogo}
+        alt="IME Logo"
+        className="object-contain"
+      />
+    </div>
+  );
+}
+
 
 export default function AdminLogin() {
   const router = useRouter();

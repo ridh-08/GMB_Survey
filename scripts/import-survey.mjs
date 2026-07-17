@@ -46,7 +46,7 @@ async function loadDotEnvIfPresent() {
 }
 
 const specialMatrices = {
-  'A11': {
+  'employer:A11': {
     type: 'ranking',
     options: [
       'Work Force Availability',
@@ -65,7 +65,7 @@ const specialMatrices = {
       'Barriers to Adoption (Technology)',
     ],
   },
-  'B1.2': {
+  'employer:B1.2': {
     type: 'matrix',
     rows: [
       'Unskilled / general labour',
@@ -77,7 +77,7 @@ const specialMatrices = {
     ],
     columns: ['Extremely difficult', 'Difficult', 'Neutral', 'Easy', 'Extremely easy', 'N/A'],
   },
-  'B3.5': {
+  'employer:B3.5': {
     type: 'matrix',
     rows: [
       'ITI / polytechnic graduate',
@@ -87,7 +87,7 @@ const specialMatrices = {
     ],
     columns: ['Less than 1 week', '1-4 weeks', '1-3 months', '3-6 months', 'More than 6 months', 'We don\'t hire this type'],
   },
-  'B3.6': {
+  'employer:B3.6': {
     type: 'matrix',
     rows: [
       'Local ITIs / polytechnics',
@@ -97,13 +97,72 @@ const specialMatrices = {
     ],
     columns: ['Very Dissatisfied', 'Dissatisfied', 'Neutral', 'Satisfied', 'Very Satisfied', "Don't Use"],
   },
-  'C6.3': {
+  'employer:C6.3': {
     type: 'matrix',
     rows: ['Road connectivity', 'Power supply reliability', 'Water and waste management', 'Logistics and warehousing', 'Common testing / certification facilities'],
     columns: ['Very Poor', 'Poor', 'Adequate', 'Good', 'Excellent', 'Not Applicable'],
   },
+  'employer:D3.2': {
+    type: 'matrix',
+    rows: [
+      'High upfront capital cost',
+      'Difficulty accessing financing for technology',
+      'Availability of sources of funds',
+      'Lack of skilled staff to operate new technology',
+      'Lack of vendors / service providers locally',
+      'Uncertainty about ROI',
+      'Production disruption during implementation',
+      'Regulatory or compliance uncertainty',
+      'Technology changes too fast to commit',
+      'Senior management not convinced of need',
+    ],
+    columns: ['Not a barrier', 'Minor', 'Moderate', 'Significant', 'Severe', 'N/A'],
+  },
 };
 
+// Additional questions to append after specific codes per survey type.
+// Each entry defines a full question shape mirroring what the parser produces,
+// so we can inject new content without rewriting the survey source file.
+const additionalQuestions = {
+  employer: [
+    {
+      insertAfter: 'D4.4',
+      code: 'D4.5',
+      text: 'Does your firm currently use or plan to use AI, machine learning, or predictive analytics in any production or supply chain function?',
+      type: 'radio',
+      required: true,
+      options: [
+        'Yes, currently deployed',
+        'Yes, planned within 2 years',
+        'Under exploration / awareness only',
+        'No plans / not relevant',
+      ],
+    },
+    {
+      insertAfter: 'D4.4',
+      code: 'D4.6',
+      text: 'How aware is your firm of emerging technologies (autonomous systems, digital twins, real-time supply chain visibility)?',
+      type: 'likert_5',
+      required: true,
+      scale: {
+        min: 1,
+        max: 5,
+        leftLabel: 'Not aware',
+        rightLabel: 'Very aware, monitoring closely',
+        labels: {
+          1: 'Not aware',
+          2: 'Slightly aware',
+          3: 'Moderately aware',
+          4: 'Aware',
+          5: 'Very aware, monitoring closely',
+        },
+      },
+    },
+  ],
+};
+
+// Regex-based text hints — order matters, but detectQuestionType() also enforces
+// a strict priority hierarchy.
 const questionTypeHints = [
   { match: /open-ended/i, type: 'paragraph' },
   { match: /rank the following/i, type: 'ranking' },
@@ -137,15 +196,74 @@ function looksLikeSectionHeading(code, text) {
   return titleLike && /^(Section|[A-Z]\d+[A-Z]?(?:\.\d+)*)/.test(code);
 }
 
+// Parse checkbox selection limits like "Select Top 2", "select top 3",
+// "Select up to 2". Returns the integer or null.
+function parseMaxSelections(text) {
+  if (!text) return null;
+  const topMatch = text.match(/select\s+top\s+(\d+)/i);
+  if (topMatch) return Number(topMatch[1]);
+  const upToMatch = text.match(/select\s+up\s+to\s+(\d+)/i);
+  if (upToMatch) return Number(upToMatch[1]);
+  return null;
+}
+
+// Parse a Likert scale line to extract endpoint labels.
+// Handles "Likert: 1 (Left) — 2 — 3 — 4 — 5 (Right)" and the same
+// pattern without the "Likert:" prefix. Returns { min, max, leftLabel, rightLabel }
+// or null if it doesn't match.
+function parseLikertScale(line) {
+  if (!line) return null;
+  const cleaned = line.replace(/^likert:\s*/i, '').trim();
+  // Match each annotated point directly, e.g. "1 (Extremely difficult)" or
+  // "5 (Extremely easy)". Deliberately not splitting the whole line on dash
+  // characters first — an anchor label can legitimately contain its own dash
+  // (e.g. "Very negative — seen as low-status, last resort"), which would
+  // otherwise get shredded before the label could be captured.
+  const matches = [...cleaned.matchAll(/(\d+)\s*\(([^)]+)\)/g)];
+  if (matches.length === 0) return null;
+  const first = matches[0];
+  const last = matches[matches.length - 1];
+  return {
+    min: Number(first[1]),
+    max: Number(last[1]),
+    leftLabel: first[2].trim() || null,
+    rightLabel: matches.length > 1 ? last[2].trim() || null : null,
+  };
+}
+
+// Priority-ordered question type detection:
+// ranking -> matrix -> likert -> checkbox -> yes/no -> radio -> paragraph -> short text.
+// Never auto-converts to dropdown; dropdowns must be requested explicitly.
 function detectQuestionType(question) {
   const combined = `${question.code} ${question.text}`;
-  const hint = questionTypeHints.find((entry) => entry.match.test(combined));
-  if (hint) return hint.type;
-  if (/Yes|No/i.test(question.text) && question.options.length <= 4) return 'yes_no';
-  if (/Likert:/i.test(question.trailingText || '')) return 'likert_5';
-  if (question.options.length > 0 && !/Select all/i.test(question.text) && !/Select top/i.test(question.text)) {
-    return question.options.length > 6 ? 'dropdown' : 'radio';
+  const trailing = question.trailingText || '';
+
+  // 1. Ranking
+  if (/rank the following/i.test(combined)) return 'ranking';
+
+  // 2. Matrix — handled via specialMatrices in pushQuestion(); nothing to detect here.
+
+  // 3. Likert
+  if (/^likert:/im.test(trailing) || /^likert:/im.test(combined)) return 'likert_5';
+  if (parseLikertScale(trailing)) return 'likert_5';
+
+  // 4. Checkbox
+  if (/select all that apply|select up to|select top/i.test(combined)) return 'checkbox';
+
+  // 5. Yes/No
+  if (question.options.length === 2 && question.options.every((opt) => /^(yes|no)/i.test(opt.label.trim()))) {
+    return 'yes_no';
   }
+
+  // 6. Radio (never auto-promote to dropdown)
+  if (question.options.length > 0) {
+    return 'radio';
+  }
+
+  // 7. Paragraph
+  if (/open-ended|please specify|_{3,}|\bwrite\b/i.test(combined)) return 'paragraph';
+
+  // 8. Short text
   return 'short_text';
 }
 
@@ -168,7 +286,9 @@ function createEmptyQuestion(code, text, order) {
     code,
     text,
     description: '',
-    required: false,
+    // Default required=true; only future surveys marking a question optional
+    // should override this.
+    required: true,
     comments_enabled: false,
     display_order: order,
     options: [],
@@ -181,33 +301,65 @@ function addOption(question, label) {
   question.options.push({ label, value, code: slugify(label) });
 }
 
-function pushQuestion(section, question) {
+// Merge fields into a question's validation object without clobbering existing keys.
+function setValidation(question, extra) {
+  question.validation = { ...(question.validation || {}), ...extra };
+}
+
+function pushQuestion(section, question, surveyKey) {
   const normalizedCode = normalizeQuestionCode(question.code);
-  const special = specialMatrices[normalizedCode];
+  const special = specialMatrices[`${surveyKey}:${normalizedCode}`];
+
   if (special?.type === 'ranking') {
     question.type = 'ranking';
     question.options = special.options.map((label) => ({ label, value: slugify(label), code: slugify(label) }));
   } else if (special?.type === 'matrix') {
-    question.type = normalizedCode === 'B3.6' ? 'matrix_multiple' : 'matrix';
+    // Default matrix is single-selection per row. matrix_multiple is only used
+    // when the spec explicitly demands multi-select semantics.
+    question.type = 'matrix';
+    question.selectionMode = 'single';
     question.matrix_rows = special.rows.map((label, index) => ({ label, display_order: index + 1 }));
     question.matrix_columns = special.columns.map((label, index) => ({ label, value: slugify(label), display_order: index + 1 }));
+  } else if (question.type === 'likert_5' || question.type === 'likert_7') {
+    // Type was already set while parsing the scale line; leave it alone.
   } else {
     question.type = detectQuestionType(question);
-    if (question.options.length === 0 && /Likert:/i.test(question.trailingText || '')) {
-      question.type = /Select all/i.test(question.text) ? 'checkbox' : 'likert_5';
-    }
   }
 
-  if (/(Open-ended|specify|please specify|______|_____|\bwrite\b)/i.test(question.text)) {
+  // Override with paragraph when the question body clearly expects free text.
+  if (/(Open-ended|please specify|______|_____|\bwrite\b)/i.test(question.text) && question.options.length === 0) {
     question.type = 'paragraph';
   }
 
-  if (/Select all that apply|Select up to/i.test(question.text)) {
+  // Force checkbox when text explicitly requests multi-select.
+  if (/Select all that apply|Select up to|Select top/i.test(question.text) && question.options.length > 0) {
     question.type = 'checkbox';
   }
 
-  if (/Select all that apply/i.test(question.text) && /top \d+/i.test(question.text)) {
-    question.validation = { maxSelections: Number((question.text.match(/top\s+(\d+)/i) || [])[1] || 0) || undefined };
+  // ---- Validation metadata ----
+
+  // Checkbox limits (Select top N / Select up to N)
+  if (question.type === 'checkbox') {
+    const max = parseMaxSelections(question.text) || parseMaxSelections(question.trailingText);
+    if (max) setValidation(question, { maxSelections: max });
+  }
+
+  // Ranking metadata for the frontend to enforce
+  if (question.type === 'ranking') {
+    setValidation(question, { allowSingleTie: true, skipRanks: true });
+  }
+
+  // Likert: preserve actual endpoint labels
+  if (question.type === 'likert_5' || question.type === 'likert_7') {
+    const scale = parseLikertScale(question.trailingText) || parseLikertScale(question.description);
+    if (scale) {
+      question.scale = {
+        min: scale.min,
+        max: scale.max,
+        leftLabel: scale.leftLabel || undefined,
+        rightLabel: scale.rightLabel || undefined,
+      };
+    }
   }
 
   section.questions.push(question);
@@ -224,11 +376,20 @@ function parseSurveyBlock(rawText, surveyMeta) {
   const flushQuestion = () => {
     if (!currentQuestion || !currentSection) return;
     currentQuestion.type = currentQuestion.type || 'short_text';
-    pushQuestion(currentSection, currentQuestion);
+    pushQuestion(currentSection, currentQuestion, surveyMeta.key);
     currentQuestion = null;
   };
 
-  for (const rawLine of lines) {
+  const nextNonEmptyLine = (fromIndex) => {
+    for (let j = fromIndex + 1; j < lines.length; j++) {
+      const t = lines[j].trim();
+      if (t) return t;
+    }
+    return '';
+  };
+
+  for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+    const rawLine = lines[lineIndex];
     const line = rawLine.trim();
     if (!line) {
       continue;
@@ -251,7 +412,14 @@ function parseSurveyBlock(rawText, surveyMeta) {
     }
 
     const headingMatch = line.match(headingRegex);
-    if (headingMatch && looksLikeSectionHeading(headingMatch[1], headingMatch[2])) {
+    // A line like "B1. Workforce Availability" is a real subsection heading —
+    // it's always followed by a separate numbered question line (e.g. "B1.1 ...").
+    // A line like "A7. Gender" LOOKS the same (short, title-case, no "?") but is
+    // actually the question itself, immediately followed by its own bullet
+    // options. Distinguish the two by peeking at the next line: if it's a
+    // bullet option, this is a question, not a section wrapper.
+    const nextLineIsBullet = bulletRegex.test(nextNonEmptyLine(lineIndex));
+    if (headingMatch && looksLikeSectionHeading(headingMatch[1], headingMatch[2]) && !nextLineIsBullet) {
       flushQuestion();
       sectionOrder += 1;
       currentSection = createEmptySection(headingMatch[1].replace(/\.$/, ''), headingMatch[2].trim(), sectionOrder);
@@ -264,7 +432,7 @@ function parseSurveyBlock(rawText, surveyMeta) {
     if (questionMatch) {
       const code = normalizeQuestionCode(questionMatch[1]);
       const text = questionMatch[2].trim();
-      const looksLikeQuestion = /[?]$/.test(text) || /Likert:/i.test(text) || /Open-ended/i.test(text) || /\(Foundational/i.test(text) || /Select all/i.test(text) || /Select top/i.test(text) || /Rank the following/i.test(text);
+      const looksLikeQuestion = text.includes('?') || /Likert:/i.test(text) || /Open-ended/i.test(text) || /\(Foundational/i.test(text) || /Select all/i.test(text) || /Select up to/i.test(text) || /Select top/i.test(text) || /Rank the following/i.test(text) || nextLineIsBullet;
       if (looksLikeQuestion) {
         flushQuestion();
         questionOrder += 1;
@@ -275,9 +443,9 @@ function parseSurveyBlock(rawText, surveyMeta) {
     }
 
     if (currentQuestion) {
-      if (/^Likert:/i.test(line)) {
+      if (/^(Likert:\s*)?1\s*\(.*—/i.test(line)) {
         currentQuestion.trailingText = line;
-        currentQuestion.type = line.split('—').length >= 7 ? 'likert_7' : 'likert_5';
+        currentQuestion.type = 'likert_5';
         continue;
       }
 
@@ -298,6 +466,10 @@ function parseSurveyBlock(rawText, surveyMeta) {
         continue;
       }
 
+      if (/^_{5,}$/.test(line.trim())) {
+        continue;
+      }
+
       if (!currentQuestion.description && line.length < 160 && !/[?]$/.test(line) && !/^●/.test(line)) {
         currentQuestion.description = line;
       }
@@ -305,7 +477,48 @@ function parseSurveyBlock(rawText, surveyMeta) {
   }
 
   flushQuestion();
-  return sections;
+
+  const nonEmptySections = sections.filter((s) => s.questions.length > 0);
+  nonEmptySections.forEach((s, i) => {
+    s.display_order = i + 1;
+  });
+
+  // Insert additional questions (e.g. D4.5, D4.6) after their anchor codes.
+  const extras = additionalQuestions[surveyMeta.key] || [];
+  for (const extra of extras) {
+    injectAdditionalQuestion(nonEmptySections, extra);
+  }
+
+  return nonEmptySections;
+}
+
+// Insert a manually-defined question directly after `insertAfter` in whichever
+// section contains that anchor. Renumbers display_order for that section.
+function injectAdditionalQuestion(sections, extra) {
+  for (const section of sections) {
+    const idx = section.questions.findIndex((q) => normalizeQuestionCode(q.code) === extra.insertAfter);
+    if (idx === -1) continue;
+
+    const q = {
+      code: extra.code,
+      text: extra.text,
+      description: extra.description || '',
+      required: extra.required !== false,
+      comments_enabled: false,
+      display_order: 0,
+      options: (extra.options || []).map((label) => ({ label, value: slugify(label), code: slugify(label) })),
+      type: extra.type,
+    };
+    if (extra.scale) q.scale = extra.scale;
+    if (extra.validation) q.validation = extra.validation;
+    if (extra.selectionMode) q.selectionMode = extra.selectionMode;
+
+    section.questions.splice(idx + 1, 0, q);
+    section.questions.forEach((qq, i) => {
+      qq.display_order = i + 1;
+    });
+    return;
+  }
 }
 
 async function upsertSurveyWithSections(client, surveyMeta, sections) {
@@ -352,14 +565,20 @@ async function upsertSurveyWithSections(client, surveyMeta, sections) {
     const sectionId = insertedSection.id;
 
     for (const question of section.questions) {
+      // Fold scale + selectionMode into validation so richer metadata reaches
+      // the frontend without requiring a schema migration.
+      const validation = { ...(question.validation || {}) };
+      if (question.scale) validation.scale = question.scale;
+      if (question.selectionMode) validation.selectionMode = question.selectionMode;
+
       const questionPayload = {
         section_id: sectionId,
         code: question.code,
         text: question.text,
         description: question.description || '',
         type: question.type,
-        required: question.required || false,
-        validation: question.validation || null,
+        required: question.required !== false,
+        validation: Object.keys(validation).length ? validation : null,
         comments_enabled: question.comments_enabled || false,
         display_order: question.display_order,
       };

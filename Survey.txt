@@ -200,6 +200,9 @@ C1. Managerial Practices
 C1.1 (Foundational — Barometer) How embedded are structured operational management programmes in your plants (e.g., Lean, TPM, Six Sigma, JIT) in your firm's day-to-day shopfloor operations?
 Likert: 1 (Not adopted at all) — 2 — 3 — 4 — 5 (Deeply embedded in how we work)
 C1.2 Does your firm have a structured continuous improvement programme?
+●	Yes
+●	No
+●	Not aware
 C1.3 Which of the following operational approaches, systems, or tools does your organization use as part of its continuous improvement efforts? (Select all that apply.)
 ●	Lean Manufacturing
 ●	Total Productive Maintenance (TPM)
@@ -545,8 +548,8 @@ A3. What is your highest level of education?
 ●	ITI / polytechnic diploma
 ●	Graduate or above
 A4. Where are you originally from?
-●	This district
-●	Elsewhere in Gujarat
+●	This district (specify): ___
+●	Elsewhere in Gujarat (specify): ___
 ●	Another state (specify): ___
 A5. Where do you currently live while working here?
 ●	With family, own/rented home nearby
@@ -742,7 +745,3 @@ ________________________________________
 Section E: Open-Ended
 E1. What is the biggest difficulty you face as a worker at this company? (Open-ended)
 E2. If you could change one thing about your job or workplace, what would it be? (Open-ended)
-
-
-
-

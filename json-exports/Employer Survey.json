@@ -1,0 +1,3405 @@
+{
+  "survey": {
+    "key": "employer",
+    "code": "gmb-employer-2026",
+    "title": "Gujarat Manufacturing Barometer - Employer Survey",
+    "description": "Survey for manufacturing employers in Gujarat",
+    "type": "employer"
+  },
+  "sections": [
+    {
+      "code": "A",
+      "title": "Firm Profile",
+      "description": "",
+      "display_order": 1,
+      "questions": [
+        {
+          "code": "A1",
+          "text": "What is the primary sector of your firm?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [
+            {
+              "label": "Chemicals & Petrochemicals",
+              "value": "chemicals-petrochemicals",
+              "code": "chemicals-petrochemicals"
+            },
+            {
+              "label": "Pharmaceuticals & Bulk Drugs",
+              "value": "pharmaceuticals-bulk-drugs",
+              "code": "pharmaceuticals-bulk-drugs"
+            },
+            {
+              "label": "Electronics & Semiconductors",
+              "value": "electronics-semiconductors",
+              "code": "electronics-semiconductors"
+            },
+            {
+              "label": "Electrical Equipment",
+              "value": "electrical-equipment",
+              "code": "electrical-equipment"
+            },
+            {
+              "label": "Automobiles & EVs",
+              "value": "automobiles-evs",
+              "code": "automobiles-evs"
+            },
+            {
+              "label": "Engineering Goods & Machinery",
+              "value": "engineering-goods-machinery",
+              "code": "engineering-goods-machinery"
+            },
+            {
+              "label": "Textiles & Apparel",
+              "value": "textiles-apparel",
+              "code": "textiles-apparel"
+            },
+            {
+              "label": "Food Processing & Agro",
+              "value": "food-processing-agro",
+              "code": "food-processing-agro"
+            },
+            {
+              "label": "Defence & Aerospace",
+              "value": "defence-aerospace",
+              "code": "defence-aerospace"
+            },
+            {
+              "label": "Construction Materials",
+              "value": "construction-materials",
+              "code": "construction-materials"
+            },
+            {
+              "label": "Metals & Metal Products",
+              "value": "metals-metal-products",
+              "code": "metals-metal-products"
+            },
+            {
+              "label": "Other (specify): _______",
+              "value": "other-specify",
+              "code": "other-specify"
+            }
+          ],
+          "trailingText": "What is the primary sector of your firm?",
+          "type": "radio"
+        },
+        {
+          "code": "A2",
+          "text": "How many employees does your firm currently have (including contractual)?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "<50",
+              "value": "50",
+              "code": "50"
+            },
+            {
+              "label": "50-200",
+              "value": "50-200",
+              "code": "50-200"
+            },
+            {
+              "label": "201-500",
+              "value": "201-500",
+              "code": "201-500"
+            },
+            {
+              "label": "501-2,000",
+              "value": "501-2-000",
+              "code": "501-2-000"
+            },
+            {
+              "label": "More than 2,000",
+              "value": "more-than-2-000",
+              "code": "more-than-2-000"
+            }
+          ],
+          "trailingText": "How many employees does your firm currently have (including contractual)?",
+          "type": "radio"
+        },
+        {
+          "code": "A3",
+          "text": "How long has this plant/unit been operational?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "<3 years",
+              "value": "3-years",
+              "code": "3-years"
+            },
+            {
+              "label": "3-10 years",
+              "value": "3-10-years",
+              "code": "3-10-years"
+            },
+            {
+              "label": "11-25 years",
+              "value": "11-25-years",
+              "code": "11-25-years"
+            },
+            {
+              "label": ">25 years",
+              "value": "25-years",
+              "code": "25-years"
+            }
+          ],
+          "trailingText": "How long has this plant/unit been operational?",
+          "type": "radio"
+        },
+        {
+          "code": "A4",
+          "text": "What is the ownership type of this firm?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Indian private (family-owned)",
+              "value": "indian-private-family-owned",
+              "code": "indian-private-family-owned"
+            },
+            {
+              "label": "Indian private (professionally managed, non-family)",
+              "value": "indian-private-professionally-managed-non-family",
+              "code": "indian-private-professionally-managed-non-family"
+            },
+            {
+              "label": "Limited liability partnership",
+              "value": "limited-liability-partnership",
+              "code": "limited-liability-partnership"
+            },
+            {
+              "label": "Listed Indian company",
+              "value": "listed-indian-company",
+              "code": "listed-indian-company"
+            },
+            {
+              "label": "Foreign MNC subsidiary",
+              "value": "foreign-mnc-subsidiary",
+              "code": "foreign-mnc-subsidiary"
+            },
+            {
+              "label": "Joint venture (Indian + foreign)",
+              "value": "joint-venture-indian-foreign",
+              "code": "joint-venture-indian-foreign"
+            },
+            {
+              "label": "Public sector / government-owned",
+              "value": "public-sector-government-owned",
+              "code": "public-sector-government-owned"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "What is the ownership type of this firm?",
+          "type": "radio"
+        },
+        {
+          "code": "A5",
+          "text": "Is this plant located within a designated industrial estate, SEZ, or cluster?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "Yes, in a government-designated industrial estate/GIDC",
+              "value": "yes-in-a-government-designated-industrial-estate-gidc",
+              "code": "yes-in-a-government-designated-industrial-estate-gidc"
+            },
+            {
+              "label": "Yes, in an SEZ",
+              "value": "yes-in-an-sez",
+              "code": "yes-in-an-sez"
+            },
+            {
+              "label": "Yes, in a private industrial park",
+              "value": "yes-in-a-private-industrial-park",
+              "code": "yes-in-a-private-industrial-park"
+            },
+            {
+              "label": "No, standalone location",
+              "value": "no-standalone-location",
+              "code": "no-standalone-location"
+            }
+          ],
+          "trailingText": "Is this plant located within a designated industrial estate, SEZ, or cluster?",
+          "type": "radio"
+        },
+        {
+          "code": "A6",
+          "text": "What is the primary market orientation of this plant's output?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 6,
+          "options": [
+            {
+              "label": "Predominantly domestic (>75% domestic)",
+              "value": "predominantly-domestic-75-domestic",
+              "code": "predominantly-domestic-75-domestic"
+            },
+            {
+              "label": "Mixed (25-75% export)",
+              "value": "mixed-25-75-export",
+              "code": "mixed-25-75-export"
+            },
+            {
+              "label": "Predominantly export (>75% export)",
+              "value": "predominantly-export-75-export",
+              "code": "predominantly-export-75-export"
+            }
+          ],
+          "trailingText": "What is the primary market orientation of this plant's output?",
+          "type": "radio"
+        },
+        {
+          "code": "A7",
+          "text": "Where does your product lie on the product technology frontier?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 7,
+          "options": [
+            {
+              "label": "Best class in the world",
+              "value": "best-class-in-the-world",
+              "code": "best-class-in-the-world"
+            },
+            {
+              "label": "Best class in India",
+              "value": "best-class-in-india",
+              "code": "best-class-in-india"
+            },
+            {
+              "label": "Best class in state",
+              "value": "best-class-in-state",
+              "code": "best-class-in-state"
+            },
+            {
+              "label": "Similar to other competitors in the region",
+              "value": "similar-to-other-competitors-in-the-region",
+              "code": "similar-to-other-competitors-in-the-region"
+            },
+            {
+              "label": "Lower than other competitors",
+              "value": "lower-than-other-competitors",
+              "code": "lower-than-other-competitors"
+            }
+          ],
+          "trailingText": "Where does your product lie on the product technology frontier?",
+          "type": "radio"
+        },
+        {
+          "code": "A8",
+          "text": "Where does your process technology (on the shop floor) lie on the process technology frontier?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 8,
+          "options": [
+            {
+              "label": "Best class in the world",
+              "value": "best-class-in-the-world",
+              "code": "best-class-in-the-world"
+            },
+            {
+              "label": "Best class in India",
+              "value": "best-class-in-india",
+              "code": "best-class-in-india"
+            },
+            {
+              "label": "Best class in state",
+              "value": "best-class-in-state",
+              "code": "best-class-in-state"
+            },
+            {
+              "label": "Similar to other competitors in the region",
+              "value": "similar-to-other-competitors-in-the-region",
+              "code": "similar-to-other-competitors-in-the-region"
+            },
+            {
+              "label": "Lower than other competitors",
+              "value": "lower-than-other-competitors",
+              "code": "lower-than-other-competitors"
+            }
+          ],
+          "trailingText": "Where does your process technology (on the shop floor) lie on the process technology frontier?",
+          "type": "radio"
+        },
+        {
+          "code": "A9",
+          "text": "Do you think manufacturing is as or more difficult than any service business?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 9,
+          "options": [
+            {
+              "label": "Yes",
+              "value": "yes",
+              "code": "yes"
+            },
+            {
+              "label": "No",
+              "value": "no",
+              "code": "no"
+            }
+          ],
+          "trailingText": "Do you think manufacturing is as or more difficult than any service business?",
+          "type": "yes_no"
+        },
+        {
+          "code": "A10",
+          "text": "What is your assessment of  ease of doing manufacturing?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 10,
+          "options": [],
+          "trailingText": "Likert: 1 (Extremely difficult) — 2 — 3 — 4 — 5 (Extremely easy)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Extremely difficult",
+            "rightLabel": "Extremely easy"
+          }
+        },
+        {
+          "code": "A11",
+          "text": "Rank the following on the basis of how important or critical this issue is for the smooth operation of your manufacturing business. In rare cases, you may give more than one indicator the same rank.",
+          "description": "Sr. No.\tIssue\tRank",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 11,
+          "options": [
+            {
+              "label": "Work Force Availability",
+              "value": "work-force-availability",
+              "code": "work-force-availability"
+            },
+            {
+              "label": "Work Force Retention",
+              "value": "work-force-retention",
+              "code": "work-force-retention"
+            },
+            {
+              "label": "Work Force Training",
+              "value": "work-force-training",
+              "code": "work-force-training"
+            },
+            {
+              "label": "Work Force Development (Future Opportunities)",
+              "value": "work-force-development-future-opportunities",
+              "code": "work-force-development-future-opportunities"
+            },
+            {
+              "label": "Managerial Practices",
+              "value": "managerial-practices",
+              "code": "managerial-practices"
+            },
+            {
+              "label": "Performance Measurement and Tracking",
+              "value": "performance-measurement-and-tracking",
+              "code": "performance-measurement-and-tracking"
+            },
+            {
+              "label": "Quality Management",
+              "value": "quality-management",
+              "code": "quality-management"
+            },
+            {
+              "label": "Worker Safety",
+              "value": "worker-safety",
+              "code": "worker-safety"
+            },
+            {
+              "label": "Process Innovation",
+              "value": "process-innovation",
+              "code": "process-innovation"
+            },
+            {
+              "label": "Cluster embeddedness",
+              "value": "cluster-embeddedness",
+              "code": "cluster-embeddedness"
+            },
+            {
+              "label": "Physical automation",
+              "value": "physical-automation",
+              "code": "physical-automation"
+            },
+            {
+              "label": "Digitalisation (Software-driven)",
+              "value": "digitalisation-software-driven",
+              "code": "digitalisation-software-driven"
+            },
+            {
+              "label": "Value Extraction from Technology",
+              "value": "value-extraction-from-technology",
+              "code": "value-extraction-from-technology"
+            },
+            {
+              "label": "Barriers to Adoption (Technology)",
+              "value": "barriers-to-adoption-technology",
+              "code": "barriers-to-adoption-technology"
+            }
+          ],
+          "trailingText": "Rank the following on the basis of how important or critical this issue is for the smooth operation of your manufacturing business. In rare cases, you may give more than one indicator the same rank.",
+          "type": "ranking",
+          "validation": {
+            "allowSingleTie": true,
+            "skipRanks": true
+          }
+        }
+      ]
+    },
+    {
+      "code": "B1",
+      "title": "Workforce Availability",
+      "description": "",
+      "display_order": 2,
+      "questions": [
+        {
+          "code": "B1.1",
+          "text": "Overall, how easy is it for your firm to find workers with the skills it needs?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Extremely difficult) — 2 — 3 — 4 — 5 (Extremely easy)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Extremely difficult",
+            "rightLabel": "Extremely easy"
+          }
+        },
+        {
+          "code": "B1.2",
+          "text": "How difficult is it to find workers in each of the following categories? [Please tick mark]",
+          "description": "Unskilled / general labour",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [],
+          "trailingText": "Role type\tExtremely difficult\tDifficult\tNeutral\tEasy\tExtremely easy\tN/A",
+          "type": "matrix",
+          "selectionMode": "single",
+          "matrix_rows": [
+            {
+              "label": "Unskilled / general labour",
+              "display_order": 1
+            },
+            {
+              "label": "Semi-skilled (machine operators, technicians)",
+              "display_order": 2
+            },
+            {
+              "label": "Skilled trades (electricians, welders, fitters)",
+              "display_order": 3
+            },
+            {
+              "label": "Supervisory / junior management",
+              "display_order": 4
+            },
+            {
+              "label": "Engineering / technical graduates",
+              "display_order": 5
+            },
+            {
+              "label": "Managerial Talent",
+              "display_order": 6
+            }
+          ],
+          "matrix_columns": [
+            {
+              "label": "Extremely difficult",
+              "value": "extremely-difficult",
+              "display_order": 1
+            },
+            {
+              "label": "Difficult",
+              "value": "difficult",
+              "display_order": 2
+            },
+            {
+              "label": "Neutral",
+              "value": "neutral",
+              "display_order": 3
+            },
+            {
+              "label": "Easy",
+              "value": "easy",
+              "display_order": 4
+            },
+            {
+              "label": "Extremely easy",
+              "value": "extremely-easy",
+              "display_order": 5
+            },
+            {
+              "label": "N/A",
+              "value": "n-a",
+              "display_order": 6
+            }
+          ]
+        },
+        {
+          "code": "B1.3",
+          "text": "Where do you typically source workers from? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Local district / nearby villages",
+              "value": "local-district-nearby-villages",
+              "code": "local-district-nearby-villages"
+            },
+            {
+              "label": "Other districts within Gujarat",
+              "value": "other-districts-within-gujarat",
+              "code": "other-districts-within-gujarat"
+            },
+            {
+              "label": "Other states (migrant labour)",
+              "value": "other-states-migrant-labour",
+              "code": "other-states-migrant-labour"
+            },
+            {
+              "label": "ITIs / polytechnics",
+              "value": "itis-polytechnics",
+              "code": "itis-polytechnics"
+            },
+            {
+              "label": "Engineering colleges",
+              "value": "engineering-colleges",
+              "code": "engineering-colleges"
+            },
+            {
+              "label": "Placement agencies",
+              "value": "placement-agencies",
+              "code": "placement-agencies"
+            },
+            {
+              "label": "Walk-ins / word of mouth",
+              "value": "walk-ins-word-of-mouth",
+              "code": "walk-ins-word-of-mouth"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "Where do you typically source workers from? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "B1.4",
+          "text": "Approximately what share of your current workforce comes from outside Gujarat?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Less than 10%",
+              "value": "less-than-10",
+              "code": "less-than-10"
+            },
+            {
+              "label": "10-30%",
+              "value": "10-30",
+              "code": "10-30"
+            },
+            {
+              "label": "31-60%",
+              "value": "31-60",
+              "code": "31-60"
+            },
+            {
+              "label": "More than 60%",
+              "value": "more-than-60",
+              "code": "more-than-60"
+            }
+          ],
+          "trailingText": "Approximately what share of your current workforce comes from outside Gujarat?",
+          "type": "radio"
+        },
+        {
+          "code": "B1.5",
+          "text": "How has workforce availability changed over the past 3 years?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "Significantly easier",
+              "value": "significantly-easier",
+              "code": "significantly-easier"
+            },
+            {
+              "label": "Somewhat easier",
+              "value": "somewhat-easier",
+              "code": "somewhat-easier"
+            },
+            {
+              "label": "No change",
+              "value": "no-change",
+              "code": "no-change"
+            },
+            {
+              "label": "Somewhat harder",
+              "value": "somewhat-harder",
+              "code": "somewhat-harder"
+            },
+            {
+              "label": "Significantly harder",
+              "value": "significantly-harder",
+              "code": "significantly-harder"
+            }
+          ],
+          "trailingText": "How has workforce availability changed over the past 3 years?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "B2",
+      "title": "Retention",
+      "description": "",
+      "display_order": 3,
+      "questions": [
+        {
+          "code": "B2.1",
+          "text": "How significant a problem is worker attrition for your firm's operations?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Not a problem at all) — 2 — 3 — 4 — 5 (Severe, ongoing problem)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not a problem at all",
+            "rightLabel": "Severe, ongoing problem"
+          }
+        },
+        {
+          "code": "B2.2",
+          "text": "What is the approximate annual attrition rate at your plant?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Below 10%",
+              "value": "below-10",
+              "code": "below-10"
+            },
+            {
+              "label": "10-20%",
+              "value": "10-20",
+              "code": "10-20"
+            },
+            {
+              "label": "21-35%",
+              "value": "21-35",
+              "code": "21-35"
+            },
+            {
+              "label": "Above 35%",
+              "value": "above-35",
+              "code": "above-35"
+            },
+            {
+              "label": "Don't track this",
+              "value": "don-t-track-this",
+              "code": "don-t-track-this"
+            }
+          ],
+          "trailingText": "What is the approximate annual attrition rate at your plant?",
+          "type": "radio"
+        },
+        {
+          "code": "B2.3",
+          "text": "Which worker categories experience the highest attrition? (Select up to 2)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Unskilled / general labour",
+              "value": "unskilled-general-labour",
+              "code": "unskilled-general-labour"
+            },
+            {
+              "label": "Semi-skilled operators",
+              "value": "semi-skilled-operators",
+              "code": "semi-skilled-operators"
+            },
+            {
+              "label": "Skilled trades",
+              "value": "skilled-trades",
+              "code": "skilled-trades"
+            },
+            {
+              "label": "Supervisory staff",
+              "value": "supervisory-staff",
+              "code": "supervisory-staff"
+            },
+            {
+              "label": "Engineers / technical graduates",
+              "value": "engineers-technical-graduates",
+              "code": "engineers-technical-graduates"
+            }
+          ],
+          "trailingText": "Which worker categories experience the highest attrition? (Select up to 2)",
+          "type": "checkbox",
+          "validation": {
+            "maxSelections": 2
+          }
+        },
+        {
+          "code": "B2.4",
+          "text": "What are the primary reasons workers leave? (Select top 3)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Higher wages elsewhere",
+              "value": "higher-wages-elsewhere",
+              "code": "higher-wages-elsewhere"
+            },
+            {
+              "label": "Better growth prospects elsewhere",
+              "value": "better-growth-prospects-elsewhere",
+              "code": "better-growth-prospects-elsewhere"
+            },
+            {
+              "label": "Seasonal / agricultural pull (return to home state/village)",
+              "value": "seasonal-agricultural-pull-return-to-home-state-village",
+              "code": "seasonal-agricultural-pull-return-to-home-state-village"
+            },
+            {
+              "label": "Dissatisfaction with working conditions",
+              "value": "dissatisfaction-with-working-conditions",
+              "code": "dissatisfaction-with-working-conditions"
+            },
+            {
+              "label": "Housing or commute difficulties",
+              "value": "housing-or-commute-difficulties",
+              "code": "housing-or-commute-difficulties"
+            },
+            {
+              "label": "Work perceived as unattractive or low-status",
+              "value": "work-perceived-as-unattractive-or-low-status",
+              "code": "work-perceived-as-unattractive-or-low-status"
+            },
+            {
+              "label": "Poached by competitor firms",
+              "value": "poached-by-competitor-firms",
+              "code": "poached-by-competitor-firms"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "What are the primary reasons workers leave? (Select top 3)",
+          "type": "checkbox",
+          "validation": {
+            "maxSelections": 3
+          }
+        },
+        {
+          "code": "B2.5",
+          "text": "How significant is competition from other states or sectors in pulling workers away?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [],
+          "trailingText": "Likert: 1 (Not a problem) — 2 — 3 — 4 — 5 (Major ongoing problem)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not a problem",
+            "rightLabel": "Major ongoing problem"
+          }
+        }
+      ]
+    },
+    {
+      "code": "B3",
+      "title": "Training",
+      "description": "",
+      "display_order": 4,
+      "questions": [
+        {
+          "code": "B3.1",
+          "text": "How would you rate the adequacy of your firm's current investment in workforce training?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Very inadequate) — 2 — 3 — 4 — 5 (Very adequate)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Very inadequate",
+            "rightLabel": "Very adequate"
+          }
+        },
+        {
+          "code": "B3.2",
+          "text": "Does your firm have a structured training programme for new joiners?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, formal structured programme with defined curriculum",
+              "value": "yes-formal-structured-programme-with-defined-curriculum",
+              "code": "yes-formal-structured-programme-with-defined-curriculum"
+            },
+            {
+              "label": "Yes, informal on-the-job training only",
+              "value": "yes-informal-on-the-job-training-only",
+              "code": "yes-informal-on-the-job-training-only"
+            },
+            {
+              "label": "No structured training; workers learn as they go",
+              "value": "no-structured-training-workers-learn-as-they-go",
+              "code": "no-structured-training-workers-learn-as-they-go"
+            }
+          ],
+          "trailingText": "Does your firm have a structured training programme for new joiners?",
+          "type": "radio"
+        },
+        {
+          "code": "B3.3",
+          "text": "How much does your firm invest in training per employee per year (approximate)?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Nothing / negligible",
+              "value": "nothing-negligible",
+              "code": "nothing-negligible"
+            },
+            {
+              "label": "Below ₹5,000",
+              "value": "below-5-000",
+              "code": "below-5-000"
+            },
+            {
+              "label": "₹5,000-₹20,000",
+              "value": "5-000-20-000",
+              "code": "5-000-20-000"
+            },
+            {
+              "label": "Above ₹20,000",
+              "value": "above-20-000",
+              "code": "above-20-000"
+            }
+          ],
+          "trailingText": "How much does your firm invest in training per employee per year (approximate)?",
+          "type": "radio"
+        },
+        {
+          "code": "B3.4",
+          "text": "Which training providers does your firm use? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "In-house trainers",
+              "value": "in-house-trainers",
+              "code": "in-house-trainers"
+            },
+            {
+              "label": "ITI / polytechnic partnerships",
+              "value": "iti-polytechnic-partnerships",
+              "code": "iti-polytechnic-partnerships"
+            },
+            {
+              "label": "Equipment / machinery vendors",
+              "value": "equipment-machinery-vendors",
+              "code": "equipment-machinery-vendors"
+            },
+            {
+              "label": "Industry association programmes (CII, FICCI, etc.)",
+              "value": "industry-association-programmes-cii-ficci-etc",
+              "code": "industry-association-programmes-cii-ficci-etc"
+            },
+            {
+              "label": "Private training institutes",
+              "value": "private-training-institutes",
+              "code": "private-training-institutes"
+            },
+            {
+              "label": "Online platforms",
+              "value": "online-platforms",
+              "code": "online-platforms"
+            },
+            {
+              "label": "We do not use external providers",
+              "value": "we-do-not-use-external-providers",
+              "code": "we-do-not-use-external-providers"
+            }
+          ],
+          "trailingText": "Which training providers does your firm use? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "B3.5",
+          "text": "On average, how long does it take a new hire to become independently productive on your line, by educational background?",
+          "description": "ITI / polytechnic graduate",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [],
+          "trailingText": "New hire type\tLess than 1 week\t1-4 weeks\t1-3 months\t3-6 months\tMore than 6 months\tWe don't hire this type",
+          "type": "matrix",
+          "selectionMode": "single",
+          "matrix_rows": [
+            {
+              "label": "ITI / polytechnic graduate",
+              "display_order": 1
+            },
+            {
+              "label": "Engineering graduate (B.E./B.Tech)",
+              "display_order": 2
+            },
+            {
+              "label": "Non-technical graduate",
+              "display_order": 3
+            },
+            {
+              "label": "No formal qualification",
+              "display_order": 4
+            }
+          ],
+          "matrix_columns": [
+            {
+              "label": "Less than 1 week",
+              "value": "less-than-1-week",
+              "display_order": 1
+            },
+            {
+              "label": "1-4 weeks",
+              "value": "1-4-weeks",
+              "display_order": 2
+            },
+            {
+              "label": "1-3 months",
+              "value": "1-3-months",
+              "display_order": 3
+            },
+            {
+              "label": "3-6 months",
+              "value": "3-6-months",
+              "display_order": 4
+            },
+            {
+              "label": "More than 6 months",
+              "value": "more-than-6-months",
+              "display_order": 5
+            },
+            {
+              "label": "We don't hire this type",
+              "value": "we-don-t-hire-this-type",
+              "display_order": 6
+            }
+          ]
+        },
+        {
+          "code": "B3.6",
+          "text": "How satisfied are you with the job-readiness of candidates from the following sources?",
+          "description": "Local ITIs / polytechnics",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 6,
+          "options": [],
+          "trailingText": "Source\tVery Dissatisfied\tDissatisfied\tNeutral\tSatisfied\tVery Satisfied\tDon't Use",
+          "type": "matrix",
+          "selectionMode": "single",
+          "matrix_rows": [
+            {
+              "label": "Local ITIs / polytechnics",
+              "display_order": 1
+            },
+            {
+              "label": "Engineering colleges",
+              "display_order": 2
+            },
+            {
+              "label": "Private training institutes",
+              "display_order": 3
+            },
+            {
+              "label": "Placement agencies",
+              "display_order": 4
+            }
+          ],
+          "matrix_columns": [
+            {
+              "label": "Very Dissatisfied",
+              "value": "very-dissatisfied",
+              "display_order": 1
+            },
+            {
+              "label": "Dissatisfied",
+              "value": "dissatisfied",
+              "display_order": 2
+            },
+            {
+              "label": "Neutral",
+              "value": "neutral",
+              "display_order": 3
+            },
+            {
+              "label": "Satisfied",
+              "value": "satisfied",
+              "display_order": 4
+            },
+            {
+              "label": "Very Satisfied",
+              "value": "very-satisfied",
+              "display_order": 5
+            },
+            {
+              "label": "Don't Use",
+              "value": "don-t-use",
+              "display_order": 6
+            }
+          ]
+        },
+        {
+          "code": "B3.7",
+          "text": "What is the single biggest gap between what educational institutions produce and what your firm needs? (Open-ended, 2-3 lines)",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 7,
+          "options": [],
+          "trailingText": "What is the single biggest gap between what educational institutions produce and what your firm needs? (Open-ended, 2-3 lines)",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "code": "B4",
+      "title": "Workforce Development",
+      "description": "",
+      "display_order": 5,
+      "questions": [
+        {
+          "code": "B4.1",
+          "text": "How well does your firm provide workers with opportunities to grow and advance their careers?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (No real opportunities exist) — 2 — 3 — 4 — 5 (Strong, well-defined pathways)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No real opportunities exist"
+          }
+        },
+        {
+          "code": "B4.2",
+          "text": "Does your firm have defined career progression pathways for shopfloor workers?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, formal ladders with defined criteria for promotion",
+              "value": "yes-formal-ladders-with-defined-criteria-for-promotion",
+              "code": "yes-formal-ladders-with-defined-criteria-for-promotion"
+            },
+            {
+              "label": "Informal — progression happens but is not formally structured",
+              "value": "informal-progression-happens-but-is-not-formally-structured",
+              "code": "informal-progression-happens-but-is-not-formally-structured"
+            },
+            {
+              "label": "No — roles are largely fixed",
+              "value": "no-roles-are-largely-fixed",
+              "code": "no-roles-are-largely-fixed"
+            }
+          ],
+          "trailingText": "Does your firm have defined career progression pathways for shopfloor workers?",
+          "type": "radio"
+        },
+        {
+          "code": "B4.3",
+          "text": "What share of your supervisory/managerial roles are filled by internal promotion from the shopfloor?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Less than 10%",
+              "value": "less-than-10",
+              "code": "less-than-10"
+            },
+            {
+              "label": "10-30%",
+              "value": "10-30",
+              "code": "10-30"
+            },
+            {
+              "label": "31-60%",
+              "value": "31-60",
+              "code": "31-60"
+            },
+            {
+              "label": "More than 60%",
+              "value": "more-than-60",
+              "code": "more-than-60"
+            }
+          ],
+          "trailingText": "What share of your supervisory/managerial roles are filled by internal promotion from the shopfloor?",
+          "type": "radio"
+        },
+        {
+          "code": "B4.4",
+          "text": "How would you characterise the perception of manufacturing jobs among workers and their families in your experience?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [],
+          "trailingText": "Likert: 1 (Very negative — seen as low-status, last resort) — 2 — 3 — 4 — 5 (Very positive — seen as stable, desirable career)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5
+          }
+        },
+        {
+          "code": "B4.5",
+          "text": "Has your firm taken any deliberate steps to make manufacturing roles more attractive? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "Revised job titles / role framing",
+              "value": "revised-job-titles-role-framing",
+              "code": "revised-job-titles-role-framing"
+            },
+            {
+              "label": "Improved physical working environment",
+              "value": "improved-physical-working-environment",
+              "code": "improved-physical-working-environment"
+            },
+            {
+              "label": "Added welfare benefits (transport, canteen, housing)",
+              "value": "added-welfare-benefits-transport-canteen-housing",
+              "code": "added-welfare-benefits-transport-canteen-housing"
+            },
+            {
+              "label": "Introduced performance-linked pay",
+              "value": "introduced-performance-linked-pay",
+              "code": "introduced-performance-linked-pay"
+            },
+            {
+              "label": "Created visible career pathways",
+              "value": "created-visible-career-pathways",
+              "code": "created-visible-career-pathways"
+            },
+            {
+              "label": "None of the above",
+              "value": "none-of-the-above",
+              "code": "none-of-the-above"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "Has your firm taken any deliberate steps to make manufacturing roles more attractive? (Select all that apply)",
+          "type": "checkbox"
+        }
+      ]
+    },
+    {
+      "code": "C1",
+      "title": "Managerial Practices",
+      "description": "",
+      "display_order": 6,
+      "questions": [
+        {
+          "code": "C1.1",
+          "text": "How embedded are structured operational management programmes in your plants (e.g., Lean, TPM, Six Sigma, JIT) in your firm's day-to-day shopfloor operations?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Not adopted at all) — 2 — 3 — 4 — 5 (Deeply embedded in how we work)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not adopted at all",
+            "rightLabel": "Deeply embedded in how we work"
+          }
+        },
+        {
+          "code": "C1.2",
+          "text": "Does your firm have a structured continuous improvement programme?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [],
+          "trailingText": "Does your firm have a structured continuous improvement programme?",
+          "type": "short_text"
+        },
+        {
+          "code": "C1.3",
+          "text": "Which of the following operational approaches, systems, or tools does your organization use as part of its continuous improvement efforts? (Select all that apply.)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Lean Manufacturing",
+              "value": "lean-manufacturing",
+              "code": "lean-manufacturing"
+            },
+            {
+              "label": "Total Productive Maintenance (TPM)",
+              "value": "total-productive-maintenance-tpm",
+              "code": "total-productive-maintenance-tpm"
+            },
+            {
+              "label": "Just-in-Time (JIT)",
+              "value": "just-in-time-jit",
+              "code": "just-in-time-jit"
+            },
+            {
+              "label": "Six Sigma / DMAIC",
+              "value": "six-sigma-dmaic",
+              "code": "six-sigma-dmaic"
+            },
+            {
+              "label": "Kaizen",
+              "value": "kaizen",
+              "code": "kaizen"
+            },
+            {
+              "label": "ISO 9001 or equivalent quality management system",
+              "value": "iso-9001-or-equivalent-quality-management-system",
+              "code": "iso-9001-or-equivalent-quality-management-system"
+            },
+            {
+              "label": "None of the above",
+              "value": "none-of-the-above",
+              "code": "none-of-the-above"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "Which of the following operational approaches, systems, or tools does your organization use as part of its continuous improvement efforts? (Select all that apply.)",
+          "type": "checkbox"
+        },
+        {
+          "code": "C1.4",
+          "text": "For programmes your firm has adopted, how would you describe the level of actual implementation?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Adopted on paper / certification only; limited shopfloor change",
+              "value": "adopted-on-paper-certification-only-limited-shopfloor-change",
+              "code": "adopted-on-paper-certification-only-limited-shopfloor-change"
+            },
+            {
+              "label": "Partially implemented; some teams follow it, others don't",
+              "value": "partially-implemented-some-teams-follow-it-others-don-t",
+              "code": "partially-implemented-some-teams-follow-it-others-don-t"
+            },
+            {
+              "label": "Broadly implemented; most shopfloor operations reflect it",
+              "value": "broadly-implemented-most-shopfloor-operations-reflect-it",
+              "code": "broadly-implemented-most-shopfloor-operations-reflect-it"
+            },
+            {
+              "label": "Deeply embedded; the framework genuinely shapes how decisions are made daily",
+              "value": "deeply-embedded-the-framework-genuinely-shapes-how-decisions-are-made-daily",
+              "code": "deeply-embedded-the-framework-genuinely-shapes-how-decisions-are-made-daily"
+            }
+          ],
+          "trailingText": "For programmes your firm has adopted, how would you describe the level of actual implementation?",
+          "type": "radio"
+        },
+        {
+          "code": "C1.5",
+          "text": "Who primarily drives operational improvement initiatives at your firm?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "Senior management / owner",
+              "value": "senior-management-owner",
+              "code": "senior-management-owner"
+            },
+            {
+              "label": "Dedicated quality / operations team",
+              "value": "dedicated-quality-operations-team",
+              "code": "dedicated-quality-operations-team"
+            },
+            {
+              "label": "External consultant",
+              "value": "external-consultant",
+              "code": "external-consultant"
+            },
+            {
+              "label": "Shopfloor supervisors",
+              "value": "shopfloor-supervisors",
+              "code": "shopfloor-supervisors"
+            },
+            {
+              "label": "Workers themselves (bottom-up)",
+              "value": "workers-themselves-bottom-up",
+              "code": "workers-themselves-bottom-up"
+            },
+            {
+              "label": "No one actively drives improvement initiatives",
+              "value": "no-one-actively-drives-improvement-initiatives",
+              "code": "no-one-actively-drives-improvement-initiatives"
+            }
+          ],
+          "trailingText": "Who primarily drives operational improvement initiatives at your firm?",
+          "type": "radio"
+        },
+        {
+          "code": "C1.6",
+          "text": "When did you start the implementation of these programmes?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 6,
+          "options": [
+            {
+              "label": "<5 Years",
+              "value": "5-years",
+              "code": "5-years"
+            },
+            {
+              "label": "5-10 Years",
+              "value": "5-10-years",
+              "code": "5-10-years"
+            },
+            {
+              "label": "10-20 Years",
+              "value": "10-20-years",
+              "code": "10-20-years"
+            },
+            {
+              "label": ">20 Years",
+              "value": "20-years",
+              "code": "20-years"
+            }
+          ],
+          "trailingText": "When did you start the implementation of these programmes?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C2",
+      "title": "Performance Measurement",
+      "description": "",
+      "display_order": 7,
+      "questions": [
+        {
+          "code": "C2.1",
+          "text": "How systematically does your firm track and act on shopfloor performance data?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (No formal tracking) — 2 — 3 — 4 — 5 (Rigorous tracking with regular review and action)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No formal tracking",
+            "rightLabel": "Rigorous tracking with regular review and action"
+          }
+        },
+        {
+          "code": "C2.2",
+          "text": "Which of the following metrics does your firm actively track? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Output / production volumes",
+              "value": "output-production-volumes",
+              "code": "output-production-volumes"
+            },
+            {
+              "label": "Machine downtime / OEE (Overall Equipment Effectiveness)",
+              "value": "machine-downtime-oee-overall-equipment-effectiveness",
+              "code": "machine-downtime-oee-overall-equipment-effectiveness"
+            },
+            {
+              "label": "Defect / rejection rates",
+              "value": "defect-rejection-rates",
+              "code": "defect-rejection-rates"
+            },
+            {
+              "label": "On-time delivery performance",
+              "value": "on-time-delivery-performance",
+              "code": "on-time-delivery-performance"
+            },
+            {
+              "label": "Labour productivity",
+              "value": "labour-productivity",
+              "code": "labour-productivity"
+            },
+            {
+              "label": "Energy consumption",
+              "value": "energy-consumption",
+              "code": "energy-consumption"
+            },
+            {
+              "label": "Inventory turnover",
+              "value": "inventory-turnover",
+              "code": "inventory-turnover"
+            },
+            {
+              "label": "Cost per unit produced",
+              "value": "cost-per-unit-produced",
+              "code": "cost-per-unit-produced"
+            },
+            {
+              "label": "None of the above",
+              "value": "none-of-the-above",
+              "code": "none-of-the-above"
+            }
+          ],
+          "trailingText": "Which of the following metrics does your firm actively track? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "C2.3",
+          "text": "How frequently are performance metrics reviewed with relevant teams?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Daily",
+              "value": "daily",
+              "code": "daily"
+            },
+            {
+              "label": "Weekly",
+              "value": "weekly",
+              "code": "weekly"
+            },
+            {
+              "label": "Monthly",
+              "value": "monthly",
+              "code": "monthly"
+            },
+            {
+              "label": "Quarterly or less",
+              "value": "quarterly-or-less",
+              "code": "quarterly-or-less"
+            },
+            {
+              "label": "Metrics are collected but not regularly reviewed",
+              "value": "metrics-are-collected-but-not-regularly-reviewed",
+              "code": "metrics-are-collected-but-not-regularly-reviewed"
+            }
+          ],
+          "trailingText": "How frequently are performance metrics reviewed with relevant teams?",
+          "type": "radio"
+        },
+        {
+          "code": "C2.4",
+          "text": "When performance falls below target, what typically happens?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Formal root cause analysis and corrective action plan",
+              "value": "formal-root-cause-analysis-and-corrective-action-plan",
+              "code": "formal-root-cause-analysis-and-corrective-action-plan"
+            },
+            {
+              "label": "Informal discussion with relevant supervisor",
+              "value": "informal-discussion-with-relevant-supervisor",
+              "code": "informal-discussion-with-relevant-supervisor"
+            },
+            {
+              "label": "Issue noted but rarely acted upon systematically",
+              "value": "issue-noted-but-rarely-acted-upon-systematically",
+              "code": "issue-noted-but-rarely-acted-upon-systematically"
+            },
+            {
+              "label": "No formal process exists",
+              "value": "no-formal-process-exists",
+              "code": "no-formal-process-exists"
+            }
+          ],
+          "trailingText": "When performance falls below target, what typically happens?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C3",
+      "title": "Quality",
+      "description": "",
+      "display_order": 8,
+      "questions": [
+        {
+          "code": "C3.1",
+          "text": "How would you rate your firm's overall quality management maturity?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (No formal quality system) — 2 — 3 — 4 — 5 (Excellent — quality is embedded at every stage of production)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No formal quality system"
+          }
+        },
+        {
+          "code": "C3.2",
+          "text": "What is your firm's approximate defect / rejection rate in current production?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Less than 1%",
+              "value": "less-than-1",
+              "code": "less-than-1"
+            },
+            {
+              "label": "1-3%",
+              "value": "1-3",
+              "code": "1-3"
+            },
+            {
+              "label": "4-7%",
+              "value": "4-7",
+              "code": "4-7"
+            },
+            {
+              "label": "Above 7%",
+              "value": "above-7",
+              "code": "above-7"
+            },
+            {
+              "label": "Don't track this",
+              "value": "don-t-track-this",
+              "code": "don-t-track-this"
+            }
+          ],
+          "trailingText": "What is your firm's approximate defect / rejection rate in current production?",
+          "type": "radio"
+        },
+        {
+          "code": "C3.3",
+          "text": "Which quality assurance practices does your firm use? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Incoming material inspection",
+              "value": "incoming-material-inspection",
+              "code": "incoming-material-inspection"
+            },
+            {
+              "label": "In-process quality checks",
+              "value": "in-process-quality-checks",
+              "code": "in-process-quality-checks"
+            },
+            {
+              "label": "Final product inspection",
+              "value": "final-product-inspection",
+              "code": "final-product-inspection"
+            },
+            {
+              "label": "Statistical Process Control (SPC)",
+              "value": "statistical-process-control-spc",
+              "code": "statistical-process-control-spc"
+            },
+            {
+              "label": "Customer complaint tracking and feedback loops",
+              "value": "customer-complaint-tracking-and-feedback-loops",
+              "code": "customer-complaint-tracking-and-feedback-loops"
+            },
+            {
+              "label": "Third-party quality audits",
+              "value": "third-party-quality-audits",
+              "code": "third-party-quality-audits"
+            },
+            {
+              "label": "None formally",
+              "value": "none-formally",
+              "code": "none-formally"
+            }
+          ],
+          "trailingText": "Which quality assurance practices does your firm use? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "C3.4",
+          "text": "Has your firm lost or risked losing a customer or contract due to quality failures in the past 3 years?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Yes, lost a significant customer / contract",
+              "value": "yes-lost-a-significant-customer-contract",
+              "code": "yes-lost-a-significant-customer-contract"
+            },
+            {
+              "label": "Yes, received serious complaints but retained the customer",
+              "value": "yes-received-serious-complaints-but-retained-the-customer",
+              "code": "yes-received-serious-complaints-but-retained-the-customer"
+            },
+            {
+              "label": "Minor complaints only",
+              "value": "minor-complaints-only",
+              "code": "minor-complaints-only"
+            },
+            {
+              "label": "No quality-related customer issues",
+              "value": "no-quality-related-customer-issues",
+              "code": "no-quality-related-customer-issues"
+            }
+          ],
+          "trailingText": "Has your firm lost or risked losing a customer or contract due to quality failures in the past 3 years?",
+          "type": "radio"
+        },
+        {
+          "code": "C3.5",
+          "text": "How significant are quality compliance requirements from export markets or large domestic buyers in shaping your quality practices?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [],
+          "trailingText": "Likert: 1 (Not relevant to us) — 2 — 3 — 4 — 5 (Major driver of how we manage quality)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not relevant to us",
+            "rightLabel": "Major driver of how we manage quality"
+          }
+        }
+      ]
+    },
+    {
+      "code": "C4",
+      "title": "Safety",
+      "description": "",
+      "display_order": 9,
+      "questions": [
+        {
+          "code": "C4.1",
+          "text": "How would you rate the overall safety culture at your plant?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Safety is an afterthought / reactive) — 2 — 3 — 4 — 5 (Safety is proactive and deeply embedded)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Safety is an afterthought / reactive",
+            "rightLabel": "Safety is proactive and deeply embedded"
+          }
+        },
+        {
+          "code": "C4.2",
+          "text": "How many lost-time injuries (LTIs) did your plant record in the past 12 months?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Zero",
+              "value": "zero",
+              "code": "zero"
+            },
+            {
+              "label": "1-2",
+              "value": "1-2",
+              "code": "1-2"
+            },
+            {
+              "label": "3-5",
+              "value": "3-5",
+              "code": "3-5"
+            },
+            {
+              "label": "More than 5",
+              "value": "more-than-5",
+              "code": "more-than-5"
+            },
+            {
+              "label": "Don't formally track this",
+              "value": "don-t-formally-track-this",
+              "code": "don-t-formally-track-this"
+            }
+          ],
+          "trailingText": "How many lost-time injuries (LTIs) did your plant record in the past 12 months?",
+          "type": "radio"
+        },
+        {
+          "code": "C4.3",
+          "text": "How frequently does your firm conduct formal safety audits or inspections?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Monthly or more frequently",
+              "value": "monthly-or-more-frequently",
+              "code": "monthly-or-more-frequently"
+            },
+            {
+              "label": "Quarterly",
+              "value": "quarterly",
+              "code": "quarterly"
+            },
+            {
+              "label": "Annually",
+              "value": "annually",
+              "code": "annually"
+            },
+            {
+              "label": "Only when required by regulation or after an incident",
+              "value": "only-when-required-by-regulation-or-after-an-incident",
+              "code": "only-when-required-by-regulation-or-after-an-incident"
+            },
+            {
+              "label": "Never",
+              "value": "never",
+              "code": "never"
+            }
+          ],
+          "trailingText": "How frequently does your firm conduct formal safety audits or inspections?",
+          "type": "radio"
+        },
+        {
+          "code": "C4.4",
+          "text": "Which safety practices are formally in place at your plant? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Written safety policy communicated to all workers",
+              "value": "written-safety-policy-communicated-to-all-workers",
+              "code": "written-safety-policy-communicated-to-all-workers"
+            },
+            {
+              "label": "Regular safety training for all staff",
+              "value": "regular-safety-training-for-all-staff",
+              "code": "regular-safety-training-for-all-staff"
+            },
+            {
+              "label": "Designated safety officer / committee",
+              "value": "designated-safety-officer-committee",
+              "code": "designated-safety-officer-committee"
+            },
+            {
+              "label": "Near-miss reporting system",
+              "value": "near-miss-reporting-system",
+              "code": "near-miss-reporting-system"
+            },
+            {
+              "label": "Personal protective equipment (PPE) provision and monitoring",
+              "value": "personal-protective-equipment-ppe-provision-and-monitoring",
+              "code": "personal-protective-equipment-ppe-provision-and-monitoring"
+            },
+            {
+              "label": "Emergency response drills",
+              "value": "emergency-response-drills",
+              "code": "emergency-response-drills"
+            },
+            {
+              "label": "None formally",
+              "value": "none-formally",
+              "code": "none-formally"
+            }
+          ],
+          "trailingText": "Which safety practices are formally in place at your plant? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "C4.5",
+          "text": "How would you characterise worker participation in safety at your plant?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "Workers actively report hazards and near-misses",
+              "value": "workers-actively-report-hazards-and-near-misses",
+              "code": "workers-actively-report-hazards-and-near-misses"
+            },
+            {
+              "label": "Workers follow safety rules when supervised",
+              "value": "workers-follow-safety-rules-when-supervised",
+              "code": "workers-follow-safety-rules-when-supervised"
+            },
+            {
+              "label": "Safety compliance is inconsistent",
+              "value": "safety-compliance-is-inconsistent",
+              "code": "safety-compliance-is-inconsistent"
+            },
+            {
+              "label": "Workers generally resist safety protocols",
+              "value": "workers-generally-resist-safety-protocols",
+              "code": "workers-generally-resist-safety-protocols"
+            }
+          ],
+          "trailingText": "How would you characterise worker participation in safety at your plant?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C5",
+      "title": "Process Innovation",
+      "description": "",
+      "display_order": 10,
+      "questions": [
+        {
+          "code": "C5.1",
+          "text": "How actively does your firm pursue improvements to its production processes (beyond routine maintenance)?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (No active process improvement activity) — 2 — 3 — 4 — 5 (Continuous, structured improvement programme)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No active process improvement activity",
+            "rightLabel": "Continuous, structured improvement programme"
+          }
+        },
+        {
+          "code": "C5.2",
+          "text": "In the past 3 years, has your firm made any significant changes to its production processes? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Introduced a new or significantly improved production method",
+              "value": "introduced-a-new-or-significantly-improved-production-method",
+              "code": "introduced-a-new-or-significantly-improved-production-method"
+            },
+            {
+              "label": "Reduced material waste or energy consumption through process change",
+              "value": "reduced-material-waste-or-energy-consumption-through-process-change",
+              "code": "reduced-material-waste-or-energy-consumption-through-process-change"
+            },
+            {
+              "label": "Shortened production cycle time",
+              "value": "shortened-production-cycle-time",
+              "code": "shortened-production-cycle-time"
+            },
+            {
+              "label": "Improved yield or output quality through process redesign",
+              "value": "improved-yield-or-output-quality-through-process-redesign",
+              "code": "improved-yield-or-output-quality-through-process-redesign"
+            },
+            {
+              "label": "Introduced a new product requiring new process capabilities",
+              "value": "introduced-a-new-product-requiring-new-process-capabilities",
+              "code": "introduced-a-new-product-requiring-new-process-capabilities"
+            },
+            {
+              "label": "No significant process changes in this period",
+              "value": "no-significant-process-changes-in-this-period",
+              "code": "no-significant-process-changes-in-this-period"
+            }
+          ],
+          "trailingText": "In the past 3 years, has your firm made any significant changes to its production processes? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "C5.3",
+          "text": "Where do ideas for process improvement typically come from at your firm? (Select top 3)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Internal R&D or engineering team",
+              "value": "internal-r-d-or-engineering-team",
+              "code": "internal-r-d-or-engineering-team"
+            },
+            {
+              "label": "Shopfloor workers and supervisors",
+              "value": "shopfloor-workers-and-supervisors",
+              "code": "shopfloor-workers-and-supervisors"
+            },
+            {
+              "label": "Equipment / machinery suppliers",
+              "value": "equipment-machinery-suppliers",
+              "code": "equipment-machinery-suppliers"
+            },
+            {
+              "label": "Customer requirements or complaints",
+              "value": "customer-requirements-or-complaints",
+              "code": "customer-requirements-or-complaints"
+            },
+            {
+              "label": "Industry association or cluster networks",
+              "value": "industry-association-or-cluster-networks",
+              "code": "industry-association-or-cluster-networks"
+            },
+            {
+              "label": "Benchmarking against competitors",
+              "value": "benchmarking-against-competitors",
+              "code": "benchmarking-against-competitors"
+            },
+            {
+              "label": "External consultants",
+              "value": "external-consultants",
+              "code": "external-consultants"
+            },
+            {
+              "label": "Academic or research institutions",
+              "value": "academic-or-research-institutions",
+              "code": "academic-or-research-institutions"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "Where do ideas for process improvement typically come from at your firm? (Select top 3)",
+          "type": "checkbox",
+          "validation": {
+            "maxSelections": 3
+          }
+        },
+        {
+          "code": "C5.4",
+          "text": "Does your firm have any formal R&D activity — even if small-scale?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Yes, dedicated R&D team or function",
+              "value": "yes-dedicated-r-d-team-or-function",
+              "code": "yes-dedicated-r-d-team-or-function"
+            },
+            {
+              "label": "Yes, informal R&D by engineers alongside production work",
+              "value": "yes-informal-r-d-by-engineers-alongside-production-work",
+              "code": "yes-informal-r-d-by-engineers-alongside-production-work"
+            },
+            {
+              "label": "No formal R&D, but we adopt innovations developed elsewhere",
+              "value": "no-formal-r-d-but-we-adopt-innovations-developed-elsewhere",
+              "code": "no-formal-r-d-but-we-adopt-innovations-developed-elsewhere"
+            },
+            {
+              "label": "No R&D activity at all",
+              "value": "no-r-d-activity-at-all",
+              "code": "no-r-d-activity-at-all"
+            }
+          ],
+          "trailingText": "Does your firm have any formal R&D activity — even if small-scale?",
+          "type": "radio"
+        },
+        {
+          "code": "C5.4.1",
+          "text": "If you invest in R&D, what fraction of your revenue goes into it?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "<1%",
+              "value": "1",
+              "code": "1"
+            },
+            {
+              "label": "1-5%",
+              "value": "1-5",
+              "code": "1-5"
+            },
+            {
+              "label": "5-10%",
+              "value": "5-10",
+              "code": "5-10"
+            },
+            {
+              "label": ">12%",
+              "value": "12",
+              "code": "12"
+            }
+          ],
+          "trailingText": "If you invest in R&D, what fraction of your revenue goes into it?",
+          "type": "radio"
+        },
+        {
+          "code": "C5.5",
+          "text": "Have you filed any patents?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 6,
+          "options": [
+            {
+              "label": "Yes",
+              "value": "yes",
+              "code": "yes"
+            },
+            {
+              "label": "No",
+              "value": "no",
+              "code": "no"
+            }
+          ],
+          "trailingText": "Have you filed any patents?",
+          "type": "yes_no"
+        },
+        {
+          "code": "C5.5.1",
+          "text": "If yes, how many patents have you filed in the last 5 years? ______",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 7,
+          "options": [],
+          "trailingText": "If yes, how many patents have you filed in the last 5 years? ______",
+          "type": "paragraph"
+        },
+        {
+          "code": "C5.6",
+          "text": "What is the highest degree of the person who leads R&D in your firm? ________",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 8,
+          "options": [],
+          "trailingText": "What is the highest degree of the person who leads R&D in your firm? ________",
+          "type": "paragraph"
+        },
+        {
+          "code": "C5.7",
+          "text": "What is the single biggest barrier to process innovation at your firm?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 9,
+          "options": [
+            {
+              "label": "Cost of experimentation and downtime during trials",
+              "value": "cost-of-experimentation-and-downtime-during-trials",
+              "code": "cost-of-experimentation-and-downtime-during-trials"
+            },
+            {
+              "label": "Lack of internal technical capability",
+              "value": "lack-of-internal-technical-capability",
+              "code": "lack-of-internal-technical-capability"
+            },
+            {
+              "label": "Short-term production pressure leaves no time for improvement",
+              "value": "short-term-production-pressure-leaves-no-time-for-improvement",
+              "code": "short-term-production-pressure-leaves-no-time-for-improvement"
+            },
+            {
+              "label": "Insufficient demand signal from customers to justify change",
+              "value": "insufficient-demand-signal-from-customers-to-justify-change",
+              "code": "insufficient-demand-signal-from-customers-to-justify-change"
+            },
+            {
+              "label": "Regulatory or compliance constraints",
+              "value": "regulatory-or-compliance-constraints",
+              "code": "regulatory-or-compliance-constraints"
+            },
+            {
+              "label": "Skilled manpower",
+              "value": "skilled-manpower",
+              "code": "skilled-manpower"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "What is the single biggest barrier to process innovation at your firm?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "C6",
+      "title": "Cluster Embeddedness",
+      "description": "",
+      "display_order": 11,
+      "questions": [
+        {
+          "code": "C6.1",
+          "text": "How much does your firm's location within its current industrial area or cluster actively benefit its operations?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (No tangible benefit from location) — 2 — 3 — 4 — 5 (Location is a significant operational advantage)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No tangible benefit from location",
+            "rightLabel": "Location is a significant operational advantage"
+          }
+        },
+        {
+          "code": "C6.2",
+          "text": "Which of the following benefits, if any, does your firm derive from being located in its current industrial area? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Proximity to key customers",
+              "value": "proximity-to-key-customers",
+              "code": "proximity-to-key-customers"
+            },
+            {
+              "label": "Proximity to raw material suppliers",
+              "value": "proximity-to-raw-material-suppliers",
+              "code": "proximity-to-raw-material-suppliers"
+            },
+            {
+              "label": "Access to shared infrastructure (testing, logistics, utilities)",
+              "value": "access-to-shared-infrastructure-testing-logistics-utilities",
+              "code": "access-to-shared-infrastructure-testing-logistics-utilities"
+            },
+            {
+              "label": "Availability of specialised local labour",
+              "value": "availability-of-specialised-local-labour",
+              "code": "availability-of-specialised-local-labour"
+            },
+            {
+              "label": "Knowledge sharing with nearby firms",
+              "value": "knowledge-sharing-with-nearby-firms",
+              "code": "knowledge-sharing-with-nearby-firms"
+            },
+            {
+              "label": "Easier access to subcontractors or ancillary units",
+              "value": "easier-access-to-subcontractors-or-ancillary-units",
+              "code": "easier-access-to-subcontractors-or-ancillary-units"
+            },
+            {
+              "label": "None — location is incidental to our operations",
+              "value": "none-location-is-incidental-to-our-operations",
+              "code": "none-location-is-incidental-to-our-operations"
+            }
+          ],
+          "trailingText": "Which of the following benefits, if any, does your firm derive from being located in its current industrial area? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "C6.3",
+          "text": "How would you rate the quality of shared infrastructure in your industrial area?",
+          "description": "Road connectivity",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [],
+          "trailingText": "Infrastructure type\tVery Poor\tPoor\tAdequate\tGood\tExcellent\tNot Applicable",
+          "type": "matrix",
+          "selectionMode": "single",
+          "matrix_rows": [
+            {
+              "label": "Road connectivity",
+              "display_order": 1
+            },
+            {
+              "label": "Power supply reliability",
+              "display_order": 2
+            },
+            {
+              "label": "Water and waste management",
+              "display_order": 3
+            },
+            {
+              "label": "Logistics and warehousing",
+              "display_order": 4
+            },
+            {
+              "label": "Common testing / certification facilities",
+              "display_order": 5
+            }
+          ],
+          "matrix_columns": [
+            {
+              "label": "Very Poor",
+              "value": "very-poor",
+              "display_order": 1
+            },
+            {
+              "label": "Poor",
+              "value": "poor",
+              "display_order": 2
+            },
+            {
+              "label": "Adequate",
+              "value": "adequate",
+              "display_order": 3
+            },
+            {
+              "label": "Good",
+              "value": "good",
+              "display_order": 4
+            },
+            {
+              "label": "Excellent",
+              "value": "excellent",
+              "display_order": 5
+            },
+            {
+              "label": "Not Applicable",
+              "value": "not-applicable",
+              "display_order": 6
+            }
+          ]
+        },
+        {
+          "code": "C6.4",
+          "text": "Does your firm actively collaborate with other firms in the same industrial area?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Yes, formal collaboration (joint procurement, shared services, industry body participation)",
+              "value": "yes-formal-collaboration-joint-procurement-shared-services-industry-body-participation",
+              "code": "yes-formal-collaboration-joint-procurement-shared-services-industry-body-participation"
+            },
+            {
+              "label": "Yes, informal collaboration (knowledge exchange, referrals)",
+              "value": "yes-informal-collaboration-knowledge-exchange-referrals",
+              "code": "yes-informal-collaboration-knowledge-exchange-referrals"
+            },
+            {
+              "label": "Minimal — we are aware of neighbours but don't collaborate",
+              "value": "minimal-we-are-aware-of-neighbours-but-don-t-collaborate",
+              "code": "minimal-we-are-aware-of-neighbours-but-don-t-collaborate"
+            },
+            {
+              "label": "No collaboration",
+              "value": "no-collaboration",
+              "code": "no-collaboration"
+            }
+          ],
+          "trailingText": "Does your firm actively collaborate with other firms in the same industrial area?",
+          "type": "radio"
+        },
+        {
+          "code": "C6.5",
+          "text": "What one improvement to your industrial area's infrastructure or ecosystem would most benefit your firm? (Open-ended, 2-3 lines)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [],
+          "trailingText": "What one improvement to your industrial area's infrastructure or ecosystem would most benefit your firm? (Open-ended, 2-3 lines)",
+          "type": "paragraph"
+        }
+      ]
+    },
+    {
+      "code": "D1A",
+      "title": "Automation (Physical)",
+      "description": "",
+      "display_order": 12,
+      "questions": [
+        {
+          "code": "D1A.1",
+          "text": "How would you rate the level of physical automation at your plant (sensors, IoT, robotics, mechanised material handling)?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Entirely manual operations) — 2 — 3 — 4 — 5 (Highly automated across most production stages)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Entirely manual operations",
+            "rightLabel": "Highly automated across most production stages"
+          }
+        },
+        {
+          "code": "D1A.2",
+          "text": "Which of the following physical automation technologies does your firm currently use? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Sensors for process monitoring (temperature, pressure, flow)",
+              "value": "sensors-for-process-monitoring-temperature-pressure-flow",
+              "code": "sensors-for-process-monitoring-temperature-pressure-flow"
+            },
+            {
+              "label": "IoT-connected machinery / equipment",
+              "value": "iot-connected-machinery-equipment",
+              "code": "iot-connected-machinery-equipment"
+            },
+            {
+              "label": "Programmable Logic Controllers (PLCs)",
+              "value": "programmable-logic-controllers-plcs",
+              "code": "programmable-logic-controllers-plcs"
+            },
+            {
+              "label": "Robotic arms or automated assembly",
+              "value": "robotic-arms-or-automated-assembly",
+              "code": "robotic-arms-or-automated-assembly"
+            },
+            {
+              "label": "Automated material handling (conveyors, AGVs)",
+              "value": "automated-material-handling-conveyors-agvs",
+              "code": "automated-material-handling-conveyors-agvs"
+            },
+            {
+              "label": "Machine vision / optical inspection systems",
+              "value": "machine-vision-optical-inspection-systems",
+              "code": "machine-vision-optical-inspection-systems"
+            },
+            {
+              "label": "CNC machines",
+              "value": "cnc-machines",
+              "code": "cnc-machines"
+            },
+            {
+              "label": "None of the above",
+              "value": "none-of-the-above",
+              "code": "none-of-the-above"
+            }
+          ],
+          "trailingText": "Which of the following physical automation technologies does your firm currently use? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "D1A.3",
+          "text": "What share of your production process is automated?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Less than 10% (largely manual)",
+              "value": "less-than-10-largely-manual",
+              "code": "less-than-10-largely-manual"
+            },
+            {
+              "label": "10-30%",
+              "value": "10-30",
+              "code": "10-30"
+            },
+            {
+              "label": "31-60%",
+              "value": "31-60",
+              "code": "31-60"
+            },
+            {
+              "label": "More than 60%",
+              "value": "more-than-60",
+              "code": "more-than-60"
+            }
+          ],
+          "trailingText": "What share of your production process is automated?",
+          "type": "radio"
+        },
+        {
+          "code": "D1A.4",
+          "text": "What primarily drove your firm's investments in physical automation? (Select top 2)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Labour cost reduction",
+              "value": "labour-cost-reduction",
+              "code": "labour-cost-reduction"
+            },
+            {
+              "label": "Labour availability constraints",
+              "value": "labour-availability-constraints",
+              "code": "labour-availability-constraints"
+            },
+            {
+              "label": "Quality consistency requirements",
+              "value": "quality-consistency-requirements",
+              "code": "quality-consistency-requirements"
+            },
+            {
+              "label": "Customer or buyer mandate",
+              "value": "customer-or-buyer-mandate",
+              "code": "customer-or-buyer-mandate"
+            },
+            {
+              "label": "Competitive pressure from peers",
+              "value": "competitive-pressure-from-peers",
+              "code": "competitive-pressure-from-peers"
+            },
+            {
+              "label": "Government incentive or subsidy",
+              "value": "government-incentive-or-subsidy",
+              "code": "government-incentive-or-subsidy"
+            },
+            {
+              "label": "Productivity improvement target",
+              "value": "productivity-improvement-target",
+              "code": "productivity-improvement-target"
+            },
+            {
+              "label": "We have not invested in automation",
+              "value": "we-have-not-invested-in-automation",
+              "code": "we-have-not-invested-in-automation"
+            }
+          ],
+          "trailingText": "What primarily drove your firm's investments in physical automation? (Select top 2)",
+          "type": "checkbox",
+          "validation": {
+            "maxSelections": 2
+          }
+        },
+        {
+          "code": "D1A.5",
+          "text": "What is the biggest barrier to greater physical automation at your firm?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "High upfront capital cost",
+              "value": "high-upfront-capital-cost",
+              "code": "high-upfront-capital-cost"
+            },
+            {
+              "label": "Uncertain return on investment",
+              "value": "uncertain-return-on-investment",
+              "code": "uncertain-return-on-investment"
+            },
+            {
+              "label": "Lack of technical expertise to operate and maintain",
+              "value": "lack-of-technical-expertise-to-operate-and-maintain",
+              "code": "lack-of-technical-expertise-to-operate-and-maintain"
+            },
+            {
+              "label": "Production volumes too low to justify automation",
+              "value": "production-volumes-too-low-to-justify-automation",
+              "code": "production-volumes-too-low-to-justify-automation"
+            },
+            {
+              "label": "Workforce resistance",
+              "value": "workforce-resistance",
+              "code": "workforce-resistance"
+            },
+            {
+              "label": "Our process is not amenable to automation",
+              "value": "our-process-is-not-amenable-to-automation",
+              "code": "our-process-is-not-amenable-to-automation"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "What is the biggest barrier to greater physical automation at your firm?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "D1B",
+      "title": "Digitalisation (Software-Driven)",
+      "description": "",
+      "display_order": 13,
+      "questions": [
+        {
+          "code": "D1B.1",
+          "text": "How would you rate the level of digitalisation in your firm's operations (ERP, MES, digital records, data-driven decision making)?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Paper-based / no digital systems) — 2 — 3 — 4 — 5 (Fully integrated digital operations)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "rightLabel": "Fully integrated digital operations"
+          }
+        },
+        {
+          "code": "D1B.2",
+          "text": "Which of the following digital systems does your firm currently use? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Enterprise Resource Planning (ERP — e.g., SAP, Tally, Zoho)",
+              "value": "enterprise-resource-planning-erp-e-g-sap-tally-zoho",
+              "code": "enterprise-resource-planning-erp-e-g-sap-tally-zoho"
+            },
+            {
+              "label": "Manufacturing Execution System (MES)",
+              "value": "manufacturing-execution-system-mes",
+              "code": "manufacturing-execution-system-mes"
+            },
+            {
+              "label": "Inventory / warehouse management software",
+              "value": "inventory-warehouse-management-software",
+              "code": "inventory-warehouse-management-software"
+            },
+            {
+              "label": "Digital production scheduling tools",
+              "value": "digital-production-scheduling-tools",
+              "code": "digital-production-scheduling-tools"
+            },
+            {
+              "label": "Quality management software",
+              "value": "quality-management-software",
+              "code": "quality-management-software"
+            },
+            {
+              "label": "HR and payroll software",
+              "value": "hr-and-payroll-software",
+              "code": "hr-and-payroll-software"
+            },
+            {
+              "label": "Customer relationship management (CRM)",
+              "value": "customer-relationship-management-crm",
+              "code": "customer-relationship-management-crm"
+            },
+            {
+              "label": "Cloud-based data storage or analytics",
+              "value": "cloud-based-data-storage-or-analytics",
+              "code": "cloud-based-data-storage-or-analytics"
+            },
+            {
+              "label": "None — operations are primarily paper-based",
+              "value": "none-operations-are-primarily-paper-based",
+              "code": "none-operations-are-primarily-paper-based"
+            }
+          ],
+          "trailingText": "Which of the following digital systems does your firm currently use? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "D1B.3",
+          "text": "How integrated are your digital systems with each other?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Fully integrated — data flows automatically across systems",
+              "value": "fully-integrated-data-flows-automatically-across-systems",
+              "code": "fully-integrated-data-flows-automatically-across-systems"
+            },
+            {
+              "label": "Partially integrated — some systems connected, manual handoffs elsewhere",
+              "value": "partially-integrated-some-systems-connected-manual-handoffs-elsewhere",
+              "code": "partially-integrated-some-systems-connected-manual-handoffs-elsewhere"
+            },
+            {
+              "label": "Siloed — each system operates independently",
+              "value": "siloed-each-system-operates-independently",
+              "code": "siloed-each-system-operates-independently"
+            },
+            {
+              "label": "No digital systems in use",
+              "value": "no-digital-systems-in-use",
+              "code": "no-digital-systems-in-use"
+            }
+          ],
+          "trailingText": "How integrated are your digital systems with each other?",
+          "type": "radio"
+        },
+        {
+          "code": "D1B.4",
+          "text": "Who manages your firm's digital systems?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Dedicated in-house IT team",
+              "value": "dedicated-in-house-it-team",
+              "code": "dedicated-in-house-it-team"
+            },
+            {
+              "label": "One or two individuals responsible alongside other duties",
+              "value": "one-or-two-individuals-responsible-alongside-other-duties",
+              "code": "one-or-two-individuals-responsible-alongside-other-duties"
+            },
+            {
+              "label": "Managed entirely by external vendor / service provider",
+              "value": "managed-entirely-by-external-vendor-service-provider",
+              "code": "managed-entirely-by-external-vendor-service-provider"
+            },
+            {
+              "label": "No one formally responsible",
+              "value": "no-one-formally-responsible",
+              "code": "no-one-formally-responsible"
+            }
+          ],
+          "trailingText": "Who manages your firm's digital systems?",
+          "type": "radio"
+        },
+        {
+          "code": "D1B.5",
+          "text": "What primarily drove your firm's investments in digitalisation? (Select top 2)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "Regulatory / compliance requirement",
+              "value": "regulatory-compliance-requirement",
+              "code": "regulatory-compliance-requirement"
+            },
+            {
+              "label": "Customer or buyer mandate",
+              "value": "customer-or-buyer-mandate",
+              "code": "customer-or-buyer-mandate"
+            },
+            {
+              "label": "Desire to improve internal visibility and control",
+              "value": "desire-to-improve-internal-visibility-and-control",
+              "code": "desire-to-improve-internal-visibility-and-control"
+            },
+            {
+              "label": "Competitive pressure from peers",
+              "value": "competitive-pressure-from-peers",
+              "code": "competitive-pressure-from-peers"
+            },
+            {
+              "label": "Government incentive or scheme",
+              "value": "government-incentive-or-scheme",
+              "code": "government-incentive-or-scheme"
+            },
+            {
+              "label": "Founder / management decision",
+              "value": "founder-management-decision",
+              "code": "founder-management-decision"
+            },
+            {
+              "label": "We have not invested significantly in digitalisation",
+              "value": "we-have-not-invested-significantly-in-digitalisation",
+              "code": "we-have-not-invested-significantly-in-digitalisation"
+            }
+          ],
+          "trailingText": "What primarily drove your firm's investments in digitalisation? (Select top 2)",
+          "type": "checkbox",
+          "validation": {
+            "maxSelections": 2
+          }
+        },
+        {
+          "code": "D1B.6",
+          "text": "What is the biggest barrier to greater digitalisation at your firm?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 6,
+          "options": [
+            {
+              "label": "Cost of software and implementation",
+              "value": "cost-of-software-and-implementation",
+              "code": "cost-of-software-and-implementation"
+            },
+            {
+              "label": "Lack of internal capability to use systems effectively",
+              "value": "lack-of-internal-capability-to-use-systems-effectively",
+              "code": "lack-of-internal-capability-to-use-systems-effectively"
+            },
+            {
+              "label": "Data quality and discipline problems (garbage in, garbage out)",
+              "value": "data-quality-and-discipline-problems-garbage-in-garbage-out",
+              "code": "data-quality-and-discipline-problems-garbage-in-garbage-out"
+            },
+            {
+              "label": "Resistance from management or staff",
+              "value": "resistance-from-management-or-staff",
+              "code": "resistance-from-management-or-staff"
+            },
+            {
+              "label": "Uncertainty about which systems are right for our scale",
+              "value": "uncertainty-about-which-systems-are-right-for-our-scale",
+              "code": "uncertainty-about-which-systems-are-right-for-our-scale"
+            },
+            {
+              "label": "Our operations are simple enough not to need it",
+              "value": "our-operations-are-simple-enough-not-to-need-it",
+              "code": "our-operations-are-simple-enough-not-to-need-it"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "What is the biggest barrier to greater digitalisation at your firm?",
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "D2",
+      "title": "Value Extraction",
+      "description": "",
+      "display_order": 14,
+      "questions": [
+        {
+          "code": "D2.1",
+          "text": "To what extent is your firm actually extracting measurable value from the technology it has deployed?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Technology deployed but little measurable benefit) — 2 — 3 — 4 — 5 (Clear, measurable returns from technology investment)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Technology deployed but little measurable benefit",
+            "rightLabel": "Clear, measurable returns from technology investment"
+          }
+        },
+        {
+          "code": "D2.2",
+          "text": "For the technologies your firm has deployed, what benefits have you observed? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Reduced defect or rejection rates",
+              "value": "reduced-defect-or-rejection-rates",
+              "code": "reduced-defect-or-rejection-rates"
+            },
+            {
+              "label": "Improved production output / throughput",
+              "value": "improved-production-output-throughput",
+              "code": "improved-production-output-throughput"
+            },
+            {
+              "label": "Reduced energy or material costs",
+              "value": "reduced-energy-or-material-costs",
+              "code": "reduced-energy-or-material-costs"
+            },
+            {
+              "label": "Faster response to production problems",
+              "value": "faster-response-to-production-problems",
+              "code": "faster-response-to-production-problems"
+            },
+            {
+              "label": "Better inventory management",
+              "value": "better-inventory-management",
+              "code": "better-inventory-management"
+            },
+            {
+              "label": "Improved delivery reliability",
+              "value": "improved-delivery-reliability",
+              "code": "improved-delivery-reliability"
+            },
+            {
+              "label": "Reduced dependence on skilled labour",
+              "value": "reduced-dependence-on-skilled-labour",
+              "code": "reduced-dependence-on-skilled-labour"
+            },
+            {
+              "label": "No measurable benefits observed yet",
+              "value": "no-measurable-benefits-observed-yet",
+              "code": "no-measurable-benefits-observed-yet"
+            }
+          ],
+          "trailingText": "For the technologies your firm has deployed, what benefits have you observed? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "D2.3",
+          "text": "How long did it take before your most significant technology investment started delivering visible returns?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Less than 6 months",
+              "value": "less-than-6-months",
+              "code": "less-than-6-months"
+            },
+            {
+              "label": "6-12 months",
+              "value": "6-12-months",
+              "code": "6-12-months"
+            },
+            {
+              "label": "1-2 years",
+              "value": "1-2-years",
+              "code": "1-2-years"
+            },
+            {
+              "label": "More than 2 years",
+              "value": "more-than-2-years",
+              "code": "more-than-2-years"
+            },
+            {
+              "label": "Still waiting for returns",
+              "value": "still-waiting-for-returns",
+              "code": "still-waiting-for-returns"
+            },
+            {
+              "label": "Not applicable",
+              "value": "not-applicable",
+              "code": "not-applicable"
+            }
+          ],
+          "trailingText": "How long did it take before your most significant technology investment started delivering visible returns?",
+          "type": "radio"
+        },
+        {
+          "code": "D2.4",
+          "text": "Does your firm collect data from its machines or production systems?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [
+            {
+              "label": "Yes, data is collected and regularly analysed to make decisions",
+              "value": "yes-data-is-collected-and-regularly-analysed-to-make-decisions",
+              "code": "yes-data-is-collected-and-regularly-analysed-to-make-decisions"
+            },
+            {
+              "label": "Yes, data is collected but rarely analysed systematically",
+              "value": "yes-data-is-collected-but-rarely-analysed-systematically",
+              "code": "yes-data-is-collected-but-rarely-analysed-systematically"
+            },
+            {
+              "label": "Some data is collected informally but not structured",
+              "value": "some-data-is-collected-informally-but-not-structured",
+              "code": "some-data-is-collected-informally-but-not-structured"
+            },
+            {
+              "label": "No data collection from machines or production systems",
+              "value": "no-data-collection-from-machines-or-production-systems",
+              "code": "no-data-collection-from-machines-or-production-systems"
+            }
+          ],
+          "trailingText": "Does your firm collect data from its machines or production systems?",
+          "type": "radio"
+        },
+        {
+          "code": "D2.5",
+          "text": "How would you characterise the gap between your firm's expectations from technology and actual outcomes?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [],
+          "trailingText": "Likert: 1 (Far exceeded expectations) — 2 — 3 — 4 — 5 (Far below expectations)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Far exceeded expectations",
+            "rightLabel": "Far below expectations"
+          }
+        }
+      ]
+    },
+    {
+      "code": "D3",
+      "title": "Barriers to Adoption",
+      "description": "",
+      "display_order": 15,
+      "questions": [
+        {
+          "code": "D3.1",
+          "text": "Overall, how significant are the barriers your firm faces to adopting more advanced technology?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (No significant barriers) — 2 — 3 — 4 — 5 (Severe barriers preventing meaningful adoption)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "No significant barriers",
+            "rightLabel": "Severe barriers preventing meaningful adoption"
+          }
+        },
+        {
+          "code": "D3.2",
+          "text": "How significant is each of the following as a barrier to technology adoption at your firm?",
+          "description": "High upfront capital cost",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [],
+          "trailingText": "Barrier\tNot a barrier\tMinor\tModerate\tSignificant\tSevere",
+          "type": "matrix",
+          "selectionMode": "single",
+          "matrix_rows": [
+            {
+              "label": "High upfront capital cost",
+              "display_order": 1
+            },
+            {
+              "label": "Difficulty accessing financing for technology",
+              "display_order": 2
+            },
+            {
+              "label": "Availability of sources of funds",
+              "display_order": 3
+            },
+            {
+              "label": "Lack of skilled staff to operate new technology",
+              "display_order": 4
+            },
+            {
+              "label": "Lack of vendors / service providers locally",
+              "display_order": 5
+            },
+            {
+              "label": "Uncertainty about ROI",
+              "display_order": 6
+            },
+            {
+              "label": "Production disruption during implementation",
+              "display_order": 7
+            },
+            {
+              "label": "Regulatory or compliance uncertainty",
+              "display_order": 8
+            },
+            {
+              "label": "Technology changes too fast to commit",
+              "display_order": 9
+            },
+            {
+              "label": "Senior management not convinced of need",
+              "display_order": 10
+            }
+          ],
+          "matrix_columns": [
+            {
+              "label": "Not a barrier",
+              "value": "not-a-barrier",
+              "display_order": 1
+            },
+            {
+              "label": "Minor",
+              "value": "minor",
+              "display_order": 2
+            },
+            {
+              "label": "Moderate",
+              "value": "moderate",
+              "display_order": 3
+            },
+            {
+              "label": "Significant",
+              "value": "significant",
+              "display_order": 4
+            },
+            {
+              "label": "Severe",
+              "value": "severe",
+              "display_order": 5
+            }
+          ]
+        },
+        {
+          "code": "D3.3",
+          "text": "Has your firm received any government support for technology adoption?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Yes, financial subsidy or grant (specify scheme if possible: ___)",
+              "value": "yes-financial-subsidy-or-grant-specify-scheme-if-possible",
+              "code": "yes-financial-subsidy-or-grant-specify-scheme-if-possible"
+            },
+            {
+              "label": "Yes, non-financial support (training, consultancy, facilitation)",
+              "value": "yes-non-financial-support-training-consultancy-facilitation",
+              "code": "yes-non-financial-support-training-consultancy-facilitation"
+            },
+            {
+              "label": "Applied but not received",
+              "value": "applied-but-not-received",
+              "code": "applied-but-not-received"
+            },
+            {
+              "label": "Not aware of available schemes",
+              "value": "not-aware-of-available-schemes",
+              "code": "not-aware-of-available-schemes"
+            },
+            {
+              "label": "No, and we did not seek any",
+              "value": "no-and-we-did-not-seek-any",
+              "code": "no-and-we-did-not-seek-any"
+            }
+          ],
+          "trailingText": "Has your firm received any government support for technology adoption?",
+          "type": "radio"
+        },
+        {
+          "code": "D3.4",
+          "text": "If financing were easier to access, how likely would your firm be to invest more in technology in the next 2 years?",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [],
+          "trailingText": "Likert: 1 (Very unlikely — other constraints dominate) — 2 — 3 — 4 — 5 (Very likely — finance is the main constraint)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5
+          }
+        }
+      ]
+    },
+    {
+      "code": "D4",
+      "title": "Outlook",
+      "description": "",
+      "display_order": 16,
+      "questions": [
+        {
+          "code": "D4.1",
+          "text": "How strategically important does your firm consider technology adoption to its competitiveness over the next 5 years?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "Likert: 1 (Not important — our competitive advantage lies elsewhere) — 2 — 3 — 4 — 5 (Critical — we cannot remain competitive without it)",
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5
+          }
+        },
+        {
+          "code": "D4.2",
+          "text": "Does your firm have a concrete plan to invest in new technology in the next 2 years?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [
+            {
+              "label": "Yes, specific investments identified and budgeted",
+              "value": "yes-specific-investments-identified-and-budgeted",
+              "code": "yes-specific-investments-identified-and-budgeted"
+            },
+            {
+              "label": "Yes, intention exists but no concrete plan yet",
+              "value": "yes-intention-exists-but-no-concrete-plan-yet",
+              "code": "yes-intention-exists-but-no-concrete-plan-yet"
+            },
+            {
+              "label": "Under consideration but no decision made",
+              "value": "under-consideration-but-no-decision-made",
+              "code": "under-consideration-but-no-decision-made"
+            },
+            {
+              "label": "No plans for technology investment",
+              "value": "no-plans-for-technology-investment",
+              "code": "no-plans-for-technology-investment"
+            }
+          ],
+          "trailingText": "Does your firm have a concrete plan to invest in new technology in the next 2 years?",
+          "type": "radio"
+        },
+        {
+          "code": "D4.3",
+          "text": "Which technologies is your firm most likely to invest in over the next 2-3 years? (Select all that apply)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [
+            {
+              "label": "Industrial IoT / connected sensors",
+              "value": "industrial-iot-connected-sensors",
+              "code": "industrial-iot-connected-sensors"
+            },
+            {
+              "label": "Robotics or automated assembly",
+              "value": "robotics-or-automated-assembly",
+              "code": "robotics-or-automated-assembly"
+            },
+            {
+              "label": "AI-based quality inspection or process optimisation",
+              "value": "ai-based-quality-inspection-or-process-optimisation",
+              "code": "ai-based-quality-inspection-or-process-optimisation"
+            },
+            {
+              "label": "ERP or MES upgrade / implementation",
+              "value": "erp-or-mes-upgrade-implementation",
+              "code": "erp-or-mes-upgrade-implementation"
+            },
+            {
+              "label": "Cloud-based data systems",
+              "value": "cloud-based-data-systems",
+              "code": "cloud-based-data-systems"
+            },
+            {
+              "label": "Renewable energy / energy management systems",
+              "value": "renewable-energy-energy-management-systems",
+              "code": "renewable-energy-energy-management-systems"
+            },
+            {
+              "label": "3D printing / additive manufacturing",
+              "value": "3d-printing-additive-manufacturing",
+              "code": "3d-printing-additive-manufacturing"
+            },
+            {
+              "label": "Digital twin or simulation tools",
+              "value": "digital-twin-or-simulation-tools",
+              "code": "digital-twin-or-simulation-tools"
+            },
+            {
+              "label": "None planned",
+              "value": "none-planned",
+              "code": "none-planned"
+            },
+            {
+              "label": "Other: ___",
+              "value": "other",
+              "code": "other"
+            }
+          ],
+          "trailingText": "Which technologies is your firm most likely to invest in over the next 2-3 years? (Select all that apply)",
+          "type": "checkbox"
+        },
+        {
+          "code": "D4.4",
+          "text": "What would most accelerate your firm's technology adoption? (Open-ended, 2-3 lines)",
+          "description": "________________________________________",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [],
+          "trailingText": "What would most accelerate your firm's technology adoption? (Open-ended, 2-3 lines)",
+          "type": "paragraph"
+        },
+        {
+          "code": "D4.6",
+          "text": "How aware is your firm of emerging technologies (autonomous systems, digital twins, real-time supply chain visibility)?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [],
+          "type": "likert_5",
+          "scale": {
+            "min": 1,
+            "max": 5,
+            "leftLabel": "Not aware",
+            "rightLabel": "Very aware, monitoring closely",
+            "labels": {
+              "1": "Not aware",
+              "2": "Slightly aware",
+              "3": "Moderately aware",
+              "4": "Aware",
+              "5": "Very aware, monitoring closely"
+            }
+          }
+        },
+        {
+          "code": "D4.5",
+          "text": "Does your firm currently use or plan to use AI, machine learning, or predictive analytics in any production or supply chain function?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 6,
+          "options": [
+            {
+              "label": "Yes, currently deployed",
+              "value": "yes-currently-deployed",
+              "code": "yes-currently-deployed"
+            },
+            {
+              "label": "Yes, planned within 2 years",
+              "value": "yes-planned-within-2-years",
+              "code": "yes-planned-within-2-years"
+            },
+            {
+              "label": "Under exploration / awareness only",
+              "value": "under-exploration-awareness-only",
+              "code": "under-exploration-awareness-only"
+            },
+            {
+              "label": "No plans / not relevant",
+              "value": "no-plans-not-relevant",
+              "code": "no-plans-not-relevant"
+            }
+          ],
+          "type": "radio"
+        }
+      ]
+    },
+    {
+      "code": "E",
+      "title": "Open-Ended",
+      "description": "",
+      "display_order": 17,
+      "questions": [
+        {
+          "code": "E1",
+          "text": "What is the single biggest constraint on your firm's manufacturing performance today that has not been captured in this survey? (Open-ended)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "trailingText": "What is the single biggest constraint on your firm's manufacturing performance today that has not been captured in this survey? (Open-ended)",
+          "type": "paragraph"
+        },
+        {
+          "code": "E2",
+          "text": "What one change — to policy, infrastructure, institutions, or the business environment — would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended)",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [],
+          "trailingText": "What one change — to policy, infrastructure, institutions, or the business environment — would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended)",
+          "type": "paragraph"
+        }
+      ]
+    }
+  ]
+}
