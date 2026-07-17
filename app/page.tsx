@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 
 function LogoLeft() {
   return (
-    <div className="h-10 w-24 flex items-center justify-center">
+    <div className="h-15 w-32 flex items-center justify-center">
       <Image src={CIILogo} alt="CII Logo" className="object-contain" />
     </div>
   );
@@ -20,7 +20,7 @@ function LogoLeft() {
 
 function LogoRight() {
   return (
-    <div className="h-10 w-24 flex items-center justify-center">
+    <div className="h-15 w-32 flex items-center justify-center">
       <Image src={IMELogo} alt="IME Logo" className="object-contain" />
     </div>
   );
