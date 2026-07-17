@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { completeSurvey, getRespondentByResponseId } from '@/lib/repository';
+import { resumeCookieName } from '@/lib/resume-cookie';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,5 +11,9 @@ export async function POST(_request: NextRequest, { params }: { params: { respon
   }
 
   await completeSurvey(respondent.id);
-  return NextResponse.json({ ok: true });
+
+  const response = NextResponse.json({ ok: true });
+  // Nothing left to resume once the survey is submitted.
+  response.cookies.set(resumeCookieName(respondent.survey_id), '', { path: '/', maxAge: 0 });
+  return response;
 }

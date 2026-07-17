@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getFullSurvey, getRespondentByResponseId, getAnswers } from '@/lib/repository';
+import { resumeCookieName } from '@/lib/resume-cookie';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest, { params }: { params: { surveyId
     return NextResponse.json({ error: 'Survey not found' }, { status: 404 });
   }
 
-  const responseId = request.nextUrl.searchParams.get('responseId');
+  const responseId = request.cookies.get(resumeCookieName(params.surveyId))?.value;
   if (!responseId) {
     return NextResponse.json({ survey });
   }

@@ -81,13 +81,10 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
   useEffect(() => {
     (async () => {
       try {
-        const storedResponseId = localStorage.getItem(`survey_${surveyId}_response_id`);
-        const response = await fetch(
-          storedResponseId
-            ? `/api/surveys/${surveyId}?responseId=${encodeURIComponent(storedResponseId)}`
-            : `/api/surveys/${surveyId}`,
-          { credentials: 'include' }
-        );
+        // The server identifies a returning respondent via an httpOnly
+        // resume cookie (set when the respondent record was created) —
+        // nothing to read or pass from the client.
+        const response = await fetch(`/api/surveys/${surveyId}`, { credentials: 'include' });
 
         if (!response.ok) {
           setError('Survey not found.');
@@ -124,7 +121,6 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
         const created = await createResponse.json();
         setRespondentId(created.respondent.id);
         setResponseId(created.respondent.response_id);
-        localStorage.setItem(`survey_${surveyId}_response_id`, created.respondent.response_id);
         setLoading(false);
       } catch (err) {
         console.error('Failed to load survey:', err);
@@ -271,7 +267,6 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
         method: 'POST',
         credentials: 'include',
       });
-      localStorage.removeItem(`survey_${surveyId}_response_id`);
       router.push('/survey/complete');
     } catch (err) {
       console.error('Failed to submit survey:', err);

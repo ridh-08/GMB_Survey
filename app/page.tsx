@@ -1,45 +1,48 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getActiveSurveys } from '@/lib/repository';
+import { cookies } from 'next/headers';
+import { getActiveSurveys, getRespondentByResponseId } from '@/lib/repository';
 import type { Survey } from '@/lib/types';
+import { resumeCookieName } from '@/lib/resume-cookie';
 import { Building2, Users, ArrowRight, BarChart3 } from 'lucide-react';
 import CIILogo from '@/components/images/CII_Logo.png';
 import IMELogo from '@/components/images/IME_Logo.webp';
 
 export const dynamic = 'force-dynamic';
 
-// Brand Colours
-const MAROON = '#7A1F3D';
-const BLUE = '#005DAA';
-
 function LogoLeft() {
   return (
-    <div className="flex items-center justify-center">
-      <Image
-        src={CIILogo}
-        alt="CII Logo"
-        width={110}
-        height={42}
-        className="object-contain"
-        priority
-      />
+    <div className="h-10 w-24 flex items-center justify-center">
+      <Image src={CIILogo} alt="CII Logo" className="object-contain" />
     </div>
   );
 }
 
 function LogoRight() {
   return (
-    <div className="flex items-center justify-center">
-      <Image
-        src={IMELogo}
-        alt="IME Logo"
-        width={110}
-        height={42}
-        className="object-contain"
-        priority
-      />
+    <div className="h-10 w-24 flex items-center justify-center">
+      <Image src={IMELogo} alt="IME Logo" className="object-contain" />
     </div>
   );
+}
+
+async function findResumableSurvey(surveys: Survey[]): Promise<Survey | null> {
+  // A survey is resumable for this browser if its resume cookie points at
+  // a respondent that still exists and hasn't been completed yet.
+  const jar = cookies();
+  for (const survey of surveys) {
+    const responseId = jar.get(resumeCookieName(survey.id))?.value;
+    if (!responseId) continue;
+    try {
+      const respondent = await getRespondentByResponseId(responseId);
+      if (respondent && respondent.survey_id === survey.id && respondent.status !== 'completed') {
+        return survey;
+      }
+    } catch {
+      // ignore lookup failures — just don't offer to resume
+    }
+  }
+  return null;
 }
 
 export default async function Home() {
@@ -54,165 +57,84 @@ export default async function Home() {
 
   const employerSurvey = surveys.find((s) => s.type === 'employer');
   const workerSurvey = surveys.find((s) => s.type === 'worker');
+  const resumableSurvey = error ? null : await findResumableSurvey(surveys);
 
   return (
-    <div
-      className="min-h-screen font-garamond"
-      style={{
-        background:
-          'linear-gradient(to bottom, #faf7f8 0%, #f8fbff 100%)',
-      }}
-    >
-      {/* Header */}
-      <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-
-          <div className="flex items-center gap-4">
-
-            <div
-              className="w-12 h-12 rounded-lg flex items-center justify-center shadow"
-              style={{
-                background:
-                  'linear-gradient(135deg,#7A1F3D,#005DAA)',
-              }}
-            >
-              <BarChart3 className="w-6 h-6 text-white" />
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white font-garamond">
+      <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-sm bg-gradient-to-br from-sky-500 to-sky-700 flex items-center justify-center">
+              <BarChart3 className="w-5 h-5 text-white" />
             </div>
-
             <div>
-              <h1
-                className="font-bold text-lg"
-                style={{ color: MAROON }}
-              >
-                Gujarat Manufacturing Barometer
-              </h1>
-
-              <p className="text-sm text-slate-500">
-                Statewide Survey Initiative
-              </p>
+              <h1 className="text-sm font-semibold text-slate-900">Gujarat Manufacturing Barometer</h1>
+              <p className="text-xs text-slate-500">Statewide Survey Initiative</p>
             </div>
-
           </div>
 
-          <div className="flex items-center gap-8">
-
+          <div className="flex items-center gap-6">
             <LogoLeft />
             <LogoRight />
-
             <Link
               href="/admin"
-              className="font-medium transition-colors"
-              style={{ color: BLUE }}
+              className="text-sm text-slate-600 hover:text-slate-900 transition-colors border-l border-slate-200 pl-6"
             >
               Admin
             </Link>
-
           </div>
-
         </div>
       </header>
 
-      {/* Hero */}
-
-      <main className="max-w-6xl mx-auto px-6 py-20">
-
-        <div className="text-center mb-16">
-
-          <div
-            className="inline-block px-5 py-1 rounded-full text-sm font-semibold mb-6"
-            style={{
-              background: '#F3E8EC',
-              color: MAROON,
-            }}
-          >
-            Ahmedabad University × Confederation of Indian Industry
-          </div>
-
-          <h2
-            className="text-5xl font-bold mb-6 leading-tight"
-            style={{ color: MAROON }}
-          >
-            Gujarat State
-            <br />
-            Manufacturing Barometer
+      <main className="max-w-6xl mx-auto px-6 py-16">
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">
+            Gujarat State Manufacturing Barometer
           </h2>
-
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-8">
-            A comprehensive assessment of Gujarat's manufacturing ecosystem,
-            capturing insights from employers and workers to understand
-            productivity, workforce, technology adoption, competitiveness,
-            and the future of manufacturing.
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            A comprehensive assessment of Gujarat's manufacturing ecosystem — capturing insights from
+            both employers and workers to shape the future of industry.
           </p>
-
         </div>
 
         {error ? (
-          <div className="text-center text-red-600 py-16">
-            {error}
-          </div>
+          <div className="text-center text-red-600 py-12">{error}</div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {employerSurvey && (
               <SurveyCard
                 survey={employerSurvey}
-                icon={<Building2 className="w-7 h-7 text-white" />}
-                description="Share your firm's experience across workforce, productivity, technology adoption, supply chains, exports and manufacturing competitiveness."
+                icon={<Building2 className="w-6 h-6 text-white" />}
+                description="Share your firm's experience across workforce, processes, technology, and cluster dynamics."
               />
             )}
-
             {workerSurvey && (
               <SurveyCard
                 survey={workerSurvey}
-                icon={<Users className="w-7 h-7 text-white" />}
-                description="Tell us about wages, working conditions, safety, skill development, career growth and technology at your workplace."
+                icon={<Users className="w-6 h-6 text-white" />}
+                description="Tell us about your work experience — pay, safety, career growth, and technology at your workplace."
               />
             )}
-
           </div>
         )}
 
-        <div className="mt-16 text-center">
-
-          <Link
-            href="/survey/resume"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-md border-2 font-semibold transition-all duration-300 hover:text-white"
-            style={{
-              borderColor: MAROON,
-              color: MAROON,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = MAROON;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'transparent';
-            }}
-          >
-            Resume Existing Survey
-
-            <ArrowRight className="w-4 h-4" />
-
-          </Link>
-
-        </div>
-
+        {resumableSurvey && (
+          <div className="mt-16 text-center">
+            <Link
+              href={`/survey/${resumableSurvey.id}`}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-sm border border-slate-300 bg-white text-base font-medium text-slate-800 hover:border-sky-600 hover:text-sky-700 transition-colors"
+            >
+              Continue your {resumableSurvey.title}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
       </main>
 
-      <footer className="border-t border-slate-200 mt-12 bg-white">
-
-        <div className="max-w-6xl mx-auto px-6 py-8 text-center">
-
-          <p className="font-semibold" style={{ color: MAROON }}>
-            Gujarat State Manufacturing Barometer
-          </p>
-
-          <p className="text-sm text-slate-500 mt-2">
-            All responses are confidential and will only be used for research
-            purposes.
-          </p>
-
+      <footer className="border-t border-slate-200 mt-12">
+        <div className="max-w-6xl mx-auto px-6 py-8 text-center text-sm text-slate-500">
+          Gujarat State Manufacturing Barometer &middot; All responses are confidential
         </div>
-
       </footer>
     </div>
   );
@@ -230,46 +152,19 @@ function SurveyCard({
   return (
     <Link
       href={`/survey/${survey.id}`}
-      className="group block bg-white rounded-xl overflow-hidden border border-slate-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+      className="group block bg-white rounded-sm border border-slate-200 overflow-hidden hover:shadow-md hover:border-slate-400 transition-all duration-300 animate-slide-up"
     >
-      <div
-        className="h-2"
-        style={{
-          background:
-            'linear-gradient(90deg,#7A1F3D,#005DAA)',
-        }}
-      />
-
-      <div className="p-8">
-
-        <div
-          className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 shadow"
-          style={{
-            background:
-              'linear-gradient(135deg,#7A1F3D,#005DAA)',
-          }}
-        >
+      <div className="h-1.5 bg-slate-900" />
+      <div className="p-6">
+        <div className="w-12 h-12 rounded-sm bg-slate-900 flex items-center justify-center mb-5">
           {icon}
         </div>
-
-        <h3 className="text-2xl font-bold text-slate-900 mb-3">
-          {survey.title}
-        </h3>
-
-        <p className="text-slate-600 leading-7 mb-8">
-          {description}
-        </p>
-
-        <div
-          className="flex items-center font-semibold transition-all group-hover:translate-x-1"
-          style={{ color: BLUE }}
-        >
+        <h3 className="text-xl font-bold text-slate-900 mb-2">{survey.title}</h3>
+        <p className="text-sm text-slate-600 mb-6">{description}</p>
+        <div className="flex items-center text-sky-700 font-medium text-sm group-hover:gap-2 transition-all">
           Start Survey
-
-          <ArrowRight className="ml-2 w-4 h-4" />
-
+          <ArrowRight className="w-4 h-4 ml-1 group-hover:ml-2 transition-all" />
         </div>
-
       </div>
     </Link>
   );
