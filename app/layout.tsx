@@ -37,7 +37,7 @@ const garamond = EB_Garamond({
 
 export const metadata: Metadata = {
   title: 'Gujarat Manufacturing Barometer',
-  description: 'Gujarat State Manufacturing Barometer — Employer & Worker Surveys',
+  description: 'Gujarat State Manufacturing Barometer — Employer & Employee Surveys',
 };
 
 export default function RootLayout({

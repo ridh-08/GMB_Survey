@@ -9,17 +9,36 @@ import { ArrowLeft, Download, Users, CheckCircle2, Clock, FileText, Loader2 } fr
 import Link from 'next/link';
 import type { Respondent, Survey } from '@/lib/types';
 
+const PAGE_SIZE = 50;
+
 export default function AdminDashboard() {
   const router = useRouter();
   const [authed, setAuthed] = useState(false);
   const [respondents, setRespondents] = useState<Respondent[]>([]);
+  const [totalRespondents, setTotalRespondents] = useState(0);
+  const [page, setPage] = useState(1);
   const [surveys, setSurveys] = useState<Survey[]>([]);
-  const [sheetBySurveyId, setSheetBySurveyId] = useState<Record<string, any>>({});
+  // Full { columns, rows } sheet across ALL respondents (not just the current
+  // page) — used for stats and the CSV/JSON exports, which need every row.
+  const [sheet, setSheet] = useState<{ columns: any[]; rows: any[] }>({ columns: [], rows: [] });
   const [loading, setLoading] = useState(true);
+  const [tableLoading, setTableLoading] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [detail, setDetail] = useState<Record<string, any> | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [selectedSurveyId, setSelectedSurveyId] = useState<string | null>(null);
+
+  const loadDashboard = async (pageNum: number) => {
+    const dashboardResponse = await fetch(
+      `/api/admin/dashboard?page=${pageNum}&pageSize=${PAGE_SIZE}`,
+      { credentials: 'include' }
+    );
+    if (!dashboardResponse.ok) {
+      router.push('/admin');
+      return null;
+    }
+    return dashboardResponse.json();
+  };
 
   useEffect(() => {
     (async () => {
@@ -30,16 +49,12 @@ export default function AdminDashboard() {
           return;
         }
 
-        const dashboardResponse = await fetch('/api/admin/dashboard', { credentials: 'include' });
-        if (!dashboardResponse.ok) {
-          router.push('/admin');
-          return;
-        }
-
-        const payload = await dashboardResponse.json();
+        const payload = await loadDashboard(1);
+        if (!payload) return;
         setRespondents(payload.respondents || []);
+        setTotalRespondents(payload.total ?? (payload.respondents || []).length);
         setSurveys(payload.surveys || []);
-        setSheetBySurveyId(payload.sheet || {});
+        setSheet(payload.sheet || { columns: [], rows: [] });
         setSelectedSurveyId((payload.surveys || [])[0]?.id || null);
         setAuthed(true);
       } catch (err) {
@@ -49,7 +64,23 @@ export default function AdminDashboard() {
         setLoading(false);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
+
+  const goToPage = async (pageNum: number) => {
+    setTableLoading(true);
+    try {
+      const payload = await loadDashboard(pageNum);
+      if (!payload) return;
+      setRespondents(payload.respondents || []);
+      setTotalRespondents(payload.total ?? (payload.respondents || []).length);
+      setPage(pageNum);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setTableLoading(false);
+    }
+  };
 
   const surveyMap = useMemo(() => {
     const m: Record<string, string> = {};
@@ -57,12 +88,17 @@ export default function AdminDashboard() {
     return m;
   }, [surveys]);
 
+  // Computed from `sheet.rows`, which holds every respondent (not just the
+  // current page), so the counts stay accurate regardless of pagination.
   const stats = useMemo(() => {
-    const total = respondents.length;
-    const completed = respondents.filter((r: Respondent) => r.status === 'completed').length;
-    const inProgress = respondents.filter((r: Respondent) => r.status === 'started' || r.status === 'draft').length;
+    const rows = sheet.rows || [];
+    const total = totalRespondents || rows.length;
+    const completed = rows.filter((r: any) => r.status === 'completed').length;
+    const inProgress = rows.filter((r: any) => r.status === 'started' || r.status === 'draft').length;
     return { total, completed, inProgress };
-  }, [respondents]);
+  }, [sheet, totalRespondents]);
+
+  const totalPages = Math.max(1, Math.ceil(totalRespondents / PAGE_SIZE));
 
   const viewDetail = async (id: string) => {
     setSelectedId(id);
@@ -83,17 +119,18 @@ export default function AdminDashboard() {
   };
 
   const exportCSV = () => {
-    if (respondents.length === 0) return;
+    const rows = sheet.rows || [];
+    if (rows.length === 0) return;
     const headers = ['Response ID', 'Survey', 'Status', 'Started At', 'Completed At', 'Last Updated'];
-    const rows = respondents.map((r: Respondent) => [
+    const csvRows = rows.map((r: any) => [
       r.response_id,
-      surveyMap[r.survey_id] || r.survey_id,
+      r.survey_title,
       r.status,
       r.started_at || '',
       r.completed_at || '',
       r.last_updated || '',
     ]);
-    const csv = [headers, ...rows]
+    const csv = [headers, ...csvRows]
       .map((row: string[]) => row.map((c: string) => `"${String(c).replace(/"/g, '""')}"`).join(','))
       .join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -106,10 +143,11 @@ export default function AdminDashboard() {
   };
 
   const exportJSON = () => {
-    if (respondents.length === 0) return;
-    const payload = respondents.map((r: Respondent) => ({
+    const rows = sheet.rows || [];
+    if (rows.length === 0) return;
+    const payload = rows.map((r: any) => ({
       response_id: r.response_id,
-      survey: surveyMap[r.survey_id] || r.survey_id,
+      survey: r.survey_title,
       survey_id: r.survey_id,
       status: r.status,
       started_at: r.started_at,
@@ -125,7 +163,15 @@ export default function AdminDashboard() {
     URL.revokeObjectURL(url);
   };
 
-  const activeSheet = selectedSurveyId ? sheetBySurveyId[selectedSurveyId] : null;
+  // sheet already contains every respondent across all surveys (the API
+  // no longer filters it per survey on the backend for this single-page
+  // dashboard), so just filter client-side for the selected survey's columns.
+  const activeSheet = useMemo(() => {
+    if (!selectedSurveyId) return null;
+    const columns = (sheet.columns || []).filter((c: any) => c.survey_id === selectedSurveyId);
+    const rows = (sheet.rows || []).filter((r: any) => r.survey_id === selectedSurveyId);
+    return { columns, rows };
+  }, [sheet, selectedSurveyId]);
 
   const exportSheetCSV = () => {
     if (!activeSheet || !activeSheet.rows?.length) return;
@@ -225,11 +271,11 @@ export default function AdminDashboard() {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-slate-900">All Responses</h2>
           <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={exportCSV} disabled={respondents.length === 0}>
+            <Button variant="outline" onClick={exportCSV} disabled={(sheet.rows || []).length === 0}>
               <Download className="w-4 h-4 mr-2" />
               CSV
             </Button>
-            <Button variant="outline" onClick={exportJSON} disabled={respondents.length === 0}>
+            <Button variant="outline" onClick={exportJSON} disabled={(sheet.rows || []).length === 0}>
               <FileText className="w-4 h-4 mr-2" />
               JSON
             </Button>
@@ -281,6 +327,30 @@ export default function AdminDashboard() {
             </table>
           )}
         </Card>
+
+        <div className="flex items-center justify-between mt-3 text-sm text-slate-500">
+          <span>
+            Page {page} of {totalPages} &middot; {totalRespondents} total responses
+          </span>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page <= 1 || tableLoading}
+              onClick={() => goToPage(page - 1)}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page >= totalPages || tableLoading}
+              onClick={() => goToPage(page + 1)}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
 
         <div className="mt-10 flex items-center justify-between mb-4">
           <div>

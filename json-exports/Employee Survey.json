@@ -1,10 +1,11 @@
 {
   "survey": {
-    "key": "worker",
-    "code": "gmb-worker-2026",
-    "title": "Gujarat Manufacturing Barometer - Worker Survey",
-    "description": "Survey for manufacturing workers in Gujarat",
-    "type": "worker"
+    "key": "employee",
+    "code": "gmb-employee-2026",
+    "title": "Gujarat Manufacturing Barometer 2026 - Employee Survey",
+    "description": "Survey for manufacturing employees in Gujarat",
+    "type": "employee",
+    "estimated_time_minutes": 20
   },
   "sections": [
     {
@@ -14,12 +15,52 @@
       "display_order": 1,
       "questions": [
         {
+          "code": "A0.1",
+          "text": "Name of the firm/company you work at",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "type": "short_text"
+        },
+        {
+          "code": "A0.2",
+          "text": "Name of the person filling this survey",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [],
+          "type": "short_text"
+        },
+        {
+          "code": "A0.3",
+          "text": "Designation / role of the person filling this survey",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [],
+          "type": "short_text"
+        },
+        {
+          "code": "A0.4",
+          "text": "Email ID",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [],
+          "type": "email"
+        },
+        {
           "code": "A1",
           "text": "What is your role at this company?",
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 1,
+          "display_order": 5,
           "options": [
             {
               "label": "General / unskilled worker",
@@ -56,7 +97,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 2,
+          "display_order": 6,
           "options": [
             {
               "label": "Less than 6 months",
@@ -64,12 +105,12 @@
               "code": "less-than-6-months"
             },
             {
-              "label": "6 months – 2 years",
+              "label": "6 months \u2013 2 years",
               "value": "6-months-2-years",
               "code": "6-months-2-years"
             },
             {
-              "label": "2–5 years",
+              "label": "2\u20135 years",
               "value": "2-5-years",
               "code": "2-5-years"
             },
@@ -88,7 +129,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 3,
+          "display_order": 7,
           "options": [
             {
               "label": "No formal schooling",
@@ -125,7 +166,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 4,
+          "display_order": 8,
           "options": [
             {
               "label": "This district",
@@ -152,7 +193,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 5,
+          "display_order": 9,
           "options": [
             {
               "label": "With family, own/rented home nearby",
@@ -184,7 +225,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 6,
+          "display_order": 10,
           "options": [
             {
               "label": "Below 25",
@@ -192,12 +233,12 @@
               "code": "below-25"
             },
             {
-              "label": "25–35",
+              "label": "25\u201335",
               "value": "25-35",
               "code": "25-35"
             },
             {
-              "label": "36–45",
+              "label": "36\u201345",
               "value": "36-45",
               "code": "36-45"
             },
@@ -256,7 +297,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Very unfair) — 2 — 3 — 4 — 5 (Very fair)",
+          "trailingText": "1 (Very unfair) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very fair)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -451,7 +492,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (No difficulty at all) — 2 — 3 — 4 — 5 (Major difficulty)",
+          "trailingText": "1 (No difficulty at all) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Major difficulty)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -511,12 +552,12 @@
               "code": "less-than-30-minutes"
             },
             {
-              "label": "30 minutes – 1 hour",
+              "label": "30 minutes \u2013 1 hour",
               "value": "30-minutes-1-hour",
               "code": "30-minutes-1-hour"
             },
             {
-              "label": "1–2 hours",
+              "label": "1\u20132 hours",
               "value": "1-2-hours",
               "code": "1-2-hours"
             },
@@ -537,7 +578,7 @@
           "comments_enabled": false,
           "display_order": 4,
           "options": [],
-          "trailingText": "1 (Not difficult) — 2 — 3 — 4 — 5 (Very difficult) — Not applicable, I live with family",
+          "trailingText": "1 (Not difficult) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very difficult) \u2014 Not applicable, I live with family",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -562,7 +603,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (No future here) — 2 — 3 — 4 — 5 (Strong future here)",
+          "trailingText": "1 (No future here) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Strong future here)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -678,7 +719,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Looked down upon) — 2 — 3 — 4 — 5 (Respected and valued)",
+          "trailingText": "1 (Looked down upon) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Respected and valued)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -767,7 +808,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Very unsafe) — 2 — 3 — 4 — 5 (Very safe)",
+          "trailingText": "1 (Very unsafe) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very safe)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -878,7 +919,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Very unclear) — 2 — 3 — 4 — 5 (Very clear)",
+          "trailingText": "1 (Very unclear) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very clear)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -967,7 +1008,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Very poor — disrespectful or unfair) — 2 — 3 — 4 — 5 (Excellent — respectful and fair)",
+          "trailingText": "1 (Very poor \u2014 disrespectful or unfair) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Excellent \u2014 respectful and fair)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1054,7 +1095,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Not informed at all) — 2 — 3 — 4 — 5 (Well informed and involved)",
+          "trailingText": "1 (Not informed at all) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Well informed and involved)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1133,7 +1174,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Not trained at all) — 2 — 3 — 4 — 5 (Very well trained)",
+          "trailingText": "1 (Not trained at all) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very well trained)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1222,7 +1263,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Much harder) — 2 — 3 — 4 — 5 (Much easier)",
+          "trailingText": "1 (Much harder) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Much easier)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1311,7 +1352,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "1 (Not interested at all) — 2 — 3 — 4 — 5 (Very interested)",
+          "trailingText": "1 (Not interested at all) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very interested)",
           "type": "likert_5",
           "scale": {
             "min": 1,

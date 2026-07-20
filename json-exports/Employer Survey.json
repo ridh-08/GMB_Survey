@@ -2,9 +2,10 @@
   "survey": {
     "key": "employer",
     "code": "gmb-employer-2026",
-    "title": "Gujarat Manufacturing Barometer - Employer Survey",
+    "title": "Gujarat Manufacturing Barometer 2026 - Employer Survey",
     "description": "Survey for manufacturing employers in Gujarat",
-    "type": "employer"
+    "type": "employer",
+    "estimated_time_minutes": 30
   },
   "sections": [
     {
@@ -14,12 +15,98 @@
       "display_order": 1,
       "questions": [
         {
+          "code": "A0.1",
+          "text": "Name of the firm/company",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 1,
+          "options": [],
+          "type": "short_text"
+        },
+        {
+          "code": "A0.2",
+          "text": "Name of the person filling this survey",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 2,
+          "options": [],
+          "type": "short_text"
+        },
+        {
+          "code": "A0.3",
+          "text": "Designation of the person filling this survey",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 3,
+          "options": [],
+          "type": "short_text"
+        },
+        {
+          "code": "A0.4",
+          "text": "Email ID",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 4,
+          "options": [],
+          "type": "email"
+        },
+        {
+          "code": "A0.5",
+          "text": "What is the highest educational qualification held by the firm's leadership (owner/CEO/Managing Director)?",
+          "description": "",
+          "required": true,
+          "comments_enabled": false,
+          "display_order": 5,
+          "options": [
+            {
+              "label": "Up to higher secondary",
+              "value": "up-to-higher-secondary",
+              "code": "up-to-higher-secondary"
+            },
+            {
+              "label": "Diploma / ITI",
+              "value": "diploma-iti",
+              "code": "diploma-iti"
+            },
+            {
+              "label": "Bachelor's degree",
+              "value": "bachelors-degree",
+              "code": "bachelors-degree"
+            },
+            {
+              "label": "Master's degree",
+              "value": "masters-degree",
+              "code": "masters-degree"
+            },
+            {
+              "label": "Professional degree (Engineering/MBA/CA, etc.)",
+              "value": "professional-degree",
+              "code": "professional-degree"
+            },
+            {
+              "label": "Doctorate (PhD)",
+              "value": "doctorate-phd",
+              "code": "doctorate-phd"
+            },
+            {
+              "label": "Other (specify): _______",
+              "value": "other-specify",
+              "code": "other-specify"
+            }
+          ],
+          "type": "radio"
+        },
+        {
           "code": "A1",
           "text": "What is the primary sector of your firm?",
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 1,
+          "display_order": 6,
           "options": [
             {
               "label": "Chemicals & Petrochemicals",
@@ -91,7 +178,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 2,
+          "display_order": 7,
           "options": [
             {
               "label": "<50",
@@ -128,7 +215,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 3,
+          "display_order": 8,
           "options": [
             {
               "label": "<3 years",
@@ -160,7 +247,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 4,
+          "display_order": 9,
           "options": [
             {
               "label": "Indian private (family-owned)",
@@ -212,7 +299,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 5,
+          "display_order": 10,
           "options": [
             {
               "label": "Yes, in a government-designated industrial estate/GIDC",
@@ -244,7 +331,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 6,
+          "display_order": 11,
           "options": [
             {
               "label": "Predominantly domestic (>75% domestic)",
@@ -271,7 +358,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 7,
+          "display_order": 12,
           "options": [
             {
               "label": "Best class in the world",
@@ -308,7 +395,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 8,
+          "display_order": 13,
           "options": [
             {
               "label": "Best class in the world",
@@ -345,7 +432,7 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 9,
+          "display_order": 14,
           "options": [
             {
               "label": "Yes",
@@ -367,9 +454,9 @@
           "description": "",
           "required": true,
           "comments_enabled": false,
-          "display_order": 10,
+          "display_order": 15,
           "options": [],
-          "trailingText": "Likert: 1 (Extremely difficult) — 2 — 3 — 4 — 5 (Extremely easy)",
+          "trailingText": "Likert: 1 (Extremely difficult) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Extremely easy)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -384,7 +471,7 @@
           "description": "Sr. No.\tIssue\tRank",
           "required": true,
           "comments_enabled": false,
-          "display_order": 11,
+          "display_order": 16,
           "options": [
             {
               "label": "Work Force Availability",
@@ -480,7 +567,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Extremely difficult) — 2 — 3 — 4 — 5 (Extremely easy)",
+          "trailingText": "Likert: 1 (Extremely difficult) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Extremely easy)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -696,7 +783,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Not a problem at all) — 2 — 3 — 4 — 5 (Severe, ongoing problem)",
+          "trailingText": "Likert: 1 (Not a problem at all) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Severe, ongoing problem)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -845,7 +932,7 @@
           "comments_enabled": false,
           "display_order": 5,
           "options": [],
-          "trailingText": "Likert: 1 (Not a problem) — 2 — 3 — 4 — 5 (Major ongoing problem)",
+          "trailingText": "Likert: 1 (Not a problem) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Major ongoing problem)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -870,7 +957,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Very inadequate) — 2 — 3 — 4 — 5 (Very adequate)",
+          "trailingText": "Likert: 1 (Very inadequate) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very adequate)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -920,17 +1007,17 @@
               "code": "nothing-negligible"
             },
             {
-              "label": "Below ₹5,000",
+              "label": "Below \u20b95,000",
               "value": "below-5-000",
               "code": "below-5-000"
             },
             {
-              "label": "₹5,000-₹20,000",
+              "label": "\u20b95,000-\u20b920,000",
               "value": "5-000-20-000",
               "code": "5-000-20-000"
             },
             {
-              "label": "Above ₹20,000",
+              "label": "Above \u20b920,000",
               "value": "above-20-000",
               "code": "above-20-000"
             }
@@ -1136,7 +1223,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (No real opportunities exist) — 2 — 3 — 4 — 5 (Strong, well-defined pathways)",
+          "trailingText": "Likert: 1 (No real opportunities exist) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Strong, well-defined pathways)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1158,12 +1245,12 @@
               "code": "yes-formal-ladders-with-defined-criteria-for-promotion"
             },
             {
-              "label": "Informal — progression happens but is not formally structured",
+              "label": "Informal \u2014 progression happens but is not formally structured",
               "value": "informal-progression-happens-but-is-not-formally-structured",
               "code": "informal-progression-happens-but-is-not-formally-structured"
             },
             {
-              "label": "No — roles are largely fixed",
+              "label": "No \u2014 roles are largely fixed",
               "value": "no-roles-are-largely-fixed",
               "code": "no-roles-are-largely-fixed"
             }
@@ -1211,7 +1298,7 @@
           "comments_enabled": false,
           "display_order": 4,
           "options": [],
-          "trailingText": "Likert: 1 (Very negative — seen as low-status, last resort) — 2 — 3 — 4 — 5 (Very positive — seen as stable, desirable career)",
+          "trailingText": "Likert: 1 (Very negative \u2014 seen as low-status, last resort) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very positive \u2014 seen as stable, desirable career)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1281,7 +1368,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Not adopted at all) — 2 — 3 — 4 — 5 (Deeply embedded in how we work)",
+          "trailingText": "Likert: 1 (Not adopted at all) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Deeply embedded in how we work)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1475,7 +1562,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (No formal tracking) — 2 — 3 — 4 — 5 (Rigorous tracking with regular review and action)",
+          "trailingText": "Likert: 1 (No formal tracking) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Rigorous tracking with regular review and action)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1626,7 +1713,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (No formal quality system) — 2 — 3 — 4 — 5 (Excellent — quality is embedded at every stage of production)",
+          "trailingText": "Likert: 1 (No formal quality system) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Excellent \u2014 quality is embedded at every stage of production)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1758,7 +1845,7 @@
           "comments_enabled": false,
           "display_order": 5,
           "options": [],
-          "trailingText": "Likert: 1 (Not relevant to us) — 2 — 3 — 4 — 5 (Major driver of how we manage quality)",
+          "trailingText": "Likert: 1 (Not relevant to us) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Major driver of how we manage quality)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1783,7 +1870,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Safety is an afterthought / reactive) — 2 — 3 — 4 — 5 (Safety is proactive and deeply embedded)",
+          "trailingText": "Likert: 1 (Safety is an afterthought / reactive) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Safety is proactive and deeply embedded)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -1961,7 +2048,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (No active process improvement activity) — 2 — 3 — 4 — 5 (Continuous, structured improvement programme)",
+          "trailingText": "Likert: 1 (No active process improvement activity) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Continuous, structured improvement programme)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -2074,7 +2161,7 @@
         },
         {
           "code": "C5.4",
-          "text": "Does your firm have any formal R&D activity — even if small-scale?",
+          "text": "Does your firm have any formal R&D activity \u2014 even if small-scale?",
           "description": "",
           "required": true,
           "comments_enabled": false,
@@ -2101,7 +2188,7 @@
               "code": "no-r-d-activity-at-all"
             }
           ],
-          "trailingText": "Does your firm have any formal R&D activity — even if small-scale?",
+          "trailingText": "Does your firm have any formal R&D activity \u2014 even if small-scale?",
           "type": "radio"
         },
         {
@@ -2243,7 +2330,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (No tangible benefit from location) — 2 — 3 — 4 — 5 (Location is a significant operational advantage)",
+          "trailingText": "Likert: 1 (No tangible benefit from location) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Location is a significant operational advantage)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -2291,7 +2378,7 @@
               "code": "easier-access-to-subcontractors-or-ancillary-units"
             },
             {
-              "label": "None — location is incidental to our operations",
+              "label": "None \u2014 location is incidental to our operations",
               "value": "none-location-is-incidental-to-our-operations",
               "code": "none-location-is-incidental-to-our-operations"
             }
@@ -2384,7 +2471,7 @@
               "code": "yes-informal-collaboration-knowledge-exchange-referrals"
             },
             {
-              "label": "Minimal — we are aware of neighbours but don't collaborate",
+              "label": "Minimal \u2014 we are aware of neighbours but don't collaborate",
               "value": "minimal-we-are-aware-of-neighbours-but-don-t-collaborate",
               "code": "minimal-we-are-aware-of-neighbours-but-don-t-collaborate"
             },
@@ -2424,7 +2511,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Entirely manual operations) — 2 — 3 — 4 — 5 (Highly automated across most production stages)",
+          "trailingText": "Likert: 1 (Entirely manual operations) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Highly automated across most production stages)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -2635,7 +2722,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Paper-based / no digital systems) — 2 — 3 — 4 — 5 (Fully integrated digital operations)",
+          "trailingText": "Likert: 1 (Paper-based / no digital systems) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Fully integrated digital operations)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -2652,7 +2739,7 @@
           "display_order": 2,
           "options": [
             {
-              "label": "Enterprise Resource Planning (ERP — e.g., SAP, Tally, Zoho)",
+              "label": "Enterprise Resource Planning (ERP \u2014 e.g., SAP, Tally, Zoho)",
               "value": "enterprise-resource-planning-erp-e-g-sap-tally-zoho",
               "code": "enterprise-resource-planning-erp-e-g-sap-tally-zoho"
             },
@@ -2692,7 +2779,7 @@
               "code": "cloud-based-data-storage-or-analytics"
             },
             {
-              "label": "None — operations are primarily paper-based",
+              "label": "None \u2014 operations are primarily paper-based",
               "value": "none-operations-are-primarily-paper-based",
               "code": "none-operations-are-primarily-paper-based"
             }
@@ -2709,17 +2796,17 @@
           "display_order": 3,
           "options": [
             {
-              "label": "Fully integrated — data flows automatically across systems",
+              "label": "Fully integrated \u2014 data flows automatically across systems",
               "value": "fully-integrated-data-flows-automatically-across-systems",
               "code": "fully-integrated-data-flows-automatically-across-systems"
             },
             {
-              "label": "Partially integrated — some systems connected, manual handoffs elsewhere",
+              "label": "Partially integrated \u2014 some systems connected, manual handoffs elsewhere",
               "value": "partially-integrated-some-systems-connected-manual-handoffs-elsewhere",
               "code": "partially-integrated-some-systems-connected-manual-handoffs-elsewhere"
             },
             {
-              "label": "Siloed — each system operates independently",
+              "label": "Siloed \u2014 each system operates independently",
               "value": "siloed-each-system-operates-independently",
               "code": "siloed-each-system-operates-independently"
             },
@@ -2877,7 +2964,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Technology deployed but little measurable benefit) — 2 — 3 — 4 — 5 (Clear, measurable returns from technology investment)",
+          "trailingText": "Likert: 1 (Technology deployed but little measurable benefit) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Clear, measurable returns from technology investment)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -3020,7 +3107,7 @@
           "comments_enabled": false,
           "display_order": 5,
           "options": [],
-          "trailingText": "Likert: 1 (Far exceeded expectations) — 2 — 3 — 4 — 5 (Far below expectations)",
+          "trailingText": "Likert: 1 (Far exceeded expectations) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Far below expectations)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -3045,7 +3132,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (No significant barriers) — 2 — 3 — 4 — 5 (Severe barriers preventing meaningful adoption)",
+          "trailingText": "Likert: 1 (No significant barriers) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Severe barriers preventing meaningful adoption)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -3180,7 +3267,7 @@
           "comments_enabled": false,
           "display_order": 4,
           "options": [],
-          "trailingText": "Likert: 1 (Very unlikely — other constraints dominate) — 2 — 3 — 4 — 5 (Very likely — finance is the main constraint)",
+          "trailingText": "Likert: 1 (Very unlikely \u2014 other constraints dominate) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Very likely \u2014 finance is the main constraint)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -3203,7 +3290,7 @@
           "comments_enabled": false,
           "display_order": 1,
           "options": [],
-          "trailingText": "Likert: 1 (Not important — our competitive advantage lies elsewhere) — 2 — 3 — 4 — 5 (Critical — we cannot remain competitive without it)",
+          "trailingText": "Likert: 1 (Not important \u2014 our competitive advantage lies elsewhere) \u2014 2 \u2014 3 \u2014 4 \u2014 5 (Critical \u2014 we cannot remain competitive without it)",
           "type": "likert_5",
           "scale": {
             "min": 1,
@@ -3390,13 +3477,13 @@
         },
         {
           "code": "E2",
-          "text": "What one change — to policy, infrastructure, institutions, or the business environment — would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended)",
+          "text": "What one change \u2014 to policy, infrastructure, institutions, or the business environment \u2014 would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended)",
           "description": "",
           "required": true,
           "comments_enabled": false,
           "display_order": 2,
           "options": [],
-          "trailingText": "What one change — to policy, infrastructure, institutions, or the business environment — would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended)",
+          "trailingText": "What one change \u2014 to policy, infrastructure, institutions, or the business environment \u2014 would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended)",
           "type": "paragraph"
         }
       ]

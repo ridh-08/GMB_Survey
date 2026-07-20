@@ -10,16 +10,20 @@ const surveyDefinitions = [
   {
     key: 'employer',
     code: 'gmb-employer-2026',
-    title: 'Gujarat Manufacturing Barometer - Employer Survey',
+    title: 'Gujarat Manufacturing Barometer 2026 - Employer Survey',
     description: 'Survey for manufacturing employers in Gujarat',
     type: 'employer',
   },
   {
-    key: 'worker',
+    // Renamed from 'worker' to 'employee' throughout — code kept as
+    // 'gmb-worker-2026' so this upserts onto the existing survey row (upsert
+    // matches on `code`) instead of creating a duplicate. Change the code
+    // only if a fresh survey record is wanted instead.
+    key: 'employee',
     code: 'gmb-worker-2026',
-    title: 'Gujarat Manufacturing Barometer - Worker Survey',
-    description: 'Survey for manufacturing workers in Gujarat',
-    type: 'worker',
+    title: 'Gujarat Manufacturing Barometer 2026 - Employee Survey',
+    description: 'Survey for manufacturing employees in Gujarat',
+    type: 'employee',
   },
 ];
 
@@ -157,6 +161,82 @@ const additionalQuestions = {
           5: 'Very aware, monitoring closely',
         },
       },
+    },
+    {
+      insertBefore: 'A1',
+      code: 'A0.1',
+      text: 'Name of the firm/company',
+      type: 'short_text',
+      required: false,
+    },
+    {
+      insertBefore: 'A1',
+      code: 'A0.2',
+      text: 'Name of the person filling this survey',
+      type: 'short_text',
+      required: false,
+    },
+    {
+      insertBefore: 'A1',
+      code: 'A0.3',
+      text: 'Designation of the person filling this survey',
+      type: 'short_text',
+      required: false,
+    },
+    {
+      insertBefore: 'A1',
+      code: 'A0.4',
+      text: 'Email ID',
+      description: "Optional — but we won't be able to send you the survey report without a valid email address.",
+      type: 'email',
+      required: false,
+    },
+    {
+      insertAfter: 'A1',
+      code: 'A1.5',
+      text: "What is the highest educational qualification held by the firm's leadership (owner/CEO/Managing Director)?",
+      type: 'radio',
+      required: true,
+      options: [
+        'Up to higher secondary',
+        'Diploma / ITI',
+        "Bachelor's degree",
+        "Master's degree",
+        'Professional degree (Engineering/MBA/CA, etc.)',
+        'Doctorate (PhD)',
+        'Other (specify): _______',
+      ],
+    },
+  ],
+  employee: [
+    {
+      insertBefore: 'A1',
+      code: 'A0.1',
+      text: 'Name of the firm/company you work at',
+      type: 'short_text',
+      required: false,
+    },
+    {
+      insertBefore: 'A1',
+      code: 'A0.2',
+      text: 'Your full name',
+      type: 'short_text',
+      required: false,
+    },
+    {
+      insertBefore: 'A1',
+      code: 'A0.3',
+      text: 'Your designation / role at the company',
+      type: 'short_text',
+      required: false,
+    },
+    {
+      insertBefore: 'A1',
+      code: 'A0.4',
+      text: 'Email ID',
+      description: "Optional — but we won't be able to send you the survey report without a valid email address.",
+      type: 'email',
+      required: false,
     },
   ],
 };
@@ -492,11 +572,14 @@ function parseSurveyBlock(rawText, surveyMeta) {
   return nonEmptySections;
 }
 
-// Insert a manually-defined question directly after `insertAfter` in whichever
-// section contains that anchor. Renumbers display_order for that section.
+// Insert a manually-defined question directly after `insertAfter` (or before
+// `insertBefore`) in whichever section contains that anchor code. Exactly one
+// of insertAfter/insertBefore should be set per entry. Renumbers
+// display_order for that section.
 function injectAdditionalQuestion(sections, extra) {
+  const anchorCode = extra.insertAfter || extra.insertBefore;
   for (const section of sections) {
-    const idx = section.questions.findIndex((q) => normalizeQuestionCode(q.code) === extra.insertAfter);
+    const idx = section.questions.findIndex((q) => normalizeQuestionCode(q.code) === anchorCode);
     if (idx === -1) continue;
 
     const q = {
@@ -513,7 +596,8 @@ function injectAdditionalQuestion(sections, extra) {
     if (extra.validation) q.validation = extra.validation;
     if (extra.selectionMode) q.selectionMode = extra.selectionMode;
 
-    section.questions.splice(idx + 1, 0, q);
+    const insertAt = extra.insertBefore ? idx : idx + 1;
+    section.questions.splice(insertAt, 0, q);
     section.questions.forEach((qq, i) => {
       qq.display_order = i + 1;
     });
@@ -533,7 +617,7 @@ async function upsertSurveyWithSections(client, surveyMeta, sections) {
         status: 'active',
         version: 1,
         language: 'en',
-        estimated_time_minutes: surveyMeta.key === 'employer' ? 20 : 18,
+        estimated_time_minutes: surveyMeta.key === 'employer' ? 30 : 20,
         updated_at: new Date().toISOString(),
       },
       { onConflict: 'code' }
@@ -706,14 +790,14 @@ async function main() {
   });
 
   const employerStart = source.indexOf('EMPLOYER SURVEY');
-  const workerStart = source.indexOf('WORKER SURVEY');
+  const employeeStart = source.indexOf('EMPLOYEE SURVEY');
 
-  const employerText = source.slice(employerStart, workerStart).trim();
-  const workerText = source.slice(workerStart).trim();
+  const employerText = source.slice(employerStart, employeeStart).trim();
+  const employeeText = source.slice(employeeStart).trim();
 
   const parsed = [
     { meta: surveyDefinitions[0], text: employerText },
-    { meta: surveyDefinitions[1], text: workerText },
+    { meta: surveyDefinitions[1], text: employeeText },
   ];
 
   for (const item of parsed) {

@@ -4,9 +4,12 @@ import { cookies } from 'next/headers';
 import { getActiveSurveys, getRespondentByResponseId } from '@/lib/repository';
 import type { Survey } from '@/lib/types';
 import { resumeCookieName } from '@/lib/resume-cookie';
-import { Building2, Users, ArrowRight, BarChart3 } from 'lucide-react';
+import { Building2, Users, ArrowRight } from 'lucide-react';
 import CIILogo from '@/components/images/CII_Logo.png';
 import IMELogo from '@/components/images/IME_Logo.webp';
+// Add the GMB logo file to components/images/ (e.g. GMB_Logo.png) and
+// uncomment the import below to replace the placeholder mark in the header.
+// import GMBLogo from '@/components/images/GMB_Logo.png';
 
 export const dynamic = 'force-dynamic';
 
@@ -56,7 +59,7 @@ export default async function Home() {
   }
 
   const employerSurvey = surveys.find((s) => s.type === 'employer');
-  const workerSurvey = surveys.find((s) => s.type === 'worker');
+  const employeeSurvey = surveys.find((s) => s.type === 'employee');
   const resumableSurvey = error ? null : await findResumableSurvey(surveys);
 
   return (
@@ -64,11 +67,14 @@ export default async function Home() {
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-sm bg-gradient-to-br from-sky-500 to-sky-700 flex items-center justify-center">
-              <BarChart3 className="w-5 h-5 text-white" />
+            {/* Placeholder mark — replace with the GMB logo (see import note
+                above) once the file is added to components/images/. */}
+            <div className="w-10 h-10 rounded-sm bg-gradient-to-br from-sky-500 to-sky-700 flex items-center justify-center overflow-hidden">
+              {/* <Image src={GMBLogo} alt="Gujarat Manufacturing Barometer logo" className="object-contain" /> */}
+              <span className="text-white text-xs font-bold">GMB</span>
             </div>
             <div>
-              <h1 className="text-sm font-semibold text-slate-900">Gujarat Manufacturing Barometer</h1>
+              <h1 className="text-sm font-semibold text-slate-900">Gujarat Manufacturing Barometer 2026</h1>
               <p className="text-xs text-slate-500">Statewide Survey Initiative</p>
             </div>
           </div>
@@ -89,11 +95,11 @@ export default async function Home() {
       <main className="max-w-6xl mx-auto px-6 py-16">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4">
-            Gujarat State Manufacturing Barometer
+            Gujarat Manufacturing Barometer 2026
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            A comprehensive assessment of Gujarat's manufacturing ecosystem — capturing insights from
-            both employers and workers to shape the future of industry.
+            A comprehensive assessment of Gujarat's manufacturing ecosystem to capture insights from
+            both employers and employees to shape the future of industry.
           </p>
         </div>
 
@@ -108,9 +114,9 @@ export default async function Home() {
                 description="Share your firm's experience across workforce, processes, technology, and cluster dynamics."
               />
             )}
-            {workerSurvey && (
+            {employeeSurvey && (
               <SurveyCard
-                survey={workerSurvey}
+                survey={employeeSurvey}
                 icon={<Users className="w-6 h-6 text-white" />}
                 description="Tell us about your work experience — pay, safety, career growth, and technology at your workplace."
               />

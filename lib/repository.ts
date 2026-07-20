@@ -174,6 +174,34 @@ export async function getAnswers(respondentId: string): Promise<ResponseAnswer[]
   return data as ResponseAnswer[];
 }
 
+// Fetches answers for many respondents in a single round-trip instead of one
+// query per respondent. Supabase/PostgREST caps a single response at 1000 rows,
+// so this pages through in batches of `pageSize` respondent IDs at a time and
+// stitches the results together into a Map keyed by respondent_id.
+export async function getAnswersForRespondents(
+  respondentIds: string[],
+  pageSize = 200
+): Promise<Map<string, ResponseAnswer[]>> {
+  const byRespondent = new Map<string, ResponseAnswer[]>();
+  if (respondentIds.length === 0) return byRespondent;
+
+  for (let i = 0; i < respondentIds.length; i += pageSize) {
+    const chunk = respondentIds.slice(i, i + pageSize);
+    const { data, error } = await supabaseServer
+      .from('response_answers')
+      .select('*')
+      .in('respondent_id', chunk);
+    if (error) throw error;
+    (data as ResponseAnswer[]).forEach((answer) => {
+      const list = byRespondent.get(answer.respondent_id) || [];
+      list.push(answer);
+      byRespondent.set(answer.respondent_id, list);
+    });
+  }
+
+  return byRespondent;
+}
+
 export async function updateRespondentProgress(
   respondentId: string,
   sectionIndex: number,
@@ -202,12 +230,33 @@ export async function completeSurvey(respondentId: string): Promise<void> {
   if (error) throw error;
 }
 
-export async function getAllRespondents(surveyId?: string): Promise<Respondent[]> {
-  let query = supabaseServer.from('respondents').select('*').order('created_at', { ascending: false });
+export interface PaginatedRespondents {
+  respondents: Respondent[];
+  total: number;
+}
+
+// `page` is 1-indexed. Pass no page/pageSize to get the old "fetch everything"
+// behavior (still used internally by the response sheet export, which needs
+// every row anyway). The admin dashboard table now passes page/pageSize so it
+// only pulls one page of rows per request instead of the entire table.
+export async function getAllRespondents(
+  surveyId?: string,
+  page?: number,
+  pageSize?: number
+): Promise<PaginatedRespondents> {
+  let query = supabaseServer
+    .from('respondents')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false });
   if (surveyId) query = query.eq('survey_id', surveyId);
-  const { data, error } = await query;
+  if (page && pageSize) {
+    const from = (page - 1) * pageSize;
+    const to = from + pageSize - 1;
+    query = query.range(from, to);
+  }
+  const { data, error, count } = await query;
   if (error) throw error;
-  return data as Respondent[];
+  return { respondents: data as Respondent[], total: count ?? (data as Respondent[]).length };
 }
 
 export async function getRespondentWithAnswers(responseId: string) {
@@ -220,7 +269,7 @@ export async function getRespondentWithAnswers(responseId: string) {
 export async function getAdminResponseSheet(surveyId?: string) {
   const selectedSurvey = surveyId ? await getSurveyById(surveyId) : null;
   const surveys = selectedSurvey ? [selectedSurvey] : await getActiveSurveys();
-  const respondents = await getAllRespondents(surveyId);
+  const { respondents } = await getAllRespondents(surveyId);
 
   const fullSurveys = await Promise.all(
     surveys.map(async (survey) => ({
@@ -260,12 +309,11 @@ export async function getAdminResponseSheet(surveyId?: string) {
   }
 
   const columns = Array.from(columnMap.values());
-  const answerEntries = await Promise.all(
-    respondents.map(async (respondent) => ({
-      respondent,
-      answers: await getAnswers(respondent.id),
-    }))
-  );
+  const answersByRespondent = await getAnswersForRespondents(respondents.map((r) => r.id));
+  const answerEntries = respondents.map((respondent) => ({
+    respondent,
+    answers: answersByRespondent.get(respondent.id) || [],
+  }));
 
   const rows: ResponseSheetRow[] = answerEntries.map(({ respondent, answers }) => {
     const surveyMeta = surveyMetaMap.get(respondent.survey_id);

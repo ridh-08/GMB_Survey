@@ -76,6 +76,7 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [showIntro, setShowIntro] = useState(true);
   const saveTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   useEffect(() => {
@@ -104,6 +105,7 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
             setAnswers(answerMap);
             setComments(commentMap);
             setLastSavedAt(respondent.last_updated || null);
+            setShowIntro(false);
             setLoading(false);
             return;
           }
@@ -188,9 +190,9 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
         (Array.isArray(val) && val.length === 0) ||
         (typeof val === 'object' && !Array.isArray(val) && Object.keys(val as object).length === 0);
 
-      // Worker survey B2.4 ("away from family") is only required when the
+      // Employee survey B2.4 ("away from family") is only required when the
       // preceding B2.3 commute-time answer is over 1 hour each way.
-      if (survey.type === 'worker' && q.code === 'B2.4') {
+      if (survey.type === 'employee' && q.code === 'B2.4') {
         const commuteQ = section.questions.find((qq) => qq.code === 'B2.3');
         const commuteVal = commuteQ ? answers[commuteQ.id] : undefined;
         const commuteOpt = commuteQ?.options.find((o) => o.value === commuteVal);
@@ -301,6 +303,57 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
   }
 
   if (!survey) return null;
+
+  if (showIntro) {
+    return (
+      <div className="min-h-screen bg-slate-50 font-garamond flex items-center justify-center px-6 py-10">
+        <Card className="max-w-lg w-full p-8">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <LogoLeft />
+            <div className="w-10 h-10 rounded-sm bg-gradient-to-br from-sky-500 to-sky-700 flex items-center justify-center">
+              <span className="text-white text-xs font-bold">GMB</span>
+            </div>
+            <LogoRight />
+          </div>
+          <h1 className="text-2xl font-semibold text-slate-900 text-center mb-1">{survey.title}</h1>
+          <p className="text-center text-sm text-slate-500 mb-1">
+            Takes about {survey.estimated_time_minutes} minutes
+          </p>
+          <p className="text-center text-sm text-slate-600 mb-6">
+            Thank you for taking the time to participate in this survey! Your insights will genuinely help in our analysis.
+          </p>
+          <ul className="space-y-3 text-sm text-slate-700 mb-8">
+            <li className="flex gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span>
+                Your responses are strictly confidential and will only be accessed by Ahmedabad
+                University and the Confederation of Indian Industry, Gujarat. No sensitive or
+                identifying information will be shared or leaked outside this research team.
+              </span>
+            </li>
+            <li className="flex gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span>
+                You do not need to finish the entire survey in one sitting. Your progress is saved automatically, and
+                you can resume anytime. 
+              </span>
+            </li>
+            <li className="flex gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <span>
+                A copy of the final report will be shared with you once the survey and analysis are
+                complete (provided you share an email address in the survey).
+              </span>
+            </li>
+          </ul>
+          <Button onClick={() => setShowIntro(false)} className="w-full font-garamond">
+            Begin Survey
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </Card>
+      </div>
+    );
+  }
 
   const section = survey.sections[currentSection];
   const progress = survey.sections.length > 0 ? ((currentSection + 1) / survey.sections.length) * 100 : 0;

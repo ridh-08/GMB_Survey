@@ -1,4 +1,4 @@
-export type SurveyType = 'employer' | 'worker';
+export type SurveyType = 'employer' | 'employee';
 export type SurveyStatus = 'active' | 'inactive' | 'archived';
 export type SurveyLanguage = 'en' | 'gu' | 'hi';
 

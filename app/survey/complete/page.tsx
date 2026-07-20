@@ -9,9 +9,13 @@ export default function CompletePage() {
           <CheckCircle2 className="w-10 h-10 text-emerald-600" />
         </div>
         <h1 className="text-2xl font-bold text-slate-900 mb-3">Thank You!</h1>
+        <p className="text-slate-600 mb-4">
+          Thank you for participating and sharing your valuable insights. Your response has been
+          recorded and will help shape the future of manufacturing in Gujarat.
+        </p>
         <p className="text-slate-600 mb-8">
-          Your response has been recorded. We appreciate your time and input — it will help
-          shape the future of manufacturing in Gujarat.
+          A copy of the final report will be sent to you once the survey and analysis are
+          complete.
         </p>
         <Link
           href="/"

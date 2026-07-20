@@ -528,8 +528,8 @@ D4.4 What would most accelerate your firm's technology adoption? (Open-ended, 2-
 ________________________________________
 Section E: Open-Ended
 E1. What is the single biggest constraint on your firm's manufacturing performance today that has not been captured in this survey? (Open-ended)
-E2. What one change — to policy, infrastructure, institutions, or the business environment — would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended) WORKER SURVEY
-Section A: Worker Profile 
+E2. What one change — to policy, infrastructure, institutions, or the business environment — would most improve Gujarat's manufacturing ecosystem from your firm's perspective? (Open-ended) EMPLOYEE SURVEY
+Section A: Employee Profile 
 A1. What is your role at this company?
 ●	General / unskilled worker
 ●	Machine operator
