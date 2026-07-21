@@ -124,6 +124,13 @@ export default async function Home() {
           </div>
         )}
 
+        <div className="text-center mb-16 animate-fade-in">
+          
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            In case of any queries, please email <a href="riddhi.bhargava@ahduni.edu.in" className="text-sky-700 hover:underline">info@gujaratmanufacturingbarometer.com</a>
+          </p>
+        </div>
+
         {resumableSurvey && (
           <div className="mt-16 text-center">
             <Link
