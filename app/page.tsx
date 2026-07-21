@@ -124,10 +124,10 @@ export default async function Home() {
           </div>
         )}
 
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16 gap-06 mt-16">
           
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            In case of any queries, please email <a href="riddhi.bhargava@ahduni.edu.in" className="text-sky-700 hover:underline">info@gujaratmanufacturingbarometer.com</a>
+            In case of any queries, please email <a href="riddhi.bhargava@ahduni.edu.in" className="text-sky-700 hover:underline">riddhi.bhargava@ahduni.edu.in</a>
           </p>
         </div>
 
