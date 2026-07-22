@@ -18,10 +18,12 @@ export async function GET(request: NextRequest) {
   // The response sheet still needs every row since it's built for CSV export,
   // but it's now backed by a single batched answers query instead of one
   // query per respondent, so it stays fast even at 200-300+ responses.
-  const [{ respondents, total }, surveys, sheet] = await Promise.all([
-    getAllRespondents(surveyId, page, pageSize),
-    getActiveSurveys(),
-    getAdminResponseSheet(surveyId),
-  ]);
+  const [respondents, surveys, sheet] = await Promise.all([
+  getAllRespondents(surveyId),
+  getActiveSurveys(),
+  getAdminResponseSheet(surveyId),
+]);
+
+const total = respondents.length;
   return NextResponse.json({ respondents, total, page, pageSize, surveys, sheet });
 }
