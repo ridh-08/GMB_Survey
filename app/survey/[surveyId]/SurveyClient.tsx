@@ -310,7 +310,7 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
 
       // Employee survey B2.4 ("away from family") is only required when the
       // preceding B2.3 commute-time answer is over 1 hour each way.
-      if (survey.type === 'worker' && q.code === 'B2.4') {
+      if (survey.type === 'employee' && q.code === 'B2.4') {
         const commuteQ = section.questions.find((qq) => qq.code === 'B2.3');
         const commuteVal = commuteQ ? answers[commuteQ.id] : undefined;
         const commuteOpt = commuteQ?.options.find((o) => o.value === commuteVal);

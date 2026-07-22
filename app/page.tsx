@@ -59,7 +59,7 @@ export default async function Home() {
   }
 
   const employerSurvey = surveys.find((s) => s.type === 'employer');
-  const employeeSurvey = surveys.find((s) => s.type === 'worker');
+  const employeeSurvey = surveys.find((s) => s.type === 'employee');
   const resumableSurvey = error ? null : await findResumableSurvey(surveys);
 
   return (
