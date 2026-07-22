@@ -1,4 +1,4 @@
-export type SurveyType = 'employer' | 'employee';
+export type SurveyType = 'employer' | 'worker';
 export type SurveyStatus = 'active' | 'inactive' | 'archived';
 export type SurveyLanguage = 'en' | 'gu' | 'hi';
 
@@ -111,6 +111,8 @@ export interface SurveyWithSections extends Survey {
 
 export type RespondentStatus = 'started' | 'draft' | 'completed';
 
+export type CompletionMode = 'solo' | 'team';
+
 export interface Respondent {
   id: string;
   response_id: string;
@@ -126,6 +128,12 @@ export interface Respondent {
   device: string | null;
   ip_address: string | null;
   created_at: string;
+  company_name: string | null;
+  job_title: string | null;
+  completion_mode: CompletionMode;
+  company_code: string | null;
+  section_scope: string[] | null;
+  is_group_starter: boolean;
 }
 
 export interface ResponseAnswer {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import type { SurveyWithSections, QuestionWithOptions, BranchRule, QuestionType } from '@/lib/types';
+import type { SurveyWithSections, SectionWithQuestions, QuestionWithOptions, BranchRule, QuestionType } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -31,6 +31,73 @@ import IMELogo from "@/components/images/IME_Logo.webp";
 
 interface SurveyClientProps {
   surveyId: string;
+}
+
+interface RespondentMeta {
+  completionMode: 'solo' | 'team';
+  companyCode: string | null;
+  sectionScope: string[] | null;
+  isGroupStarter: boolean;
+}
+
+// The employer survey's many topic sub-sections (Retention, Training,
+// Quality, Automation, etc.) are clubbed into three respondent-facing
+// buckets — People, Processes, Technology — plus a catch-all for anything
+// that doesn't belong to one of those three (e.g. the open-ended section).
+// Anyone picking sections to complete (team setup, or mid-survey handoff)
+// sees just these buckets rather than every individual sub-heading.
+type SectionGroupKey = 'people' | 'processes' | 'technology' | 'general';
+
+const SECTION_GROUP_META: Record<SectionGroupKey, { label: string; hint: string }> = {
+  people: { label: 'People', hint: 'Typically HR or Head of Operations' },
+  processes: { label: 'Processes', hint: 'Typically an Operational / Business Excellence lead' },
+  technology: { label: 'Technology', hint: 'Typically the CEO or CTO' },
+  general: { label: 'General', hint: 'Open to anyone on the team' },
+};
+
+// Section codes follow the pattern B* (people), C* (processes), D* (technology).
+// Anything else (e.g. E, the open-ended section) falls into "general".
+function sectionGroupKey(code: string): SectionGroupKey {
+  if (code.startsWith('B')) return 'people';
+  if (code.startsWith('C')) return 'processes';
+  if (code.startsWith('D')) return 'technology';
+  return 'general';
+}
+
+interface SectionGroup<S> {
+  key: SectionGroupKey;
+  label: string;
+  hint: string;
+  codes: string[];
+  sections: S[];
+}
+
+// Buckets a flat list of sections (excluding the firm-profile section A)
+// into the People/Processes/Technology groups, in a stable order.
+function groupSections<S extends { code: string }>(sections: S[]): SectionGroup<S>[] {
+  const order: SectionGroupKey[] = ['people', 'processes', 'technology', 'general'];
+  return order
+    .map((key) => {
+      const groupSectionsList = sections.filter((s) => sectionGroupKey(s.code) === key);
+      return {
+        key,
+        label: SECTION_GROUP_META[key].label,
+        hint: SECTION_GROUP_META[key].hint,
+        codes: groupSectionsList.map((s) => s.code),
+        sections: groupSectionsList,
+      };
+    })
+    .filter((g) => g.sections.length > 0);
+}
+
+// A team starter always covers Section A (the firm profile) since it's
+// company-level identifying info that only needs to be given once. Everyone
+// else only sees the section(s) they picked.
+function filterSectionsForRespondent<S extends { code: string }>(sections: S[], meta: RespondentMeta | null): S[] {
+  if (!meta || meta.completionMode !== 'team') return sections;
+  const scope = new Set(meta.sectionScope || []);
+  if (meta.isGroupStarter) scope.add('A');
+  return sections.filter((s) => scope.has(s.code));
 }
 
 // Free-text question types are always optional, regardless of the required
@@ -69,6 +136,14 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
   const [error, setError] = useState<string | null>(null);
   const [respondentId, setRespondentId] = useState<string | null>(null);
   const [responseId, setResponseId] = useState<string | null>(null);
+  const [respondentMeta, setRespondentMeta] = useState<RespondentMeta | null>(null);
+  const [codeCopied, setCodeCopied] = useState(false);
+  const [showSwitchModal, setShowSwitchModal] = useState(false);
+  const [switchSelectedSections, setSwitchSelectedSections] = useState<string[]>([]);
+  const [switching, setSwitching] = useState(false);
+  const [switchError, setSwitchError] = useState<string | null>(null);
+  const [pendingTeamCode, setPendingTeamCode] = useState<string | null>(null);
+  const [pendingRespondentMeta, setPendingRespondentMeta] = useState<RespondentMeta | null>(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState<Record<string, unknown>>({});
   const [comments, setComments] = useState<Record<string, string>>({});
@@ -76,7 +151,6 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
   const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
-  const [showIntro, setShowIntro] = useState(true);
   const saveTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   useEffect(() => {
@@ -100,29 +174,22 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
           if (respondent.status !== 'completed') {
             setRespondentId(respondent.id);
             setResponseId(respondent.response_id);
+            setRespondentMeta({
+              completionMode: respondent.completion_mode || 'solo',
+              companyCode: respondent.company_code || null,
+              sectionScope: respondent.section_scope || null,
+              isGroupStarter: respondent.is_group_starter !== false,
+            });
             setCurrentSection(respondent.current_section_index || 0);
             const { answerMap, commentMap } = hydrateAnswers(payload.answers || []);
             setAnswers(answerMap);
             setComments(commentMap);
             setLastSavedAt(respondent.last_updated || null);
-            setShowIntro(false);
-            setLoading(false);
-            return;
           }
         }
-
-        const createResponse = await fetch(`/api/surveys/${surveyId}/respondents`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({}),
-        });
-        if (!createResponse.ok) {
-          throw new Error('Failed to create respondent');
-        }
-        const created = await createResponse.json();
-        setRespondentId(created.respondent.id);
-        setResponseId(created.respondent.response_id);
+        // If there's no resumable respondent, we deliberately don't create
+        // one yet — the team-setup screen (company name, solo/team, which
+        // section(s)) collects that first and creates the respondent itself.
         setLoading(false);
       } catch (err) {
         console.error('Failed to load survey:', err);
@@ -131,6 +198,55 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
       }
     })();
   }, [surveyId]);
+
+  const handleSetupComplete = (respondent: {
+    id: string;
+    response_id: string;
+    completion_mode: 'solo' | 'team';
+    company_code: string | null;
+    section_scope: string[] | null;
+    is_group_starter: boolean;
+  }) => {
+    setRespondentId(respondent.id);
+    setResponseId(respondent.response_id);
+    setRespondentMeta({
+      completionMode: respondent.completion_mode,
+      companyCode: respondent.company_code,
+      sectionScope: respondent.section_scope,
+      isGroupStarter: respondent.is_group_starter,
+    });
+  };
+
+  const handleSwitchToTeam = async () => {
+    if (!responseId) return;
+    const alreadyStartedCodes = visibleSections
+      .filter((s) => s.code !== 'A' && s.questions.some((q) => answers[q.id] !== undefined))
+      .map((s) => s.code);
+    const finalScope = Array.from(new Set([...switchSelectedSections, ...alreadyStartedCodes]));
+    setSwitching(true);
+    setSwitchError(null);
+    try {
+      const res = await fetch(`/api/surveys/${survey?.id}/respondents/${responseId}/switch-to-team`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ sectionScope: finalScope }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data) throw new Error(data?.error || 'Failed to switch to team mode. Please try again.');
+      setPendingRespondentMeta({
+        completionMode: 'team',
+        companyCode: data.respondent.company_code,
+        sectionScope: data.respondent.section_scope,
+        isGroupStarter: true,
+      });
+      setPendingTeamCode(data.respondent.company_code);
+    } catch (err) {
+      setSwitchError(err instanceof Error ? err.message : 'Failed to switch to team mode.');
+    } finally {
+      setSwitching(false);
+    }
+  };
 
   const debouncedSave = useCallback(
     (questionId: string, questionCode: string, value: unknown, comment: string = '') => {
@@ -176,9 +292,11 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
 
   // Validates required-ness AND per-question rules (checkbox maxSelections,
   // matrix all-rows-answered, ranking all-ranked, etc.).
+  const visibleSections = survey ? filterSectionsForRespondent(survey.sections, respondentMeta) : [];
+
   const validateSection = (): boolean => {
     if (!survey) return false;
-    const section = survey.sections[currentSection];
+    const section = visibleSections[currentSection];
     if (!section) return true;
     const errors: Record<string, string> = {};
     getVisibleQuestions(section.questions, answers, survey.branch_rules || []).forEach((q) => {
@@ -240,8 +358,8 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
   const handleNext = async () => {
     if (!survey || !respondentId) return;
     if (!validateSection()) return;
-    const next = getNextSectionIndex(currentSection, survey, answers);
-    if (next < survey.sections.length) {
+    const next = getNextSectionIndex(currentSection, visibleSections, survey.branch_rules || [], answers);
+    if (next < visibleSections.length) {
       setCurrentSection(next);
       await fetch(`/api/respondents/${responseId}/progress`, {
         method: 'PUT',
@@ -269,7 +387,8 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
         method: 'POST',
         credentials: 'include',
       });
-      router.push('/survey/complete');
+      const showCode = respondentMeta?.completionMode === 'team' && respondentMeta.isGroupStarter && respondentMeta.companyCode;
+      router.push(showCode ? `/survey/complete?code=${encodeURIComponent(respondentMeta!.companyCode!)}` : '/survey/complete');
     } catch (err) {
       console.error('Failed to submit survey:', err);
       setError('Failed to submit survey. Please try again.');
@@ -304,64 +423,137 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
 
   if (!survey) return null;
 
-  if (showIntro) {
-    return (
-      <div className="min-h-screen bg-slate-50 font-garamond flex items-center justify-center px-6 py-10">
-        <Card className="max-w-lg w-full p-8">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <LogoLeft />
-            <div className="w-10 h-10 rounded-sm bg-gradient-to-br from-sky-500 to-sky-700 flex items-center justify-center">
-              <span className="text-white text-xs font-bold">GMB</span>
-            </div>
-            <LogoRight />
-          </div>
-          <h1 className="text-2xl font-semibold text-slate-900 text-center mb-1">{survey.title}</h1>
-          <p className="text-center text-sm text-slate-500 mb-1">
-            Takes about {survey.estimated_time_minutes} minutes
-          </p>
-          <p className="text-center text-sm text-slate-600 mb-6">
-            Thank you for taking the time to participate in this survey! Your insights will genuinely help in our analysis.
-          </p>
-          <ul className="space-y-3 text-sm text-slate-700 mb-8">
-            <li className="flex gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                Your responses are strictly confidential and will only be accessed by Ahmedabad
-                University and the Confederation of Indian Industry, Gujarat. No sensitive or
-                identifying information will be shared or leaked outside this research team.
-              </span>
-            </li>
-            <li className="flex gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                You do not need to finish the entire survey in one sitting. Your progress is saved automatically, and
-                you can resume anytime. 
-              </span>
-            </li>
-            <li className="flex gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                A copy of the final report will be shared with you once the survey and analysis are
-                complete (provided you share an email address in the survey).
-              </span>
-            </li>
-          </ul>
-          <Button onClick={() => setShowIntro(false)} className="w-full font-garamond">
-            Begin Survey
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </Card>
-      </div>
-    );
+  if (!respondentId) {
+    return <CompanySetup survey={survey} onComplete={handleSetupComplete} />;
   }
 
-  const section = survey.sections[currentSection];
-  const progress = survey.sections.length > 0 ? ((currentSection + 1) / survey.sections.length) * 100 : 0;
+  const section = visibleSections[currentSection];
+  const progress = visibleSections.length > 0 ? ((currentSection + 1) / visibleSections.length) * 100 : 0;
   const visibleQuestions = section ? getVisibleQuestions(section.questions, answers, survey.branch_rules || []) : [];
 
   return (
     <div className="min-h-screen bg-slate-50 font-garamond text-[17px] leading-relaxed text-slate-900">
-      <header className="bg-white sticky top-0 z-10 shadow-sm">
+      {showSwitchModal && (
+        <div className="fixed inset-0 z-30 bg-slate-900/40 overflow-y-auto px-6 py-8">
+          <div className="min-h-full flex items-start justify-center">
+            <Card className="max-w-lg w-full p-8 my-auto max-h-[85vh] flex flex-col">
+              <h2 className="text-lg font-semibold text-slate-900 mb-1">Split this survey with your team</h2>
+              <p className="text-sm text-slate-600 mb-4">
+                You'll keep whatever you've already answered. Pick which of the remaining areas you
+                still want to complete yourself — the rest will be released under a company code you can
+                share with colleagues.
+              </p>
+              <div className="space-y-2 mb-4 overflow-y-auto pr-1">
+                {groupSections(visibleSections.filter((s) => s.code !== 'A')).map((g) => {
+                  const alreadyStarted = g.sections.some((s) =>
+                    s.questions.some((q) => answers[q.id] !== undefined)
+                  );
+                  return (
+                    <div
+                      key={g.key}
+                      className={`flex items-start gap-3 p-3 border ${alreadyStarted ? 'border-slate-100 bg-slate-50' : 'border-slate-200'}`}
+                    >
+                      <Checkbox
+                        id={`switch-grp-${g.key}`}
+                        disabled={alreadyStarted}
+                        checked={g.codes.every((c) => switchSelectedSections.includes(c))}
+                        onCheckedChange={() =>
+                          setSwitchSelectedSections((prev) => {
+                            const hasAll = g.codes.every((c) => prev.includes(c));
+                            return hasAll
+                              ? prev.filter((c) => !g.codes.includes(c))
+                              : Array.from(new Set([...prev, ...g.codes]));
+                          })
+                        }
+                      />
+                      <div>
+                        <Label htmlFor={`switch-grp-${g.key}`} className={`font-medium ${alreadyStarted ? 'text-slate-400' : 'cursor-pointer'}`}>
+                          {g.label}
+                        </Label>
+                        <p className={`text-xs mt-0.5 ${alreadyStarted ? 'text-slate-400' : 'text-slate-500'}`}>
+                          {alreadyStarted ? 'Already started by you — stays yours.' : g.hint}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {switchError && <p className="text-sm text-red-600 mb-3">{switchError}</p>}
+              <div className="flex gap-3">
+                <Button variant="outline" className="flex-1 font-garamond" onClick={() => setShowSwitchModal(false)}>
+                  Cancel
+                </Button>
+                <Button
+                  className="flex-1 font-garamond"
+                  disabled={switching}
+                  onClick={handleSwitchToTeam}
+                >
+                  {switching ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                  Generate company code
+                </Button>
+              </div>
+            </Card>
+          </div>
+        </div>
+      )}
+
+      {pendingTeamCode && (
+        <div className="fixed inset-0 z-40 bg-slate-900/60 overflow-y-auto px-6 py-8">
+          <div className="min-h-full flex items-center justify-center">
+            <Card className="max-w-md w-full p-8 text-center">
+              <h2 className="text-lg font-semibold text-slate-900 mb-2">Your company code</h2>
+              <p className="text-sm text-slate-600 mb-4">
+                Share this code with your colleagues so they can join and complete the remaining
+                sections. You'll also see it at the top of the page while you finish yours.
+              </p>
+              <div className="font-mono text-3xl font-bold tracking-widest bg-amber-950 text-amber-50 py-4 mb-4">
+                {pendingTeamCode}
+              </div>
+              <Button
+                className="w-full font-garamond"
+                onClick={() => {
+                  if (pendingRespondentMeta) setRespondentMeta(pendingRespondentMeta);
+                  setPendingTeamCode(null);
+                  setPendingRespondentMeta(null);
+                  setShowSwitchModal(false);
+                  setCurrentSection(0);
+                }}
+              >
+                Continue to the survey
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Card>
+          </div>
+        </div>
+      )}
+
+      {respondentMeta?.completionMode === 'team' && respondentMeta.companyCode && (
+        <div className="sticky top-0 z-20 bg-amber-500 text-amber-950 shadow-md">
+          <div className="max-w-3xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+            <span className="text-sm font-medium">
+              Team response &middot; you're completing{' '}
+              <strong>{visibleSections.map((s) => s.title).join(', ')}</strong>
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-wide">Company code:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard?.writeText(respondentMeta.companyCode || '');
+                  setCodeCopied(true);
+                  window.setTimeout(() => setCodeCopied(false), 2000);
+                }}
+                className="font-mono font-bold text-lg tracking-widest bg-amber-950 text-amber-50 px-4 py-1.5 hover:bg-amber-900 transition-colors"
+                title="Copy code to share with colleagues"
+              >
+                {codeCopied ? 'Copied!' : respondentMeta.companyCode}
+              </button>
+            </span>
+          </div>
+        </div>
+      )}
+
+      <header className="bg-white sticky top-0 z-10 shadow-sm" style={respondentMeta?.completionMode === 'team' ? { top: '2.5rem' } : undefined}>
         <div className="max-w-3xl mx-auto px-6 pt-5 pb-4">
           {/* Logo band */}
           <div className="flex items-center justify-between mb-5">
@@ -381,6 +573,19 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
               <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
                 <span>{survey.estimated_time_minutes} minute estimate</span>
                 {lastSavedAt && <span>Last saved {new Date(lastSavedAt).toLocaleString()}</span>}
+                {survey.type === 'employer' && respondentMeta?.completionMode === 'solo' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSwitchSelectedSections([]);
+                      setSwitchError(null);
+                      setShowSwitchModal(true);
+                    }}
+                    className="underline hover:text-slate-800"
+                  >
+                    Split this survey with your team instead
+                  </button>
+                )}
               </div>
             </div>
             <div className="flex flex-col items-end gap-1 text-xs">
@@ -400,7 +605,7 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
 
           <div className="mt-4">
             <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
-              <span>Section {currentSection + 1} of {survey.sections.length}</span>
+              <span>Section {currentSection + 1} of {visibleSections.length}</span>
               <span>{Math.round(progress)}%</span>
             </div>
             <Progress value={progress} className="h-2" />
@@ -444,7 +649,7 @@ export default function SurveyClient({ surveyId }: SurveyClientProps) {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Previous
           </Button>
-          {currentSection < survey.sections.length - 1 ? (
+          {currentSection < visibleSections.length - 1 ? (
             <Button onClick={handleNext} className="font-garamond">
               Next
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -962,19 +1167,20 @@ function getVisibleQuestions(
 
 function getNextSectionIndex(
   currentSectionIndex: number,
-  survey: SurveyWithSections,
+  sections: SectionWithQuestions[],
+  branchRules: BranchRule[],
   answers: Record<string, unknown>
 ) {
-  const currentSection = survey.sections[currentSectionIndex];
+  const currentSection = sections[currentSectionIndex];
   const currentQuestionIds = new Set(currentSection.questions.map((question) => question.id));
-  const matchedSkipRule = (survey.branch_rules || []).find((rule) => {
+  const matchedSkipRule = (branchRules || []).find((rule) => {
     if (rule.action !== 'skip_to_section' || !rule.target_section_id) return false;
     if (!currentQuestionIds.has(rule.source_question_id)) return false;
     return matchesBranchCondition(answers[rule.source_question_id], rule.condition);
   });
 
   if (matchedSkipRule) {
-    const targetIndex = survey.sections.findIndex((section) => section.id === matchedSkipRule.target_section_id);
+    const targetIndex = sections.findIndex((section) => section.id === matchedSkipRule.target_section_id);
     if (targetIndex > currentSectionIndex) {
       return targetIndex;
     }
@@ -1033,4 +1239,376 @@ function hydrateAnswers(existingAnswers: Array<{ question_id: string; value: unk
   });
 
   return { answerMap, commentMap };
+}
+// --- Team / company setup wizard -------------------------------------------
+// Shown before a brand-new respondent is created. Collects who's answering
+// and, for employer surveys, whether they're the sole respondent or one of a
+// team splitting the survey by section (People / Processes / Technology),
+// linked together by a shared company code.
+
+type SetupStep = 'welcome' | 'details' | 'mode' | 'team_choice' | 'join_code' | 'pick_sections' | 'code_reveal';
+
+interface CompanySetupRespondent {
+  id: string;
+  response_id: string;
+  completion_mode: 'solo' | 'team';
+  company_code: string | null;
+  section_scope: string[] | null;
+  is_group_starter: boolean;
+}
+
+function CompanySetup({
+  survey,
+  onComplete,
+}: {
+  survey: SurveyWithSections;
+  onComplete: (respondent: CompanySetupRespondent) => void;
+}) {
+  const allowTeamMode = survey.type === 'employer';
+  const pickableSections = survey.sections.filter((s) => s.code !== 'A');
+
+  const [step, setStep] = useState<SetupStep>('welcome');
+  const [companyName, setCompanyName] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
+  const [email, setEmail] = useState('');
+  const [mode, setMode] = useState<'solo' | 'team'>('solo');
+  const [joinCode, setJoinCode] = useState('');
+  const [joinLookup, setJoinLookup] = useState<{ loading: boolean; error: string | null; companyName: string | null; covered: string[] } | null>(null);
+  const [selectedSections, setSelectedSections] = useState<string[]>([]);
+  const [isStarter, setIsStarter] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [readyRespondent, setReadyRespondent] = useState<CompanySetupRespondent | null>(null);
+
+  const goToModeOrSubmit = () => {
+    if (allowTeamMode && (!companyName.trim() || !jobTitle.trim())) return;
+    if (!email.trim()) return;
+    if (allowTeamMode) {
+      setStep('mode');
+    } else {
+      void submit('solo', null, null, true);
+    }
+  };
+
+  const chooseMode = (chosen: 'solo' | 'team') => {
+    setMode(chosen);
+    if (chosen === 'solo') {
+      void submit('solo', null, null, true);
+    } else {
+      setStep('team_choice');
+    }
+  };
+
+  const startNewTeamResponse = () => {
+    setIsStarter(true);
+    setSelectedSections([]);
+    setStep('pick_sections');
+  };
+
+  const lookupCode = async () => {
+    const code = joinCode.trim().toUpperCase();
+    if (!code) return;
+    setJoinLookup({ loading: true, error: null, companyName: null, covered: [] });
+    try {
+      const res = await fetch(`/api/surveys/${survey.id}/company-code/${encodeURIComponent(code)}`, {
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (!res.ok || !data.valid) {
+        setJoinLookup({ loading: false, error: 'No response found for that code on this survey.', companyName: null, covered: [] });
+        return;
+      }
+      setJoinLookup({ loading: false, error: null, companyName: data.companyName, covered: data.coveredSections || [] });
+      setIsStarter(false);
+      setSelectedSections([]);
+      setStep('pick_sections');
+    } catch {
+      setJoinLookup({ loading: false, error: 'Something went wrong looking up that code. Please try again.', companyName: null, covered: [] });
+    }
+  };
+
+  const submit = async (
+    finalMode: 'solo' | 'team',
+    companyCode: string | null,
+    sectionScope: string[] | null,
+    starter: boolean
+  ) => {
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch(`/api/surveys/${survey.id}/respondents`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          mode: finalMode,
+          companyName: companyName.trim(),
+          jobTitle: jobTitle.trim(),
+          email: email.trim(),
+          companyCode: companyCode || undefined,
+          sectionScope: sectionScope || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to start the survey.');
+      }
+      const respondent: CompanySetupRespondent = { ...data.respondent, is_group_starter: starter };
+      if (finalMode === 'team' && starter && respondent.company_code) {
+        // New company code just minted — show it prominently before moving on.
+        setReadyRespondent(respondent);
+        setStep('code_reveal');
+        setSubmitting(false);
+      } else {
+        onComplete(respondent);
+      }
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Failed to start the survey.');
+      setSubmitting(false);
+    }
+  };
+
+  const submitTeamSections = () => {
+    if (selectedSections.length === 0) return;
+    void submit('team', isStarter ? null : joinCode.trim().toUpperCase(), selectedSections, isStarter);
+  };
+
+  const wrap = (children: React.ReactNode) => (
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 font-garamond px-6 py-12">
+      <Card className="p-8 max-w-lg w-full">
+        <h1 className="text-xl font-semibold text-slate-900 mb-1">{survey.title}</h1>
+        <p className="text-sm text-slate-500 mb-6">
+          {step === 'welcome' ? 'Before you begin.' : 'Before you begin, a couple of quick questions.'}
+        </p>
+        {children}
+        {submitError && <p className="text-sm text-red-600 mt-4">{submitError}</p>}
+      </Card>
+    </div>
+  );
+
+  if (step === 'welcome') {
+    return wrap(
+      <div className="space-y-4">
+        <p className="text-sm text-slate-500 -mt-2">
+          Estimated time: {survey.estimated_time_minutes} minutes
+        </p>
+        <p className="text-sm text-slate-700">
+          Thank you for taking part — your insights genuinely help shape Gujarat's manufacturing
+          policy and support.
+        </p>
+        <ul className="space-y-3 text-sm text-slate-700">
+          <li className="flex gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <span>
+              Confidentiality is maintained throughout. Responses are shared only with Ahmedabad
+              University and the Confederation of Indian Industry, Gujarat, and no sensitive or
+              identifying information will be leaked — your answers are held in strict confidence.
+            </span>
+          </li>
+          <li className="flex gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <span>
+              There's no need to finish in one sitting — your progress is saved automatically and
+              you can resume anytime.
+            </span>
+          </li>
+          <li className="flex gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+            <span>
+              A copy of the final report will be sent to you once the survey and analysis are
+              complete.
+            </span>
+          </li>
+        </ul>
+        <Button onClick={() => setStep('details')} className="w-full font-garamond mt-2">
+          Begin Survey
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
+    );
+  }
+
+  if (step === 'details') {
+    return wrap(
+      <div className="space-y-4">
+        {allowTeamMode && (
+          <>
+            <div>
+              <Label htmlFor="company-name">Company name</Label>
+              <Input id="company-name" value={companyName} onChange={(e) => setCompanyName(e.target.value)} className="mt-1 rounded-none" placeholder="e.g. Acme Manufacturing Pvt Ltd" />
+            </div>
+            <div>
+              <Label htmlFor="job-title">Your job title</Label>
+              <Input id="job-title" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} className="mt-1 rounded-none" placeholder="e.g. HR Manager" />
+            </div>
+          </>
+        )}
+        <div>
+          <Label htmlFor="respondent-email">Email ID</Label>
+          <Input id="respondent-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 rounded-none" placeholder="you@company.com" />
+        </div>
+        <Button
+          onClick={goToModeOrSubmit}
+          disabled={(allowTeamMode && (!companyName.trim() || !jobTitle.trim())) || !email.trim() || submitting}
+          className="w-full font-garamond mt-2"
+        >
+          Continue
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
+    );
+  }
+
+  if (step === 'mode') {
+    return wrap(
+      <div className="space-y-3">
+        <p className="text-sm text-slate-600 mb-2">
+          Is this survey being completed by one person, or split across a few colleagues (e.g. HR for People,
+          Operations for Processes, CTO for Technology)?
+        </p>
+        <button
+          type="button"
+          onClick={() => chooseMode('solo')}
+          className="w-full text-left border border-slate-200 p-4 hover:border-sky-600 transition-colors"
+        >
+          <div className="font-medium text-slate-900">I'll complete the whole survey myself</div>
+          <div className="text-sm text-slate-500">One person, start to finish.</div>
+        </button>
+        <button
+          type="button"
+          onClick={() => chooseMode('team')}
+          className="w-full text-left border border-slate-200 p-4 hover:border-sky-600 transition-colors"
+        >
+          <div className="font-medium text-slate-900">We're splitting it across our team</div>
+          <div className="text-sm text-slate-500">Different colleagues answer different sections.</div>
+        </button>
+      </div>
+    );
+  }
+
+  if (step === 'team_choice') {
+    return wrap(
+      <div className="space-y-3">
+        <button
+          type="button"
+          onClick={startNewTeamResponse}
+          className="w-full text-left border border-slate-200 p-4 hover:border-sky-600 transition-colors"
+        >
+          <div className="font-medium text-slate-900">Start our company's response</div>
+          <div className="text-sm text-slate-500">
+            You'll fill the firm profile plus whichever section(s) are yours, then get a code to share with colleagues.
+          </div>
+        </button>
+        <button
+          type="button"
+          onClick={() => setStep('join_code')}
+          className="w-full text-left border border-slate-200 p-4 hover:border-sky-600 transition-colors"
+        >
+          <div className="font-medium text-slate-900">Join a colleague's response</div>
+          <div className="text-sm text-slate-500">Enter the company code they shared with you.</div>
+        </button>
+      </div>
+    );
+  }
+
+  if (step === 'join_code') {
+    return wrap(
+      <div className="space-y-4">
+        <div>
+          <Label htmlFor="join-code">Company code</Label>
+          <Input
+            id="join-code"
+            value={joinCode}
+            onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
+            className="mt-1 rounded-none font-mono"
+            placeholder="GMB-XXXX"
+          />
+          {joinLookup?.error && <p className="text-sm text-red-600 mt-2">{joinLookup.error}</p>}
+        </div>
+        <Button onClick={lookupCode} disabled={!joinCode.trim() || joinLookup?.loading} className="w-full font-garamond">
+          {joinLookup?.loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+          Find this response
+        </Button>
+      </div>
+    );
+  }
+
+  if (step === 'code_reveal' && readyRespondent) {
+    return wrap(
+      <div className="space-y-4 text-center">
+        <p className="text-sm text-slate-600">
+          Share this code with your colleagues so they can join and complete the remaining sections.
+          You'll also see it at the top of the page while you finish yours.
+        </p>
+        <div className="font-mono text-3xl font-bold tracking-widest bg-amber-950 text-amber-50 py-4">
+          {readyRespondent.company_code}
+        </div>
+        <Button className="w-full font-garamond" onClick={() => onComplete(readyRespondent)}>
+          Continue to the survey
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </div>
+    );
+  }
+
+  // pick_sections
+  const alreadyCovered = joinLookup?.covered || [];
+  const groups = groupSections(pickableSections).filter(
+    (g) => !g.codes.every((c) => alreadyCovered.includes(c)) || !alreadyCovered.length
+  ).map((g) => ({ ...g, codes: g.codes.filter((c) => !alreadyCovered.includes(c)) }))
+    .filter((g) => g.codes.length > 0);
+
+  return wrap(
+    <div className="space-y-4">
+      {!isStarter && joinLookup?.companyName && (
+        <p className="text-sm text-slate-600 bg-slate-50 border border-slate-200 p-3">
+          Joining the response for <strong>{joinLookup.companyName}</strong>.
+        </p>
+      )}
+      <p className="text-sm text-slate-600">
+        Which area{isStarter ? ' — besides the firm profile, which is yours as the starter —' : ''} are you
+        completing?
+      </p>
+      {groups.length === 0 ? (
+        <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 p-3">
+          Every area has already been claimed for this company code. Please check with your colleagues.
+        </p>
+      ) : (
+        <div className="space-y-2">
+          {groups.map((g) => {
+            const checked = g.codes.every((c) => selectedSections.includes(c));
+            return (
+              <div key={g.key} className="flex items-start gap-3 p-3 border border-slate-200">
+                <Checkbox
+                  id={`sec-${g.key}`}
+                  checked={checked}
+                  onCheckedChange={() => {
+                    setSelectedSections((prev) => {
+                      const hasAll = g.codes.every((c) => prev.includes(c));
+                      return hasAll
+                        ? prev.filter((c) => !g.codes.includes(c))
+                        : Array.from(new Set([...prev, ...g.codes]));
+                    });
+                  }}
+                />
+                <div>
+                  <Label htmlFor={`sec-${g.key}`} className="font-medium cursor-pointer">{g.label}</Label>
+                  <p className="text-xs text-slate-500 mt-0.5">{g.hint}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      <Button
+        onClick={submitTeamSections}
+        disabled={selectedSections.length === 0 || submitting}
+        className="w-full font-garamond"
+      >
+        {submitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+        Start answering
+        <ArrowRight className="w-4 h-4 ml-2" />
+      </Button>
+    </div>
+  );
 }

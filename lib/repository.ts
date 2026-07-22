@@ -12,6 +12,7 @@ import type {
   MatrixColumn,
   BranchRule,
   Respondent,
+  CompletionMode,
   ResponseAnswer,
   QuestionWithOptions,
 } from './types';
@@ -118,16 +119,138 @@ export async function getFullSurvey(surveyId: string): Promise<SurveyWithSection
   return { ...survey, sections: sectionsWithQuestions, branch_rules: branchRules as BranchRule[] };
 }
 
-export async function createRespondent(surveyId: string, email?: string): Promise<Respondent> {
+export interface CreateRespondentInput {
+  email?: string;
+  companyName: string | null;
+  jobTitle: string | null;
+  completionMode: CompletionMode;
+  companyCode?: string | null; // provided only when joining an existing team response
+  sectionScope?: string[] | null; // section codes this respondent is answering (team mode only)
+}
+
+export interface CompanyGroupStatus {
+  companyCode: string;
+  companyName: string | null;
+  respondentCount: number;
+  coveredSections: string[]; // union of every joined respondent's section_scope, plus 'A' if a starter exists
+  hasStarter: boolean;
+}
+
+function generateCompanyCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O/1/I, easier to read aloud/type
+  let code = '';
+  for (let i = 0; i < 4; i += 1) {
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return `GMB-${code}`;
+}
+
+export async function generateUniqueCompanyCode(surveyId: string): Promise<string> {
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    const code = generateCompanyCode();
+    const { data, error } = await supabaseServer
+      .from('respondents')
+      .select('id')
+      .eq('survey_id', surveyId)
+      .eq('company_code', code)
+      .limit(1);
+    if (error) throw error;
+    if (!data || data.length === 0) return code;
+  }
+  throw new Error('Could not generate a unique company code, please try again.');
+}
+
+export async function getCompanyGroupStatus(
+  surveyId: string,
+  companyCode: string
+): Promise<CompanyGroupStatus | null> {
+  const { data, error } = await supabaseServer
+    .from('respondents')
+    .select('company_name, section_scope, is_group_starter')
+    .eq('survey_id', surveyId)
+    .eq('company_code', companyCode);
+  if (error) throw error;
+  if (!data || data.length === 0) return null;
+
+  const coveredSections = new Set<string>();
+  let hasStarter = false;
+  let companyName: string | null = null;
+  for (const row of data as Array<{ company_name: string | null; section_scope: string[] | null; is_group_starter: boolean }>) {
+    if (row.is_group_starter) {
+      hasStarter = true;
+      coveredSections.add('A');
+    }
+    (row.section_scope || []).forEach((code) => coveredSections.add(code));
+    if (row.company_name && !companyName) companyName = row.company_name;
+  }
+
+  return {
+    companyCode,
+    companyName,
+    respondentCount: data.length,
+    coveredSections: Array.from(coveredSections),
+    hasStarter,
+  };
+}
+
+export async function createRespondent(surveyId: string, input: CreateRespondentInput): Promise<Respondent> {
   const responseId = `RSP-${Date.now()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+
+  let companyCode: string | null = null;
+  let isGroupStarter = true;
+
+  if (input.completionMode === 'team') {
+    if (input.companyCode) {
+      const group = await getCompanyGroupStatus(surveyId, input.companyCode);
+      if (!group) throw new Error('That company code was not found for this survey.');
+      companyCode = input.companyCode;
+      isGroupStarter = false;
+    } else {
+      companyCode = await generateUniqueCompanyCode(surveyId);
+      isGroupStarter = true;
+    }
+  }
+
   const { data, error } = await supabaseServer
     .from('respondents')
     .insert({
       response_id: responseId,
       survey_id: surveyId,
-      email: email || null,
+      email: input.email || null,
       status: 'started',
+      company_name: input.companyName,
+      job_title: input.jobTitle,
+      completion_mode: input.completionMode,
+      company_code: companyCode,
+      section_scope: input.completionMode === 'team' ? input.sectionScope || [] : null,
+      is_group_starter: isGroupStarter,
     })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as Respondent;
+}
+
+// Lets a respondent who started solo switch to team mode mid-survey (e.g.
+// they didn't realize how much the survey covered until partway through).
+// They keep whatever they've already answered, become the group starter,
+// and pick which of the remaining sections they still want to own — the
+// rest become available for colleagues to claim via the generated code.
+export async function switchRespondentToTeamMode(
+  respondentId: string,
+  surveyId: string,
+  sectionScope: string[]
+): Promise<Respondent> {
+  const companyCode = await generateUniqueCompanyCode(surveyId);
+  const { data, error } = await supabaseServer
+    .from('respondents')
+    .update({
+      completion_mode: 'team',
+      company_code: companyCode,
+      section_scope: sectionScope,
+      is_group_starter: true,
+    })
+    .eq('id', respondentId)
     .select()
     .single();
   if (error) throw error;
@@ -174,34 +297,6 @@ export async function getAnswers(respondentId: string): Promise<ResponseAnswer[]
   return data as ResponseAnswer[];
 }
 
-// Fetches answers for many respondents in a single round-trip instead of one
-// query per respondent. Supabase/PostgREST caps a single response at 1000 rows,
-// so this pages through in batches of `pageSize` respondent IDs at a time and
-// stitches the results together into a Map keyed by respondent_id.
-export async function getAnswersForRespondents(
-  respondentIds: string[],
-  pageSize = 200
-): Promise<Map<string, ResponseAnswer[]>> {
-  const byRespondent = new Map<string, ResponseAnswer[]>();
-  if (respondentIds.length === 0) return byRespondent;
-
-  for (let i = 0; i < respondentIds.length; i += pageSize) {
-    const chunk = respondentIds.slice(i, i + pageSize);
-    const { data, error } = await supabaseServer
-      .from('response_answers')
-      .select('*')
-      .in('respondent_id', chunk);
-    if (error) throw error;
-    (data as ResponseAnswer[]).forEach((answer) => {
-      const list = byRespondent.get(answer.respondent_id) || [];
-      list.push(answer);
-      byRespondent.set(answer.respondent_id, list);
-    });
-  }
-
-  return byRespondent;
-}
-
 export async function updateRespondentProgress(
   respondentId: string,
   sectionIndex: number,
@@ -230,33 +325,50 @@ export async function completeSurvey(respondentId: string): Promise<void> {
   if (error) throw error;
 }
 
-export interface PaginatedRespondents {
+export interface CompanyGroupSummary {
+  companyCode: string;
+  companyName: string | null;
   respondents: Respondent[];
-  total: number;
+  coveredSections: string[];
+  hasStarter: boolean;
 }
 
-// `page` is 1-indexed. Pass no page/pageSize to get the old "fetch everything"
-// behavior (still used internally by the response sheet export, which needs
-// every row anyway). The admin dashboard table now passes page/pageSize so it
-// only pulls one page of rows per request instead of the entire table.
-export async function getAllRespondents(
-  surveyId?: string,
-  page?: number,
-  pageSize?: number
-): Promise<PaginatedRespondents> {
-  let query = supabaseServer
-    .from('respondents')
-    .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false });
+export async function getCompanyGroups(surveyId: string): Promise<CompanyGroupSummary[]> {
+  const respondents = await getAllRespondents(surveyId);
+  const groups = new Map<string, CompanyGroupSummary>();
+
+  respondents
+    .filter((r) => r.completion_mode === 'team' && r.company_code)
+    .forEach((r) => {
+      const code = r.company_code as string;
+      const existing = groups.get(code) || {
+        companyCode: code,
+        companyName: null,
+        respondents: [],
+        coveredSections: [],
+        hasStarter: false,
+      };
+      existing.respondents.push(r);
+      if (!existing.companyName && r.company_name) existing.companyName = r.company_name;
+      if (r.is_group_starter) {
+        existing.hasStarter = true;
+        if (!existing.coveredSections.includes('A')) existing.coveredSections.push('A');
+      }
+      (r.section_scope || []).forEach((code) => {
+        if (!existing.coveredSections.includes(code)) existing.coveredSections.push(code);
+      });
+      groups.set(code, existing);
+    });
+
+  return Array.from(groups.values());
+}
+
+export async function getAllRespondents(surveyId?: string): Promise<Respondent[]> {
+  let query = supabaseServer.from('respondents').select('*').order('created_at', { ascending: false });
   if (surveyId) query = query.eq('survey_id', surveyId);
-  if (page && pageSize) {
-    const from = (page - 1) * pageSize;
-    const to = from + pageSize - 1;
-    query = query.range(from, to);
-  }
-  const { data, error, count } = await query;
+  const { data, error } = await query;
   if (error) throw error;
-  return { respondents: data as Respondent[], total: count ?? (data as Respondent[]).length };
+  return data as Respondent[];
 }
 
 export async function getRespondentWithAnswers(responseId: string) {
@@ -266,10 +378,122 @@ export async function getRespondentWithAnswers(responseId: string) {
   return { respondent, answers };
 }
 
+export interface MergedCompanyColumn {
+  key: string;
+  label: string;
+  question_id: string;
+  question_code: string;
+  section_code: string;
+}
+
+export interface MergedCompanyRow {
+  company_code: string;
+  company_name: string | null;
+  respondent_count: number;
+  covered_sections: string[];
+  missing_sections: string[];
+  complete: boolean;
+  contributors: Array<{ response_id: string; job_title: string | null; sections: string[]; status: string }>;
+  values: Record<string, string>;
+  conflicts: string[]; // human-readable notes when >1 respondent answered the same question
+}
+
+const ALL_SECTION_CODES = ['A', 'B', 'C', 'D', 'E'];
+
+export async function getMergedCompanySheet(
+  surveyId: string
+): Promise<{ columns: MergedCompanyColumn[]; rows: MergedCompanyRow[] }> {
+  const fullSurvey = await getFullSurvey(surveyId);
+  if (!fullSurvey) return { columns: [], rows: [] };
+
+  const questionSection = new Map<string, { code: string; question: Question }>();
+  fullSurvey.sections.forEach((section) => {
+    section.questions.forEach((question) => {
+      questionSection.set(question.id, { code: section.code, question });
+    });
+  });
+
+  const columns: MergedCompanyColumn[] = Array.from(questionSection.values()).map(({ code, question }) => ({
+    key: question.code,
+    label: `${question.code} ${question.text}`.trim(),
+    question_id: question.id,
+    question_code: question.code,
+    section_code: code,
+  }));
+
+  const respondents = (await getAllRespondents(surveyId)).filter(
+    (r) => r.completion_mode === 'team' && r.company_code
+  );
+
+  const byCode = new Map<string, Respondent[]>();
+  respondents.forEach((r) => {
+    const code = r.company_code as string;
+    const list = byCode.get(code) || [];
+    list.push(r);
+    byCode.set(code, list);
+  });
+
+  const rows: MergedCompanyRow[] = await Promise.all(
+    Array.from(byCode.entries()).map(async ([companyCode, group]) => {
+      const coveredSections = new Set<string>();
+      let companyName: string | null = null;
+      group.forEach((r) => {
+        if (r.is_group_starter) coveredSections.add('A');
+        (r.section_scope || []).forEach((s) => coveredSections.add(s));
+        if (!companyName && r.company_name) companyName = r.company_name;
+      });
+
+      const values: Record<string, string> = {};
+      const owningRespondentFor: Record<string, string> = {}; // questionCode -> response_id that supplied it
+      const conflicts: string[] = [];
+
+      // Answer every question from whichever respondent actually owns that
+      // question's section, so each cell in the merged row is unambiguous.
+      for (const r of group) {
+        const ownedSections = new Set<string>(r.section_scope || []);
+        if (r.is_group_starter) ownedSections.add('A');
+        const answers = await getAnswers(r.id);
+        answers.forEach((answer) => {
+          const meta = questionSection.get(answer.question_id);
+          if (!meta || !ownedSections.has(meta.code)) return; // ignore answers outside their assigned scope
+          const formatted = formatAnswerForSheet(answer.value, answer.comment);
+          if (values[meta.question.code] !== undefined && values[meta.question.code] !== formatted) {
+            conflicts.push(
+              `${meta.question.code}: differing answers from multiple respondents (kept the first one recorded)`
+            );
+            return;
+          }
+          values[meta.question.code] = formatted;
+          owningRespondentFor[meta.question.code] = r.response_id;
+        });
+      }
+
+      return {
+        company_code: companyCode,
+        company_name: companyName,
+        respondent_count: group.length,
+        covered_sections: ALL_SECTION_CODES.filter((s) => coveredSections.has(s)),
+        missing_sections: ALL_SECTION_CODES.filter((s) => !coveredSections.has(s)),
+        complete: ALL_SECTION_CODES.every((s) => coveredSections.has(s)),
+        contributors: group.map((r) => ({
+          response_id: r.response_id,
+          job_title: r.job_title,
+          sections: r.is_group_starter ? ['A', ...(r.section_scope || [])] : r.section_scope || [],
+          status: r.status,
+        })),
+        values,
+        conflicts,
+      };
+    })
+  );
+
+  return { columns, rows };
+}
+
 export async function getAdminResponseSheet(surveyId?: string) {
   const selectedSurvey = surveyId ? await getSurveyById(surveyId) : null;
   const surveys = selectedSurvey ? [selectedSurvey] : await getActiveSurveys();
-  const { respondents } = await getAllRespondents(surveyId);
+  const respondents = await getAllRespondents(surveyId);
 
   const fullSurveys = await Promise.all(
     surveys.map(async (survey) => ({
@@ -309,11 +533,12 @@ export async function getAdminResponseSheet(surveyId?: string) {
   }
 
   const columns = Array.from(columnMap.values());
-  const answersByRespondent = await getAnswersForRespondents(respondents.map((r) => r.id));
-  const answerEntries = respondents.map((respondent) => ({
-    respondent,
-    answers: answersByRespondent.get(respondent.id) || [],
-  }));
+  const answerEntries = await Promise.all(
+    respondents.map(async (respondent) => ({
+      respondent,
+      answers: await getAnswers(respondent.id),
+    }))
+  );
 
   const rows: ResponseSheetRow[] = answerEntries.map(({ respondent, answers }) => {
     const surveyMeta = surveyMetaMap.get(respondent.survey_id);

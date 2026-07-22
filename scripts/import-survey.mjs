@@ -10,20 +10,16 @@ const surveyDefinitions = [
   {
     key: 'employer',
     code: 'gmb-employer-2026',
-    title: 'Gujarat Manufacturing Barometer 2026 - Employer Survey',
+    title: 'Gujarat Manufacturing Barometer - Employer Survey',
     description: 'Survey for manufacturing employers in Gujarat',
     type: 'employer',
   },
   {
-    // Renamed from 'worker' to 'employee' throughout — code kept as
-    // 'gmb-worker-2026' so this upserts onto the existing survey row (upsert
-    // matches on `code`) instead of creating a duplicate. Change the code
-    // only if a fresh survey record is wanted instead.
-    key: 'employee',
+    key: 'worker',
     code: 'gmb-worker-2026',
-    title: 'Gujarat Manufacturing Barometer 2026 - Employee Survey',
-    description: 'Survey for manufacturing employees in Gujarat',
-    type: 'employee',
+    title: 'Gujarat Manufacturing Barometer - Worker Survey',
+    description: 'Survey for manufacturing workers in Gujarat',
+    type: 'worker',
   },
 ];
 
@@ -161,82 +157,6 @@ const additionalQuestions = {
           5: 'Very aware, monitoring closely',
         },
       },
-    },
-    {
-      insertBefore: 'A1',
-      code: 'A0.1',
-      text: 'Name of the firm/company',
-      type: 'short_text',
-      required: false,
-    },
-    {
-      insertBefore: 'A1',
-      code: 'A0.2',
-      text: 'Name of the person filling this survey',
-      type: 'short_text',
-      required: false,
-    },
-    {
-      insertBefore: 'A1',
-      code: 'A0.3',
-      text: 'Designation of the person filling this survey',
-      type: 'short_text',
-      required: false,
-    },
-    {
-      insertBefore: 'A1',
-      code: 'A0.4',
-      text: 'Email ID',
-      description: "Optional — but we won't be able to send you the survey report without a valid email address.",
-      type: 'email',
-      required: false,
-    },
-    {
-      insertAfter: 'A1',
-      code: 'A1.5',
-      text: "What is the highest educational qualification held by the firm's leadership (owner/CEO/Managing Director)?",
-      type: 'radio',
-      required: true,
-      options: [
-        'Up to higher secondary',
-        'Diploma / ITI',
-        "Bachelor's degree",
-        "Master's degree",
-        'Professional degree (Engineering/MBA/CA, etc.)',
-        'Doctorate (PhD)',
-        'Other (specify): _______',
-      ],
-    },
-  ],
-  employee: [
-    {
-      insertBefore: 'A1',
-      code: 'A0.1',
-      text: 'Name of the firm/company you work at',
-      type: 'short_text',
-      required: false,
-    },
-    {
-      insertBefore: 'A1',
-      code: 'A0.2',
-      text: 'Your full name',
-      type: 'short_text',
-      required: false,
-    },
-    {
-      insertBefore: 'A1',
-      code: 'A0.3',
-      text: 'Your designation / role at the company',
-      type: 'short_text',
-      required: false,
-    },
-    {
-      insertBefore: 'A1',
-      code: 'A0.4',
-      text: 'Email ID',
-      description: "Optional — but we won't be able to send you the survey report without a valid email address.",
-      type: 'email',
-      required: false,
     },
   ],
 };
@@ -572,14 +492,11 @@ function parseSurveyBlock(rawText, surveyMeta) {
   return nonEmptySections;
 }
 
-// Insert a manually-defined question directly after `insertAfter` (or before
-// `insertBefore`) in whichever section contains that anchor code. Exactly one
-// of insertAfter/insertBefore should be set per entry. Renumbers
-// display_order for that section.
+// Insert a manually-defined question directly after `insertAfter` in whichever
+// section contains that anchor. Renumbers display_order for that section.
 function injectAdditionalQuestion(sections, extra) {
-  const anchorCode = extra.insertAfter || extra.insertBefore;
   for (const section of sections) {
-    const idx = section.questions.findIndex((q) => normalizeQuestionCode(q.code) === anchorCode);
+    const idx = section.questions.findIndex((q) => normalizeQuestionCode(q.code) === extra.insertAfter);
     if (idx === -1) continue;
 
     const q = {
@@ -596,8 +513,7 @@ function injectAdditionalQuestion(sections, extra) {
     if (extra.validation) q.validation = extra.validation;
     if (extra.selectionMode) q.selectionMode = extra.selectionMode;
 
-    const insertAt = extra.insertBefore ? idx : idx + 1;
-    section.questions.splice(insertAt, 0, q);
+    section.questions.splice(idx + 1, 0, q);
     section.questions.forEach((qq, i) => {
       qq.display_order = i + 1;
     });
@@ -617,7 +533,7 @@ async function upsertSurveyWithSections(client, surveyMeta, sections) {
         status: 'active',
         version: 1,
         language: 'en',
-        estimated_time_minutes: surveyMeta.key === 'employer' ? 30 : 20,
+        estimated_time_minutes: surveyMeta.key === 'employer' ? 20 : 18,
         updated_at: new Date().toISOString(),
       },
       { onConflict: 'code' }
@@ -628,25 +544,39 @@ async function upsertSurveyWithSections(client, surveyMeta, sections) {
   if (surveyError) throw surveyError;
 
   const surveyId = surveyData.id;
-
-  await deleteExistingSurveyData(client, surveyId);
+  const seenSectionCodes = [];
+  const seenQuestionCodesBySection = new Map();
 
   for (const section of sections) {
-    const { data: insertedSection, error: sectionError } = await client
+    // UPSERT, never delete-then-insert: sections.id must stay stable across
+    // re-imports, because questions.section_id, respondents' progress
+    // tracking, and everything downstream refers to these IDs. Recreating
+    // this row previously cascade-deleted every respondent for the survey
+    // (respondents.survey_id -> surveys.id) whenever the *survey* row got
+    // recreated, and separately cascade-deleted every answer whenever a
+    // *question* row got recreated (response_answers.question_id ->
+    // questions.id). Never delete rows that real submitted data may point to.
+    const { data: upsertedSection, error: sectionError } = await client
       .from('sections')
-      .insert({
-        survey_id: surveyId,
-        code: section.code,
-        title: section.title,
-        description: section.description || '',
-        display_order: section.display_order,
-      })
+      .upsert(
+        {
+          survey_id: surveyId,
+          code: section.code,
+          title: section.title,
+          description: section.description || '',
+          display_order: section.display_order,
+        },
+        { onConflict: 'survey_id,code' }
+      )
       .select('id')
       .single();
 
     if (sectionError) throw sectionError;
 
-    const sectionId = insertedSection.id;
+    const sectionId = upsertedSection.id;
+    seenSectionCodes.push(section.code);
+    const seenQuestionCodes = [];
+    seenQuestionCodesBySection.set(section.code, seenQuestionCodes);
 
     for (const question of section.questions) {
       // Fold scale + selectionMode into validation so richer metadata reaches
@@ -655,27 +585,37 @@ async function upsertSurveyWithSections(client, surveyMeta, sections) {
       if (question.scale) validation.scale = question.scale;
       if (question.selectionMode) validation.selectionMode = question.selectionMode;
 
-      const questionPayload = {
-        section_id: sectionId,
-        code: question.code,
-        text: question.text,
-        description: question.description || '',
-        type: question.type,
-        required: question.required !== false,
-        validation: Object.keys(validation).length ? validation : null,
-        comments_enabled: question.comments_enabled || false,
-        display_order: question.display_order,
-      };
-
-      const { data: insertedQuestion, error: questionError } = await client
+      const { data: upsertedQuestion, error: questionError } = await client
         .from('questions')
-        .insert(questionPayload)
+        .upsert(
+          {
+            section_id: sectionId,
+            code: question.code,
+            text: question.text,
+            description: question.description || '',
+            type: question.type,
+            required: question.required !== false,
+            validation: Object.keys(validation).length ? validation : null,
+            comments_enabled: question.comments_enabled || false,
+            display_order: question.display_order,
+          },
+          { onConflict: 'section_id,code' }
+        )
         .select('id')
         .single();
 
       if (questionError) throw questionError;
 
-      const questionId = insertedQuestion.id;
+      const questionId = upsertedQuestion.id;
+      seenQuestionCodes.push(question.code);
+
+      // Options/matrix rows/columns are pure display definitions — nothing
+      // else in the schema references their IDs, so it's safe to fully
+      // replace them for this (now-stable) question_id on every re-import.
+      for (const tableName of ['options', 'matrix_rows', 'matrix_columns']) {
+        const { error: clearError } = await client.from(tableName).delete().eq('question_id', questionId);
+        if (clearError) throw clearError;
+      }
 
       if (question.options?.length) {
         const optionRows = question.options.map((option, index) => ({
@@ -712,69 +652,81 @@ async function upsertSurveyWithSections(client, surveyMeta, sections) {
     }
   }
 
+  await warnAboutStaleContent(client, surveyId, seenSectionCodes, seenQuestionCodesBySection);
+
   return surveyId;
 }
 
-async function deleteExistingSurveyData(client, surveyId) {
-  const { data: sections, error: sectionsError } = await client
+// Content that existed in a previous import but isn't in this one is left in
+// place rather than deleted — deleting it could cascade-delete real answers.
+// This just tells a human what's now stale so they can decide, with a real
+// SQL statement they can review and run themselves if they're sure nothing
+// depends on it.
+async function warnAboutStaleContent(client, surveyId, seenSectionCodes, seenQuestionCodesBySection) {
+  const { data: existingSections, error } = await client
     .from('sections')
-    .select('id')
+    .select('id, code, questions(id, code)')
     .eq('survey_id', surveyId);
-  if (sectionsError) throw sectionsError;
+  if (error) throw error;
 
-  const sectionIds = (sections || []).map((row) => row.id);
-  const questionIds = [];
-
-  if (sectionIds.length) {
-    const { data: questions, error: questionsError } = await client
-      .from('questions')
-      .select('id')
-      .in('section_id', sectionIds);
-    if (questionsError) throw questionsError;
-    questionIds.push(...(questions || []).map((row) => row.id));
+  const staleSections = (existingSections || []).filter((s) => !seenSectionCodes.includes(s.code));
+  if (staleSections.length) {
+    console.warn(
+      `\n⚠️  ${staleSections.length} section(s) exist in the database but were not in this import: ` +
+        staleSections.map((s) => s.code).join(', ') +
+        '\n   Left in place (not deleted) in case any responses reference them. Review and remove manually if intended.'
+    );
   }
 
-  const { data: respondents, error: respondentsError } = await client
-    .from('respondents')
-    .select('id')
-    .eq('survey_id', surveyId);
-  if (respondentsError) throw respondentsError;
-
-  const respondentIds = (respondents || []).map((row) => row.id);
-
-  if (respondentIds.length) {
-    const { error } = await client.from('response_answers').delete().in('respondent_id', respondentIds);
-    if (error) throw error;
-  }
-
-  if (questionIds.length) {
-    for (const tableName of ['options', 'matrix_rows', 'matrix_columns']) {
-      const { error } = await client.from(tableName).delete().in('question_id', questionIds);
-      if (error) throw error;
+  (existingSections || []).forEach((s) => {
+    const seenQuestionCodes = seenQuestionCodesBySection.get(s.code) || [];
+    const staleQuestions = (s.questions || []).filter((q) => !seenQuestionCodes.includes(q.code));
+    if (staleQuestions.length) {
+      console.warn(
+        `⚠️  Section ${s.code}: ${staleQuestions.length} question(s) in the database were not in this import: ` +
+          staleQuestions.map((q) => q.code).join(', ') +
+          '\n   Left in place (not deleted) — deleting them would cascade-delete any answers already recorded against them.'
+      );
     }
+  });
+}
 
-    const { error: questionsDeleteError } = await client.from('questions').delete().in('id', questionIds);
-    if (questionsDeleteError) throw questionsDeleteError;
+function summarizeForDryRun(parsed) {
+  for (const item of parsed) {
+    const sections = parseSurveyBlock(item.text, item.meta);
+    let qCount = 0;
+    console.log(`\n=== ${item.meta.title} ===`);
+    sections.forEach((section) => {
+      console.log(`[${section.code}] ${section.title} (${section.questions.length} questions)`);
+      qCount += section.questions.length;
+    });
+    console.log(`${item.meta.title}: ${sections.length} sections, ${qCount} questions total`);
   }
-
-  if (sectionIds.length) {
-    const { error: branchRulesError } = await client.from('branch_rules').delete().in('source_question_id', questionIds);
-    if (branchRulesError) throw branchRulesError;
-
-    const { error: sectionsDeleteError } = await client.from('sections').delete().in('id', sectionIds);
-    if (sectionsDeleteError) throw sectionsDeleteError;
-  }
-
-  if (respondentIds.length) {
-    const { error: respondentsDeleteError } = await client.from('respondents').delete().in('id', respondentIds);
-    if (respondentsDeleteError) throw respondentsDeleteError;
-  }
+  console.log('\nDry run only — nothing was sent to Supabase.');
 }
 
 async function main() {
   await loadDotEnvIfPresent();
 
   const source = await fs.readFile(SOURCE_FILE, 'utf8');
+  const dryRun = process.argv.includes('--dry-run');
+
+  const employerStart = source.indexOf('EMPLOYER SURVEY');
+  const workerStart = source.indexOf('WORKER SURVEY');
+
+  const employerText = source.slice(employerStart, workerStart).trim();
+  const workerText = source.slice(workerStart).trim();
+
+  const parsed = [
+    { meta: surveyDefinitions[0], text: employerText },
+    { meta: surveyDefinitions[1], text: workerText },
+  ];
+
+  if (dryRun) {
+    summarizeForDryRun(parsed);
+    return;
+  }
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -788,17 +740,6 @@ async function main() {
       autoRefreshToken: false,
     },
   });
-
-  const employerStart = source.indexOf('EMPLOYER SURVEY');
-  const employeeStart = source.indexOf('EMPLOYEE SURVEY');
-
-  const employerText = source.slice(employerStart, employeeStart).trim();
-  const employeeText = source.slice(employeeStart).trim();
-
-  const parsed = [
-    { meta: surveyDefinitions[0], text: employerText },
-    { meta: surveyDefinitions[1], text: employeeText },
-  ];
 
   for (const item of parsed) {
     const sections = parseSurveyBlock(item.text, item.meta);

@@ -9,36 +9,17 @@ import { ArrowLeft, Download, Users, CheckCircle2, Clock, FileText, Loader2 } fr
 import Link from 'next/link';
 import type { Respondent, Survey } from '@/lib/types';
 
-const PAGE_SIZE = 50;
-
 export default function AdminDashboard() {
   const router = useRouter();
   const [authed, setAuthed] = useState(false);
   const [respondents, setRespondents] = useState<Respondent[]>([]);
-  const [totalRespondents, setTotalRespondents] = useState(0);
-  const [page, setPage] = useState(1);
   const [surveys, setSurveys] = useState<Survey[]>([]);
-  // Full { columns, rows } sheet across ALL respondents (not just the current
-  // page) — used for stats and the CSV/JSON exports, which need every row.
-  const [sheet, setSheet] = useState<{ columns: any[]; rows: any[] }>({ columns: [], rows: [] });
+  const [sheetBySurveyId, setSheetBySurveyId] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(true);
-  const [tableLoading, setTableLoading] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [detail, setDetail] = useState<Record<string, any> | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [selectedSurveyId, setSelectedSurveyId] = useState<string | null>(null);
-
-  const loadDashboard = async (pageNum: number) => {
-    const dashboardResponse = await fetch(
-      `/api/admin/dashboard?page=${pageNum}&pageSize=${PAGE_SIZE}`,
-      { credentials: 'include' }
-    );
-    if (!dashboardResponse.ok) {
-      router.push('/admin');
-      return null;
-    }
-    return dashboardResponse.json();
-  };
 
   useEffect(() => {
     (async () => {
@@ -49,12 +30,16 @@ export default function AdminDashboard() {
           return;
         }
 
-        const payload = await loadDashboard(1);
-        if (!payload) return;
+        const dashboardResponse = await fetch('/api/admin/dashboard', { credentials: 'include' });
+        if (!dashboardResponse.ok) {
+          router.push('/admin');
+          return;
+        }
+
+        const payload = await dashboardResponse.json();
         setRespondents(payload.respondents || []);
-        setTotalRespondents(payload.total ?? (payload.respondents || []).length);
         setSurveys(payload.surveys || []);
-        setSheet(payload.sheet || { columns: [], rows: [] });
+        setSheetBySurveyId(payload.sheet || {});
         setSelectedSurveyId((payload.surveys || [])[0]?.id || null);
         setAuthed(true);
       } catch (err) {
@@ -64,23 +49,7 @@ export default function AdminDashboard() {
         setLoading(false);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
-
-  const goToPage = async (pageNum: number) => {
-    setTableLoading(true);
-    try {
-      const payload = await loadDashboard(pageNum);
-      if (!payload) return;
-      setRespondents(payload.respondents || []);
-      setTotalRespondents(payload.total ?? (payload.respondents || []).length);
-      setPage(pageNum);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setTableLoading(false);
-    }
-  };
 
   const surveyMap = useMemo(() => {
     const m: Record<string, string> = {};
@@ -88,17 +57,33 @@ export default function AdminDashboard() {
     return m;
   }, [surveys]);
 
-  // Computed from `sheet.rows`, which holds every respondent (not just the
-  // current page), so the counts stay accurate regardless of pagination.
   const stats = useMemo(() => {
-    const rows = sheet.rows || [];
-    const total = totalRespondents || rows.length;
-    const completed = rows.filter((r: any) => r.status === 'completed').length;
-    const inProgress = rows.filter((r: any) => r.status === 'started' || r.status === 'draft').length;
+    const total = respondents.length;
+    const completed = respondents.filter((r: Respondent) => r.status === 'completed').length;
+    const inProgress = respondents.filter((r: Respondent) => r.status === 'started' || r.status === 'draft').length;
     return { total, completed, inProgress };
-  }, [sheet, totalRespondents]);
+  }, [respondents]);
 
-  const totalPages = Math.max(1, Math.ceil(totalRespondents / PAGE_SIZE));
+  const companyGroups = useMemo(() => {
+    const groups = new Map<
+      string,
+      { companyCode: string; companyName: string | null; respondents: Respondent[]; coveredSections: string[] }
+    >();
+    respondents
+      .filter((r) => r.completion_mode === 'team' && r.company_code)
+      .forEach((r) => {
+        const code = r.company_code as string;
+        const g = groups.get(code) || { companyCode: code, companyName: null, respondents: [], coveredSections: [] };
+        g.respondents.push(r);
+        if (!g.companyName && r.company_name) g.companyName = r.company_name;
+        if (r.is_group_starter && !g.coveredSections.includes('A')) g.coveredSections.push('A');
+        (r.section_scope || []).forEach((s) => {
+          if (!g.coveredSections.includes(s)) g.coveredSections.push(s);
+        });
+        groups.set(code, g);
+      });
+    return Array.from(groups.values());
+  }, [respondents]);
 
   const viewDetail = async (id: string) => {
     setSelectedId(id);
@@ -119,18 +104,17 @@ export default function AdminDashboard() {
   };
 
   const exportCSV = () => {
-    const rows = sheet.rows || [];
-    if (rows.length === 0) return;
+    if (respondents.length === 0) return;
     const headers = ['Response ID', 'Survey', 'Status', 'Started At', 'Completed At', 'Last Updated'];
-    const csvRows = rows.map((r: any) => [
+    const rows = respondents.map((r: Respondent) => [
       r.response_id,
-      r.survey_title,
+      surveyMap[r.survey_id] || r.survey_id,
       r.status,
       r.started_at || '',
       r.completed_at || '',
       r.last_updated || '',
     ]);
-    const csv = [headers, ...csvRows]
+    const csv = [headers, ...rows]
       .map((row: string[]) => row.map((c: string) => `"${String(c).replace(/"/g, '""')}"`).join(','))
       .join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
@@ -143,11 +127,10 @@ export default function AdminDashboard() {
   };
 
   const exportJSON = () => {
-    const rows = sheet.rows || [];
-    if (rows.length === 0) return;
-    const payload = rows.map((r: any) => ({
+    if (respondents.length === 0) return;
+    const payload = respondents.map((r: Respondent) => ({
       response_id: r.response_id,
-      survey: r.survey_title,
+      survey: surveyMap[r.survey_id] || r.survey_id,
       survey_id: r.survey_id,
       status: r.status,
       started_at: r.started_at,
@@ -163,15 +146,55 @@ export default function AdminDashboard() {
     URL.revokeObjectURL(url);
   };
 
-  // sheet already contains every respondent across all surveys (the API
-  // no longer filters it per survey on the backend for this single-page
-  // dashboard), so just filter client-side for the selected survey's columns.
-  const activeSheet = useMemo(() => {
-    if (!selectedSurveyId) return null;
-    const columns = (sheet.columns || []).filter((c: any) => c.survey_id === selectedSurveyId);
-    const rows = (sheet.rows || []).filter((r: any) => r.survey_id === selectedSurveyId);
-    return { columns, rows };
-  }, [sheet, selectedSurveyId]);
+  const [mergedExporting, setMergedExporting] = useState(false);
+
+  const exportMergedCompanyCSV = async () => {
+    if (!selectedSurveyId) return;
+    setMergedExporting(true);
+    try {
+      const res = await fetch(`/api/admin/company-groups?surveyId=${selectedSurveyId}`, { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to load merged company data');
+      const data: { columns: Array<{ key: string; label: string }>; rows: any[] } = await res.json();
+      if (!data.rows.length) return;
+
+      const headers = [
+        'Company Code',
+        'Company Name',
+        'Respondents',
+        'Covered Sections',
+        'Missing Sections',
+        'Complete?',
+        'Conflicts',
+        ...data.columns.map((c) => c.label),
+      ];
+      const rows = data.rows.map((row) => [
+        row.company_code,
+        row.company_name || '',
+        row.contributors.map((c: any) => `${c.job_title || 'Unknown role'} (${c.sections.join('/')})`).join('; '),
+        row.covered_sections.join(', '),
+        row.missing_sections.join(', '),
+        row.complete ? 'Yes' : 'No',
+        row.conflicts.join(' | '),
+        ...data.columns.map((c) => row.values?.[c.key] || ''),
+      ]);
+      const csv = [headers, ...rows]
+        .map((r: string[]) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(','))
+        .join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'company_groups_merged.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setMergedExporting(false);
+    }
+  };
+
+  const activeSheet = selectedSurveyId ? sheetBySurveyId[selectedSurveyId] : null;
 
   const exportSheetCSV = () => {
     if (!activeSheet || !activeSheet.rows?.length) return;
@@ -268,14 +291,61 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
+        {companyGroups.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-slate-900">Company Groups (team responses)</h2>
+              <Button variant="outline" onClick={exportMergedCompanyCSV} disabled={mergedExporting}>
+                {mergedExporting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
+                Export merged (one row per company)
+              </Button>
+            </div>
+            <Card className="overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 text-slate-500 text-xs uppercase">
+                  <tr>
+                    <th className="text-left px-4 py-3">Code</th>
+                    <th className="text-left px-4 py-3">Company</th>
+                    <th className="text-left px-4 py-3">Respondents</th>
+                    <th className="text-left px-4 py-3">Sections Covered</th>
+                    <th className="text-left px-4 py-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {companyGroups.map((g) => {
+                    const complete = ['A', 'B', 'C', 'D', 'E'].every((s) => g.coveredSections.includes(s));
+                    return (
+                      <tr key={g.companyCode} className="border-t border-slate-100">
+                        <td className="px-4 py-3 font-mono">{g.companyCode}</td>
+                        <td className="px-4 py-3">{g.companyName || '—'}</td>
+                        <td className="px-4 py-3">{g.respondents.length}</td>
+                        <td className="px-4 py-3">{g.coveredSections.sort().join(', ') || '—'}</td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`px-2 py-0.5 text-xs rounded-full ${
+                              complete ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
+                            }`}
+                          >
+                            {complete ? 'All sections covered' : 'Awaiting sections'}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </Card>
+          </div>
+        )}
+
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-slate-900">All Responses</h2>
           <div className="flex items-center gap-2">
-            <Button variant="outline" onClick={exportCSV} disabled={(sheet.rows || []).length === 0}>
+            <Button variant="outline" onClick={exportCSV} disabled={respondents.length === 0}>
               <Download className="w-4 h-4 mr-2" />
               CSV
             </Button>
-            <Button variant="outline" onClick={exportJSON} disabled={(sheet.rows || []).length === 0}>
+            <Button variant="outline" onClick={exportJSON} disabled={respondents.length === 0}>
               <FileText className="w-4 h-4 mr-2" />
               JSON
             </Button>
@@ -327,30 +397,6 @@ export default function AdminDashboard() {
             </table>
           )}
         </Card>
-
-        <div className="flex items-center justify-between mt-3 text-sm text-slate-500">
-          <span>
-            Page {page} of {totalPages} &middot; {totalRespondents} total responses
-          </span>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page <= 1 || tableLoading}
-              onClick={() => goToPage(page - 1)}
-            >
-              Previous
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page >= totalPages || tableLoading}
-              onClick={() => goToPage(page + 1)}
-            >
-              Next
-            </Button>
-          </div>
-        </div>
 
         <div className="mt-10 flex items-center justify-between mb-4">
           <div>
