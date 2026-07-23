@@ -456,7 +456,7 @@ export async function getMergedCompanySheet(
         answers.forEach((answer) => {
           const meta = questionSection.get(answer.question_id);
           if (!meta || !ownedSections.has(meta.code)) return; // ignore answers outside their assigned scope
-          const formatted = formatAnswerForSheet(answer.value, answer.comment);
+          const formatted = formatAnswerForSheet(answer.value, answer.comment, meta.question);
           if (values[meta.question.code] !== undefined && values[meta.question.code] !== formatted) {
             conflicts.push(
               `${meta.question.code}: differing answers from multiple respondents (kept the first one recorded)`
@@ -556,7 +556,7 @@ export async function getAdminResponseSheet(surveyId?: string) {
       const question = questionLookup.get(answer.question_id);
       const columnKey = surveyMeta && question ? `${surveyMeta.code}__${question.code}` : null;
       if (!columnKey) return;
-      valueMap[columnKey] = formatAnswerForSheet(answer.value, answer.comment);
+      valueMap[columnKey] = formatAnswerForSheet(answer.value, answer.comment, question);
     });
 
     return {
@@ -574,10 +574,63 @@ export async function getAdminResponseSheet(surveyId?: string) {
   return { columns, rows };
 }
 
-function formatAnswerForSheet(value: unknown, comment?: string | null): string {
-  const formatted = formatAnswerValue(value);
+function formatAnswerForSheet(value: unknown, comment?: string | null, question?: Question | QuestionWithOptions): string {
+  const formatted = formatAnswerValueWithLabels(value, question);
   if (!comment) return formatted;
   return `${formatted} | Comment: ${comment}`;
+}
+
+// Resolves stored option codes / matrix row IDs / matrix column values back to
+// their human-readable labels (as defined for the question), instead of
+// dumping the raw codes/UUIDs that get saved to the answers table.
+function formatAnswerValueWithLabels(value: unknown, question?: Question | QuestionWithOptions): string {
+  if (value === null || value === undefined || value === '') return '—';
+
+  const q = question as QuestionWithOptions | undefined;
+  const isMatrix = q?.type === 'matrix' || q?.type === 'matrix_multiple' || q?.type === 'multiple_matrix';
+
+  if (isMatrix && q?.matrix_rows && typeof value === 'object' && !Array.isArray(value)) {
+    const rowLookup = new Map(q.matrix_rows.map((r) => [r.id, r.label]));
+    const colLookup = new Map((q.matrix_columns || []).flatMap((c) => [[c.value, c.label], [c.id, c.label]] as const));
+    const entries = Object.entries(value as Record<string, unknown>);
+    // Preserve the row's defined display order rather than object key order.
+    entries.sort(([a], [b]) => {
+      const orderA = q.matrix_rows!.find((r) => r.id === a)?.display_order ?? 0;
+      const orderB = q.matrix_rows!.find((r) => r.id === b)?.display_order ?? 0;
+      return orderA - orderB;
+    });
+    return entries
+      .map(([rowId, cellValue]) => {
+        const rowLabel = rowLookup.get(rowId) || rowId;
+        const cellLabel = Array.isArray(cellValue)
+          ? cellValue.map((v) => colLookup.get(String(v)) || String(v)).join(' + ')
+          : colLookup.get(String(cellValue)) || String(cellValue);
+        return `${rowLabel}: ${cellLabel}`;
+      })
+      .join('; ');
+  }
+
+  if (q?.options && q.options.length) {
+    // Options may be keyed by either `code` or `value` depending on question
+    // type (radio/select vs. ranking), so index by both.
+    const optLookup = new Map(q.options.flatMap((o) => [[o.value, o.label], [o.code, o.label]] as const));
+
+    if (Array.isArray(value)) {
+      return value.map((item) => optLookup.get(String(item)) || formatAnswerValue(item)).join(', ');
+    }
+    if (typeof value === 'object') {
+      // Ranking-style answers: { optionCode: rank }
+      const entries = Object.entries(value as Record<string, unknown>).sort(
+        ([, a], [, b]) => Number(a) - Number(b)
+      );
+      return entries.map(([code, rank]) => `${optLookup.get(code) || code} (Rank ${rank})`).join('; ');
+    }
+    if (typeof value === 'string') {
+      return optLookup.get(value) || value;
+    }
+  }
+
+  return formatAnswerValue(value);
 }
 
 function formatAnswerValue(value: unknown): string {

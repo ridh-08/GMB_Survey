@@ -17,8 +17,8 @@ function LogoLeft() {
   return (
     <div className="h-10 w-24 flex items-center justify-center">
       <Image
-        src={CIILogo}
-        alt="CII Logo"
+        src={IMELogo}
+        alt="IME Logo"
         className="object-contain"
       />
     </div>
@@ -29,13 +29,15 @@ function LogoRight() {
   return (
     <div className="h-10 w-24 flex items-center justify-center">
       <Image
-        src={IMELogo}
-        alt="IME Logo"
+        src={CIILogo}
+        alt="CII Logo"
         className="object-contain"
       />
     </div>
   );
 }
+
+
 
 
 export default function AdminLogin() {

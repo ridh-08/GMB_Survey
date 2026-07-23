@@ -16,7 +16,7 @@ export const dynamic = 'force-dynamic';
 function LogoLeft() {
   return (
     <div className="h-15 w-32 flex items-center justify-center">
-      <Image src={CIILogo} alt="CII Logo" className="object-contain" />
+      <Image src={IMELogo} alt="IME Logo" className="object-contain" />
     </div>
   );
 }
@@ -24,10 +24,12 @@ function LogoLeft() {
 function LogoRight() {
   return (
     <div className="h-15 w-32 flex items-center justify-center">
-      <Image src={IMELogo} alt="IME Logo" className="object-contain" />
+      <Image src={CIILogo} alt="CII Logo" className="object-contain" />
     </div>
   );
 }
+
+
 
 async function findResumableSurvey(surveys: Survey[]): Promise<Survey | null> {
   // A survey is resumable for this browser if its resume cookie points at

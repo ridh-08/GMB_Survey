@@ -15,15 +15,19 @@ export async function GET(request: NextRequest) {
   const pageSize = Number(request.nextUrl.searchParams.get('pageSize') || '50') || 50;
 
   // The top table is paginated (only one page of respondents per request).
-  // The response sheet still needs every row since it's built for CSV export,
-  // but it's now backed by a single batched answers query instead of one
-  // query per respondent, so it stays fast even at 200-300+ responses.
-  const [respondents, surveys, sheet] = await Promise.all([
-  getAllRespondents(surveyId),
-  getActiveSurveys(),
-  getAdminResponseSheet(surveyId),
-]);
+  const [respondents, surveys] = await Promise.all([
+    getAllRespondents(surveyId),
+    getActiveSurveys(),
+  ]);
 
-const total = respondents.length;
+  // The dashboard keys its Response Sheet view by survey ID (one CSV export
+  // per survey), so build a { [surveyId]: { columns, rows } } map — one
+  // sheet per active survey — rather than a single flat sheet.
+  const sheetEntries = await Promise.all(
+    surveys.map(async (survey) => [survey.id, await getAdminResponseSheet(survey.id)] as const)
+  );
+  const sheet = Object.fromEntries(sheetEntries);
+
+  const total = respondents.length;
   return NextResponse.json({ respondents, total, page, pageSize, surveys, sheet });
 }

@@ -105,7 +105,20 @@ function filterSectionsForRespondent<S extends { code: string }>(sections: S[], 
 const FREE_TEXT_TYPES = new Set(['short_text', 'long_text', 'paragraph', 'number', 'email', 'phone', 'date']);
 
 // Logo slots – swap these with real <Image /> imports when the assets are ready.
+
 function LogoLeft() {
+  return (
+    <div className="h-10 w-24 flex items-center justify-center">
+      <Image
+        src={IMELogo}
+        alt="IME Logo"
+        className="object-contain"
+      />
+    </div>
+  );
+}
+
+function LogoRight() {
   return (
     <div className="h-10 w-24 flex items-center justify-center">
       <Image
@@ -117,17 +130,7 @@ function LogoLeft() {
   );
 }
 
-function LogoRight() {
-  return (
-    <div className="h-10 w-24 flex items-center justify-center">
-      <Image
-        src={IMELogo}
-        alt="IME Logo"
-        className="object-contain"
-      />
-    </div>
-  );
-}
+
 
 export default function SurveyClient({ surveyId }: SurveyClientProps) {
   const router = useRouter();
