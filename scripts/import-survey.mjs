@@ -19,7 +19,7 @@ const surveyDefinitions = [
     code: 'gmb-worker-2026',
     title: 'Gujarat Manufacturing Barometer - Worker Survey',
     description: 'Survey for manufacturing workers in Gujarat',
-    type: 'worker',
+    type: 'employee',
   },
 ];
 
@@ -117,6 +117,25 @@ const specialMatrices = {
       'Senior management not convinced of need',
     ],
     columns: ['Not a barrier', 'Minor', 'Moderate', 'Significant', 'Severe', 'N/A'],
+  },
+  'employer:D1C.2': {
+    type: 'matrix',
+    rows: [
+      'AI has improved financial performance (e.g. cost saving, revenue growth, profitability)',
+      // TODO: confirm exact wording — truncated in the source screenshot as "AI has improved operational performance (e.g)"
+      'AI has improved operational performance (e.g. cycle time, downtime, productivity)',
+    ],
+    columns: ['No improvement', 'Some improvement', 'Significant Improvement', 'Not Applicable'],
+  },
+  'employer:D1C.3': {
+    type: 'matrix',
+    rows: ['Extent of usage of AI-enabled tools in the day-to-day work of employees'],
+    columns: ['No usage', 'Moderate usage', 'Significant usage', 'Not Applicable'],
+  },
+  'employer:D1C.4': {
+    type: 'matrix',
+    rows: ['Extent of investment in building AI-related workforce capabilities'],
+    columns: ['No investment', 'Moderate investment', 'Significant investment', 'Not applicable'],
   },
 };
 

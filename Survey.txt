@@ -454,6 +454,15 @@ D1B.6 What is the biggest barrier to greater digitalisation at your firm?
 ●	Our operations are simple enough not to need it
 ●	Other: ___
 ________________________________________
+D1C. AI Adoption
+D1C.1 What best describes the current extent of AI deployment within your firm?
+Likert: 1 (No AI deployment) — 2 — 3 — 4 — 5 (AI integrated across most manufacturing operations)
+D1C.2 If you use AI, please rate the following aspects of improved performance due to AI? Otherwise, please check Not Applicable.
+D1C.3 If you use AI-enabled tools, please rate the extent of their usage in the day-to-day work of your employees? Otherwise, please check Not Applicable.
+D1C.4 If you use AI, please rate your firm's investment in building AI-related workforce capabilities? Otherwise, please check Not Applicable.
+D1C.5 What is one instance of AI usage or adoption in your firm? (Instance 1)
+D1C.6 What is another instance of AI usage or adoption in your firm? (Instance 2)
+________________________________________
 D2. Value Extraction
 D2.1 (Foundational — Barometer) To what extent is your firm actually extracting measurable value from the technology it has deployed?
 Likert: 1 (Technology deployed but little measurable benefit) — 2 — 3 — 4 — 5 (Clear, measurable returns from technology investment)
